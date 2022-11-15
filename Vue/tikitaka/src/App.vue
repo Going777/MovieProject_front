@@ -1,69 +1,74 @@
 <template>
   <v-app>
     <!-- 최상단 nav bar -->
-    <v-app-bar app color="primary" dark>
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-    
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-    
+
+    <v-app-bar
+      fixed
+      clipped-left
+      color="navy"
+      elevate-on-scroll
+      scroll-target="#scrolling-techniques-7"
+    >
+      <!-- 메뉴 호출 아이콘 -->
+      <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
+
+      <v-toolbar-title>TikiTaka</v-toolbar-title>
+      <img src="@/assets/tikitaka_logo_small.png" style="width: 50px" />
+
       <v-spacer></v-spacer>
-    
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
+
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+
+      <v-btn icon>
+        <v-icon>mdi-heart</v-icon>
+      </v-btn>
+
+      <v-btn icon>
+        <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
     </v-app-bar>
 
     <!-- 왼쪽 nav bar -->
-    <v-navigation-drawer permanent expand-on-hover fixed>
-      <v-list nav dense>
+    <v-navigation-drawer absolute permanent expand-on-hover clipped>
+      <v-list nav dense style="margin-top: 70px">
         <v-list-item link>
           <v-list-item-icon>
-            <v-icon>mdi-folder</v-icon>
+            <v-img src="@/assets/icon_home.png" height="24px" width="24px">
+            </v-img>
           </v-list-item-icon>
-          <v-list-item-title>My Files</v-list-item-title>
+          <v-list-item-title>Home</v-list-item-title>
         </v-list-item>
+
         <v-list-item link>
           <v-list-item-icon>
-            <v-icon>mdi-account-multiple</v-icon>
+            <v-img
+              src="@/assets/icon_community.png"
+              height="24px"
+              width="24px"
+            ></v-img>
           </v-list-item-icon>
-          <v-list-item-title>Shared with me</v-list-item-title>
+          <v-list-item-title>Community</v-list-item-title>
         </v-list-item>
+
         <v-list-item link>
           <v-list-item-icon>
-            <v-icon>mdi-star</v-icon>
+            <v-img
+              src="@/assets/icon_mypage.png"
+              height="24px"
+              width="24px"
+            ></v-img>
           </v-list-item-icon>
-          <v-list-item-title>Starred</v-list-item-title>
+          <v-list-item-title>My Page</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
-
     <!-- 메인 화면 -->
-    <v-main style="margin-left: 75px; margin-top: 15px">
+    <v-main style="margin-left: 70px; margin-top: 70px">
       <router-view />
     </v-main>
-
   </v-app>
 </template>
 
