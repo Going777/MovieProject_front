@@ -1,7 +1,6 @@
 <template>
   <v-app>
     <!-- 최상단 nav bar -->
-
     <v-app-bar
       fixed
       clipped-left
@@ -30,9 +29,17 @@
       </v-btn>
     </v-app-bar>
 
-    <!-- 왼쪽 nav bar -->
-    <v-navigation-drawer absolute permanent expand-on-hover clipped>
+    <!-- 왼쪽 side nav bar -->
+    <!-- introView에서는 나타나지 않도록 -->
+    <v-navigation-drawer
+      absolute
+      permanent
+      expand-on-hover
+      clipped
+      v-if="!['intro'].includes($route.name)"
+    >
       <v-list nav dense style="margin-top: 70px">
+        <!-- 홈 버튼 -->
         <v-list-item link @click="goHome" style="margin-bottom: 20px">
           <v-list-item-icon>
             <v-img src="@/assets/icon_home.png" height="24px" width="24px">
@@ -41,6 +48,7 @@
           <v-list-item-title>Home</v-list-item-title>
         </v-list-item>
 
+        <!-- 커뮤니티 버튼 -->
         <v-list-item link style="margin-bottom: 20px">
           <v-list-item-icon>
             <v-img
@@ -52,6 +60,7 @@
           <v-list-item-title>Community</v-list-item-title>
         </v-list-item>
 
+        <!-- 마이페이지 버튼 -->
         <v-list-item link style="margin-bottom: 20px">
           <v-list-item-icon>
             <v-img
@@ -75,12 +84,10 @@
 <script>
 export default {
   name: "App",
-  data: () => ({
-    //
-  }),
+  data: () => ({}),
   methods: {
     goHome() {
-      this.$router.push({ name: "home" })
+      this.$router.push({ name: "home" }).catch(() => {}) // Avoided redundant navigation 에러 해결
     },
   },
 }
