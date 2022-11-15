@@ -23,9 +23,6 @@ export default {
       return `https://www.youtube.com/embed/${this.movie.key}?autoplay=1&mute=1&rel=0&showsearch=0&color=white`
     },
   },
-  mounted() {
-    console.log(this.movie)
-  },
 }
 </script>
 
