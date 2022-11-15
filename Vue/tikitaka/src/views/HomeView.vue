@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="home">
     <div>
       <movie-video-list
         :movieList="nowPlayingMovieVideoList.slice(1)"
@@ -46,6 +46,10 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap");
+#home {
+  font-family: "Do Hyeon", sans-serif;
+}
 /* #trailer-box {
   display: absolute;
   top: 0;

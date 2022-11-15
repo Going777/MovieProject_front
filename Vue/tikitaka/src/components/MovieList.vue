@@ -1,9 +1,9 @@
 <template>
   <div>
     <!-- 영화 리스트 타이틀 -->
-    <h3 style="margin-left: 20px; margin-top: 50px; color: #ffcc00">
+    <h2 style="margin-left: 20px; margin-top: 50px; color: #ffcc00">
       {{ titleText }}
-    </h3>
+    </h2>
 
     <!-- 영화 리스트 -->
     <v-sheet
