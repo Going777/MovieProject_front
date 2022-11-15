@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card width="150px" height="220px">
+    <v-card class="zoom" width="150px" height="220px">
       <v-img :src="posterPath" height="220px"></v-img>
     </v-card>
   </div>
@@ -21,4 +21,14 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.zoom {
+  transition: transform 0.2s; /* Animation */
+}
+
+.zoom:hover {
+  transform: scale(
+    1.1
+  ); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+</style>
