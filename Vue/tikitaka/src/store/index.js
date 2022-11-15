@@ -24,12 +24,10 @@ export default new Vuex.Store({
       }
     },
     LOAD_NOW_PLAYING_MOVIE_LIST(state, response) {
-      for (const movie of response) {
-        // overview 존재하는 영화만 가져오기
-        if (movie.overview.length > 0) {
-          state.nowPlayingMovieList.push(movie)
-        }
-      }
+      state.nowPlayingMovieList.push(...response)
+    },
+    LOAD_NOW_PLAYING_MOVIE_VIDEO_LIST(state, response) {
+      state.nowPlayingMovieVideoList.push(...response)
     },
   },
   actions: {
@@ -57,14 +55,14 @@ export default new Vuex.Store({
           console.log(error)
         })
     },
-    loadNowPlayingMovieVideoList() {
+    loadNowPlayingMovieVideoList(context) {
       axios({
         method: "get",
         url: `${DJ_URL}/movies/now_playing_movie_video/`,
       })
         .then((response) => {
-          console.log(response)
-          // context.commit("LOAD_NOW_PLAYING_MOVIE_LIST", response.data)
+          // console.log(response)
+          context.commit("LOAD_NOW_PLAYING_MOVIE_VIDEO_LIST", response.data)
         })
         .catch((error) => {
           console.log(error)
