@@ -33,7 +33,7 @@
     <!-- 왼쪽 nav bar -->
     <v-navigation-drawer absolute permanent expand-on-hover clipped>
       <v-list nav dense style="margin-top: 70px">
-        <v-list-item link>
+        <v-list-item link @click="goHome">
           <v-list-item-icon>
             <v-img src="@/assets/icon_home.png" height="24px" width="24px">
             </v-img>
@@ -78,5 +78,10 @@ export default {
   data: () => ({
     //
   }),
+  methods: {
+    goHome() {
+      this.$router.push({ name: "home" })
+    },
+  },
 }
 </script>
