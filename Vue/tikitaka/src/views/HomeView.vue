@@ -1,12 +1,13 @@
 <template>
   <div>
-    <movie-video-list
-      :movieList="nowPlayingMovieVideoList.slice(1)"
-      :titleText="nowPlayingMovieVideoList[0]"
-    />
-    <!-- <movie-list
-    /> -->
+    <div>
+      <movie-video-list
+        :movieList="nowPlayingMovieVideoList.slice(1)"
+        :titleText="nowPlayingMovieVideoList[0]"
+      />
+    </div>
     <div id="container-box">
+      <br /><br />
       <movie-list
         :movieList="popularMovieList.slice(1)"
         :titleText="popularMovieList[0]"
@@ -45,10 +46,33 @@ export default {
 </script>
 
 <style>
+/* #trailer-box {
+  display: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+} */
+
 #container-box {
   background-color: #004e66;
   border-radius: 80px;
-  margin: 20px;
+  margin: -50px 20px;
   padding: 20px;
+  display: absolute;
+  top: 10px;
 }
+
+/* #frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#info {
+  position: absolute;
+  bottom: 17px;
+  right: 10px;
+  z-index: 10;
+  height: 60px;
+  width: 140px;
+} */
 </style>
