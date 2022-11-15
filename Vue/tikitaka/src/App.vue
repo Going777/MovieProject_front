@@ -33,7 +33,7 @@
     <!-- 왼쪽 nav bar -->
     <v-navigation-drawer absolute permanent expand-on-hover clipped>
       <v-list nav dense style="margin-top: 70px">
-        <v-list-item link @click="goHome">
+        <v-list-item link @click="goHome" style="margin-bottom: 20px">
           <v-list-item-icon>
             <v-img src="@/assets/icon_home.png" height="24px" width="24px">
             </v-img>
@@ -41,7 +41,7 @@
           <v-list-item-title>Home</v-list-item-title>
         </v-list-item>
 
-        <v-list-item link>
+        <v-list-item link style="margin-bottom: 20px">
           <v-list-item-icon>
             <v-img
               src="@/assets/icon_community.png"
@@ -52,7 +52,7 @@
           <v-list-item-title>Community</v-list-item-title>
         </v-list-item>
 
-        <v-list-item link>
+        <v-list-item link style="margin-bottom: 20px">
           <v-list-item-icon>
             <v-img
               src="@/assets/icon_mypage.png"
