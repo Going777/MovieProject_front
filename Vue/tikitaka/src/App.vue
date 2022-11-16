@@ -32,11 +32,13 @@
     <!-- 왼쪽 side nav bar -->
     <!-- introView에서는 나타나지 않도록 -->
     <v-navigation-drawer
-      absolute
+      app
       permanent
       expand-on-hover
       clipped
       fixed
+      mini-variant
+      left
       v-if="!['intro'].includes($route.name)"
     >
       <v-list nav dense fixed style="margin-top: 70px">
@@ -239,20 +241,6 @@ export default {
   name: "App",
   data() {
     return {
-      ex4: [
-        "red",
-        "indigo",
-        "orange",
-        "primary",
-        "secondary",
-        "success",
-        "info",
-        "warning",
-        "error",
-        "red darken-3",
-        "indigo darken-3",
-        "orange darken-3",
-      ],
       selected: "title",
       options: [
         { item: "title", name: "영화 제목" },
