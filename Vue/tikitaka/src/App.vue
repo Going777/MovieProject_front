@@ -100,5 +100,10 @@ export default {
       this.$router.push({ name: "home" }).catch(() => {}) // Avoided redundant navigation 에러 해결
     },
   },
+  created() {
+    this.$store.dispatch("loadPopularMovieList")
+    this.$store.dispatch("loadNowPlayingMovieList")
+    this.$store.dispatch("loadNowPlayingMovieVideoList")
+  },
 }
 </script>

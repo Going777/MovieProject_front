@@ -37,11 +37,6 @@ export default {
       return this.$store.state.nowPlayingMovieVideoList
     },
   },
-  created() {
-    this.$store.dispatch("loadPopularMovieList")
-    this.$store.dispatch("loadNowPlayingMovieList")
-    this.$store.dispatch("loadNowPlayingMovieVideoList")
-  },
 }
 </script>
 

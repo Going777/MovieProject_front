@@ -1,5 +1,5 @@
 <template>
-  <div style="position: relative">
+  <div style="position: relative; width: 100%; height: auto">
     <button id="info" class="btn btn-warning" @click="goDetail">
       자세히 보기
     </button>
@@ -43,6 +43,9 @@ export default {
 <style>
 #frame {
   position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
   top: 0;
   left: 0;
 }
@@ -52,7 +55,7 @@ export default {
   bottom: 17px;
   right: 10px;
   z-index: 10;
-  height: 60px;
+  height: 50px;
   width: 140px;
 }
 </style>

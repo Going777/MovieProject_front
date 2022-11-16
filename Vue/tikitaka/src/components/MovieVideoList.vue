@@ -1,7 +1,8 @@
 <template>
   <div>
     <!-- <v-sheet style="margin: auto" max-width="70vw" height="500px" width="auto"> -->
-    <v-sheet style="margin: auto" max-width="1000px" height="500px">
+    <!-- <v-sheet style="margin: auto" max-width="1000px" height="500px"> -->
+    <v-sheet style="margin: auto" max-width="1000px" width="100%">
       <v-carousel hide-delimiters>
         <v-carousel-item v-for="(movie, idx) in movieList" :key="idx">
           <movie-video-list-item :movie="movie" />
