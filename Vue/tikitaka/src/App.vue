@@ -36,9 +36,19 @@
       permanent
       expand-on-hover
       clipped
+      fixed
       v-if="!['intro'].includes($route.name)"
     >
-      <v-list nav dense style="margin-top: 70px">
+      <v-list nav dense fixed style="margin-top: 70px">
+        <!-- 영화 검색 버튼 -->
+        <v-list-item link style="margin-bottom: 20px">
+          <v-list-item-icon>
+            <v-img src="@/assets/icon_search.png" height="24px" width="24px">
+            </v-img>
+          </v-list-item-icon>
+          <v-list-item-title>Search Movies</v-list-item-title>
+        </v-list-item>
+
         <!-- 홈 버튼 -->
         <v-list-item link @click="goHome" style="margin-bottom: 20px">
           <v-list-item-icon>
