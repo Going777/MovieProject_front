@@ -192,6 +192,7 @@
               hide-details
             ></v-checkbox>
           </div>
+          <br /><br /><br />
         </div>
         <!-- 결과 섹션 -->
         <div>
@@ -331,6 +332,8 @@ export default {
 .modal .modal-huge {
   max-width: 85%;
   width: 85%;
+  /* height: 80%;
+  max-height: 80%; */
 }
 
 .scroll {
