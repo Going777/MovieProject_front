@@ -110,95 +110,123 @@
 
       <div style="display: flex">
         <!-- 검색 섹션 -->
-        <div class="m-3">
+        <div
+          class="p-2"
+          style="background-color: lightgray; border-radius: 30px"
+        >
           <!-- 검색 카테고리 -->
-          <div>
-            <b-form-select
-              v-model="selected"
-              :options="options"
-              class="mb-3"
-              value-field="item"
-              text-field="name"
-              disabled-field="notEnabled"
-              style="border: 2px solid black"
-            ></b-form-select>
-          </div>
+          <!-- <b-form-select
+            v-model="selected"
+            :options="options"
+            class="mt-4 mb-2"
+            value-field="item"
+            text-field="name"
+            disabled-field="notEnabled"
+            style="
+              border: 2px solid black;
+              background-color: white;
+              border-radius: 50px;
+            "
+          ></b-form-select> -->
+          <v-select
+            class="mt-4"
+            v-model="selectedOption"
+            :items="searchOptions"
+            dense
+            outlined
+            full-width
+          ></v-select>
 
           <!-- 입력폼 -->
-          <input type="text" style="border: 2px solid black" />
-          <button class="btn btn-warning">입력</button>
+          <v-text-field
+            label="검색어를 입력해주세요"
+            class=""
+            filled
+            prepend-inner-icon="mdi-magnify"
+            dense
+            solo
+            flat
+          ></v-text-field>
 
           <!-- 장르 선택 -->
           <div>
             <v-checkbox
-              v-model="ex4"
+              style="margin-top: -10px"
+              v-model="selectedGenres"
               label="모험"
-              color="red"
-              value="red"
+              value="모험"
               hide-details
             ></v-checkbox>
             <v-checkbox
-              v-model="ex4"
+              v-model="selectedGenres"
               label="공포/스릴러"
-              color="red darken-3"
-              value="red darken-3"
+              value="공포/스릴러"
               hide-details
             ></v-checkbox>
             <v-checkbox
-              v-model="ex4"
+              v-model="selectedGenres"
               label="애니메이션"
-              color="red"
-              value="red"
+              value="애니메이션"
               hide-details
             ></v-checkbox>
             <v-checkbox
-              v-model="ex4"
+              v-model="selectedGenres"
               label="액션"
-              color="red darken-3"
-              value="red darken-3"
+              value="액션"
               hide-details
             ></v-checkbox>
             <v-checkbox
-              v-model="ex4"
+              v-model="selectedGenres"
               label="SF/판타지"
-              color="red"
-              value="red"
+              value="SF/판타지"
               hide-details
             ></v-checkbox>
             <v-checkbox
-              v-model="ex4"
+              v-model="selectedGenres"
               label="로맨스"
-              color="red darken-3"
-              value="red darken-3"
+              value="로맨스"
               hide-details
             ></v-checkbox>
             <v-checkbox
-              v-model="ex4"
+              v-model="selectedGenres"
               label="코미디"
-              color="red darken-3"
-              value="red darken-3"
+              value="코미디"
               hide-details
             ></v-checkbox>
             <v-checkbox
-              v-model="ex4"
+              v-model="selectedGenres"
               label="음악"
-              color="red darken-3"
-              value="red darken-3"
+              value="음악"
               hide-details
             ></v-checkbox>
             <v-checkbox
-              v-model="ex4"
+              v-model="selectedGenres"
               label="Etc."
-              color="red darken-3"
-              value="red darken-3"
+              value="Etc."
               hide-details
             ></v-checkbox>
           </div>
+
+          <!-- 검색 버튼 -->
+          <button
+            class="btn btn-warning"
+            style="float: right; margin-right: 10px"
+          >
+            검색
+          </button>
           <br /><br /><br />
         </div>
+
         <!-- 결과 섹션 -->
-        <div>
-          <v-card class="scroll" height="500px" width="800px">
+        <div
+          class="p-2"
+          style="
+            /* background-color: lightgray; */
+            margin-left: 30px;
+            height: 50px;
+          "
+        >
+          <div class="scroll" height="100%" width="100%">
             <v-card class="zoom" width="150px" height="220px">
               <v-img
                 src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
@@ -229,7 +257,9 @@
                 height="220px"
               ></v-img>
             </v-card> -->
-          </v-card>
+          </div>
+          <!-- <v-card class="scroll" height="500px" width="800px"> -->
+          <!-- </v-card> -->
         </div>
       </div>
     </b-modal>
@@ -241,12 +271,20 @@ export default {
   name: "App",
   data() {
     return {
-      selected: "title",
-      options: [
-        { item: "title", name: "영화 제목" },
-        { item: "person", name: "영화 배우/감독" },
-      ],
+      selectedOption: "영화 제목",
+      searchOptions: ["영화 제목", "영화 배우/감독"],
       checked: false,
+      selectedGenres: [
+        "모험",
+        "공포/스릴러",
+        "애니메이션",
+        "액션",
+        "SF/판타지",
+        "로맨스",
+        "코미디",
+        "음악",
+        "Etc.",
+      ],
       // loading: false,
       // items: [],
       // search: null,
@@ -318,13 +356,19 @@ export default {
 
 <style>
 .modal .modal-huge {
-  max-width: 85%;
-  width: 85%;
+  max-width: 75%;
+  width: 75%;
   /* height: 80%;
   max-height: 80%; */
 }
 
 .scroll {
   overflow-y: scroll;
+}
+</style>
+
+<style scoped>
+.v-text-field {
+  width: 280px;
 }
 </style>
