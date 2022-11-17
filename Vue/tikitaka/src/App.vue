@@ -87,7 +87,7 @@
     </v-navigation-drawer>
 
     <!-- 메인 화면 -->
-    <v-main style="margin-left: 70px; margin-top: 70px">
+    <v-main>
       <router-view />
     </v-main>
 

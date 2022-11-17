@@ -44,7 +44,8 @@ export default new Vuex.Store({
       state.searchMovieList.push(...response)
     },
     GET_MOVIE_BY_ID(state, response) {
-      state.movie = response
+      state.movie = response.movie
+      router.push({ name: "detail", params: { id: response.id } })
     },
 
     SAVE_TOKEN(state, token) {
@@ -132,7 +133,11 @@ export default new Vuex.Store({
         url: `${DJ_URL}/movies/movie_detail/`,
       })
         .then((response) => {
-          context.commit("GET_MOVIE_BY_ID", response.data)
+          const payload = {
+            movie: response.data,
+            id: movie_id,
+          }
+          context.commit("GET_MOVIE_BY_ID", payload)
         })
         .catch((error) => {
           console.log(error)
