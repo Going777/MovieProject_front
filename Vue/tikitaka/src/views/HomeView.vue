@@ -44,6 +44,8 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap");
 #home {
   font-family: "Do Hyeon", sans-serif;
+  margin-left: 70px;
+  margin-top: 70px;
 }
 /* #trailer-box {
   display: absolute;

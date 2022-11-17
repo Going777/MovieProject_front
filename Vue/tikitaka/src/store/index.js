@@ -4,18 +4,26 @@ import Vuex from "vuex"
 Vue.use(Vuex)
 
 import axios from "axios"
+import router from "@/router"
+import createPersistedState from "vuex-persistedstate"
 
 const DJ_URL = "http://127.0.0.1:8000"
 
 export default new Vuex.Store({
+  plugins: [createPersistedState()],
   state: {
     nowPlayingMovieList: ["상영중 영화"],
     popularMovieList: ["인기영화"],
     nowPlayingMovieVideoList: ["상영중 영화 비디오"],
     searchMovieList: [],
     movie: null,
+    token: null,
   },
-  getters: {},
+  getters: {
+    isLogin(state) {
+      return state.token ? true : false
+    },
+  },
   mutations: {
     LOAD_POPULAR_MOVIE_LIST(state, response) {
       for (const movie of response) {
@@ -36,7 +44,13 @@ export default new Vuex.Store({
       state.searchMovieList.push(...response)
     },
     GET_MOVIE_BY_ID(state, response) {
-      state.movie = response
+      state.movie = response.movie
+      router.push({ name: "detail", params: { id: response.id } })
+    },
+
+    SAVE_TOKEN(state, token) {
+      state.token = token
+      router.push({ name: "home" })
     },
   },
   actions: {
@@ -119,10 +133,47 @@ export default new Vuex.Store({
         url: `${DJ_URL}/movies/movie_detail/`,
       })
         .then((response) => {
-          context.commit("GET_MOVIE_BY_ID", response.data)
+          const payload = {
+            movie: response.data,
+            id: movie_id,
+          }
+          context.commit("GET_MOVIE_BY_ID", payload)
         })
         .catch((error) => {
           console.log(error)
+        })
+    },
+
+    // 로그인
+    logIn(context, payload) {
+      axios({
+        method: "post",
+        url: `${DJ_URL}/accounts/login/`,
+        data: {
+          email: payload.email,
+          password: payload.password,
+        },
+      }).then((res) => {
+        console.log(res.data.access_token)
+        context.commit("SAVE_TOKEN", res.data.access_token)
+      })
+    },
+    signUp(context, payload) {
+      axios({
+        method: "post",
+        url: `${DJ_URL}/accounts/signup/`,
+        data: {
+          email: payload.email,
+          password1: payload.password1,
+          password2: payload.password2,
+        },
+      })
+        .then((res) => {
+          console.log(res.data.access_token)
+          context.commit("SAVE_TOKEN", res.data.access_token)
+        })
+        .catch((err) => {
+          console.log(err)
         })
     },
   },
