@@ -5,10 +5,12 @@ Vue.use(Vuex)
 
 import axios from "axios"
 import router from "@/router"
+import createPersistedState from "vuex-persistedstate"
 
 const DJ_URL = "http://127.0.0.1:8000"
 
 export default new Vuex.Store({
+  plugins: [createPersistedState],
   state: {
     nowPlayingMovieList: ["상영중 영화"],
     popularMovieList: ["인기영화"],
@@ -37,7 +39,6 @@ export default new Vuex.Store({
       state.searchMovieList.push(...response)
     },
     GET_MOVIE_BY_ID(state, response) {
-      console.log(response.id)
       state.movie = response.movie
       router.push({ name: "detail", params: { id: response.id } })
     },

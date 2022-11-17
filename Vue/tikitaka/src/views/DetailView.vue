@@ -1,5 +1,7 @@
 <template>
-  <div id="backImg" style="margin-top: 60px; height: 60%"></div>
+  <div id="backImg" style="margin-top: 60px; height: 60%">
+    <p>{{ movie }}</p>
+  </div>
 </template>
 
 <script>
@@ -17,19 +19,15 @@ export default {
     },
   },
   created() {
-    console.log("hihi", this.$store.state.movie)
-    console.log("디테일 페이지")
+    // this.movie = this.$store.state.movie
+    console.log(this.movie)
   },
-  // mounted() {
-  //   this.movie = this.$store.state.movie
-  //   console.log(this.movie)
-  // },
-  // mounted() {
-  //   document.querySelector("#backImg").style.backgroundImage =
-  //     "linear-gradient(to bottom, rgba(0, 0, 0, 0.12), rgba(255,255,255, 0.63), rgba(255,255,255, 100)), url(" +
-  //     this.posterURL +
-  //     ")"
-  // },
+  mounted() {
+    document.querySelector("#backImg").style.backgroundImage =
+      "linear-gradient(to bottom, rgba(0, 0, 0, 0.12), rgba(255,255,255, 0.63), rgba(255,255,255, 100)), url(" +
+      this.posterURL +
+      ")"
+  },
   // updated() {
   //   document.querySelector("#backImg").style.backgroundImage =
   //     "linear-gradient(to bottom, rgba(0, 0, 0, 0.12), rgba(255,255,255, 0.63), rgba(255,255,255, 100)), url(" +
