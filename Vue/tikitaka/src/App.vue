@@ -400,4 +400,8 @@ export default {
 .v-text-field {
   width: 280px;
 }
+
+.v-navigation-drawer >>> .v-navigation-drawer__border {
+  display: none;
+}
 </style>
