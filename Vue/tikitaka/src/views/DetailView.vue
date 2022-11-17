@@ -20,6 +20,8 @@ export default {
 
 <style>
 .detail-container {
-  background-image: ;
+  background-image: url("@/assets/tikitaka_coke.png");
+  margin-left: -70px;
+  margin-top: -6px;
 }
 </style>
