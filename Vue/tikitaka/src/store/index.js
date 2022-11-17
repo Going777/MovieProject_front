@@ -150,7 +150,7 @@ export default new Vuex.Store({
     //       console.log(error)
     //     })
     // },
-    // 영화 검색 키워드 서버 통신 (영화제목으로 / 당장은 구현X)
+    // 영화 검색 키워드 서버 통신 (영화제목으로)
     searchMovieListByTitle(context, payload) {
       axios({
         method: "get",

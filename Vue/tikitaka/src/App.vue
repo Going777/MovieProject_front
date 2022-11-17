@@ -139,7 +139,7 @@
             dense
             solo
             flat
-            :value="keyword"
+            v-model="keyword"
             @input="inputFunc"
             style="margin-top: 40px; margin-bottom: 20px"
           ></v-text-field>
@@ -354,13 +354,16 @@ export default {
     // enterInput() {
     //   console.log(this.search)
     // },
-    inputFunc(event) {
-      this.keyword = event.target.value
+    inputFunc() {
+      // this.keyword = event.target.value
       const selectedGenreIds = []
       this.selectedGenres.forEach((element) => {
         const id = matchGenreId(element)
-        if (Array.isArray(id)) selectedGenreIds.push(...id)
-        else selectedGenreIds.push(id)
+        if (Array.isArray(id)) {
+          selectedGenreIds.push(...id)
+        } else {
+          selectedGenreIds.push(id)
+        }
       })
       const payload = { keyword: this.keyword, genres: selectedGenreIds }
       this.$store.dispatch("searchMovieListByTitle", payload)
