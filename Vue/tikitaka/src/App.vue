@@ -352,7 +352,7 @@ export default {
       const selectedGenreIds = []
       this.selectedGenres.forEach((element) => {
         const id = matchGenreId(element)
-        if (id.length > 1) selectedGenreIds.push(...id)
+        if (Array.isArray(id)) selectedGenreIds.push(...id)
         else selectedGenreIds.push(id)
       })
       const payload = { keyword: this.keyword, genres: selectedGenreIds }
@@ -384,6 +384,12 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap");
+
+#showSearchModal {
+  font-family: "Do Hyeon", sans-serif;
+}
+
 .modal .modal-huge {
   max-width: 75%;
   width: 75%;
