@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 import axios from "axios"
 import router from "@/router"
-import createPersistedState from "vuex-persistedstate"
+import createPersistedState from "vuex-persistedstate" // 로컬에 데이터 자동저장을 학기 위한 패키지
 
 const DJ_URL = "http://127.0.0.1:8000"
 
@@ -27,20 +27,25 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    // 인기 영화
     LOAD_POPULAR_MOVIE_LIST(state, response) {
       state.popularMovieList.movies = response
       console.log(state.popularMovieList.movies)
     },
+    // 현재 상영중 영화
     LOAD_NOW_PLAYING_MOVIE_LIST(state, response) {
       state.nowPlayingMovieList.movies = response
     },
+    // 현재 상영중 영화(예고편)
     LOAD_NOW_PLAYING_MOVIE_VIDEO_LIST(state, response) {
       state.nowPlayingMovieVideoList.movies = response
     },
+    // 키워드 검색 영화
     SEARCH_MOVIE_LIST(state, response) {
       state.searchMovieList = []
       state.searchMovieList.push(...response)
     },
+    // detail로 들어갈 때 필요한 영화
     GET_MOVIE_BY_ID(state, response) {
       state.movie = response.movie
       router
@@ -67,6 +72,7 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    // 인기영화 서버 통신
     loadPopularMovieList(context) {
       axios({
         method: "get",
@@ -79,6 +85,7 @@ export default new Vuex.Store({
           console.log(error)
         })
     },
+    // 현재 상영 중 영화 서버 통신
     loadNowPlayingMovieList(context) {
       axios({
         method: "get",
@@ -91,6 +98,7 @@ export default new Vuex.Store({
           console.log(error)
         })
     },
+    // 현재 상영 중 영화 예고편 서버 통신
     loadNowPlayingMovieVideoList(context) {
       axios({
         method: "get",
@@ -104,39 +112,7 @@ export default new Vuex.Store({
           console.log(error)
         })
     },
-    searchMovieListByTitle(context, payload) {
-      axios({
-        method: "get",
-        params: {
-          search: payload.keyword,
-          genres: payload.genres,
-        },
-        url: `${DJ_URL}/movies/search_movie/`,
-      })
-        .then((response) => {
-          context.commit("SEARCH_MOVIE_LIST", response.data)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-    },
-    searchMovieListByPerson(context, payload) {
-      axios({
-        method: "get",
-        params: {
-          search: payload.keyword,
-          // genres: payload.genres,
-        },
-        url: `${DJ_URL}/movies/search_movie_people/`,
-      })
-        .then((response) => {
-          context.commit("SEARCH_MOVIE_LIST", response.data)
-          console.log(response)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-    },
+    // detail 영화 서버 통신
     getMovieById(context, movie_id) {
       axios({
         method: "get",
@@ -156,8 +132,42 @@ export default new Vuex.Store({
           console.log(error)
         })
     },
-
-    // 로그인
+    // 영화 검색 키워드 서버 통신 (영화감독,배우로 / 당장은 구현X)
+    // searchMovieListByPerson(context, payload) {
+    //   axios({
+    //     method: "get",
+    //     params: {
+    //       search: payload.keyword,
+    //       // genres: payload.genres,
+    //     },
+    //     url: `${DJ_URL}/movies/search_movie_people/`,
+    //   })
+    //     .then((response) => {
+    //       context.commit("SEARCH_MOVIE_LIST", response.data)
+    //       console.log(response)
+    //     })
+    //     .catch((error) => {
+    //       console.log(error)
+    //     })
+    // },
+    // 영화 검색 키워드 서버 통신 (영화제목으로 / 당장은 구현X)
+    searchMovieListByTitle(context, payload) {
+      axios({
+        method: "get",
+        params: {
+          search: payload.keyword,
+          genres: payload.genres,
+        },
+        url: `${DJ_URL}/movies/search_movie/`,
+      })
+        .then((response) => {
+          context.commit("SEARCH_MOVIE_LIST", response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    // 로그인 서버 통신
     logIn(context, payload) {
       axios({
         method: "post",
@@ -170,6 +180,7 @@ export default new Vuex.Store({
         context.commit("SAVE_TOKEN", res.data)
       })
     },
+    // 회원 가입 서버 통신
     signUp(context, payload) {
       axios({
         method: "post",
@@ -188,6 +199,7 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
+    // 로그아웃
     logOut(context) {
       context.commit("DROP_TOKEN")
     },
