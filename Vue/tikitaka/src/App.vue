@@ -112,7 +112,7 @@
         <!-- 검색 섹션 -->
         <div
           class="p-2"
-          style="background-color: lightgray; border-radius: 30px"
+          style="background-color: lightgray; border-radius: 30px; width: 20%"
         >
           <!-- 검색 카테고리 -->
           <!-- <b-form-select
@@ -134,7 +134,6 @@
             :items="searchOptions"
             dense
             outlined
-            full-width
           ></v-select>
 
           <!-- 입력폼 -->
@@ -146,6 +145,8 @@
             dense
             solo
             flat
+            v-model="keyword"
+            @input="inputFunc"
           ></v-text-field>
 
           <!-- 장르 선택 -->
@@ -156,64 +157,66 @@
               label="모험"
               value="모험"
               hide-details
+              @click="inputFunc"
             ></v-checkbox>
             <v-checkbox
               v-model="selectedGenres"
               label="공포/스릴러"
               value="공포/스릴러"
               hide-details
+              @click="inputFunc"
             ></v-checkbox>
             <v-checkbox
               v-model="selectedGenres"
               label="애니메이션"
               value="애니메이션"
               hide-details
+              @click="inputFunc"
             ></v-checkbox>
             <v-checkbox
               v-model="selectedGenres"
               label="액션"
               value="액션"
               hide-details
+              @click="inputFunc"
             ></v-checkbox>
             <v-checkbox
               v-model="selectedGenres"
               label="SF/판타지"
               value="SF/판타지"
               hide-details
+              @click="inputFunc"
             ></v-checkbox>
             <v-checkbox
               v-model="selectedGenres"
               label="로맨스"
               value="로맨스"
               hide-details
+              @click="inputFunc"
             ></v-checkbox>
             <v-checkbox
               v-model="selectedGenres"
               label="코미디"
               value="코미디"
               hide-details
+              @click="inputFunc"
             ></v-checkbox>
             <v-checkbox
               v-model="selectedGenres"
               label="음악"
               value="음악"
               hide-details
+              @click="inputFunc"
             ></v-checkbox>
             <v-checkbox
               v-model="selectedGenres"
               label="Etc."
               value="Etc."
               hide-details
+              @click="inputFunc"
             ></v-checkbox>
           </div>
 
-          <!-- 검색 버튼 -->
-          <button
-            class="btn btn-warning"
-            style="float: right; margin-right: 10px"
-          >
-            검색
-          </button>
           <br /><br /><br />
         </div>
 
@@ -223,41 +226,56 @@
           style="
             /* background-color: lightgray; */
             margin-left: 30px;
-            height: 50px;
+            width: 100%;
+            /* height: 50px; */
           "
         >
-          <div class="scroll" height="100%" width="100%">
-            <v-card class="zoom" width="150px" height="220px">
-              <v-img
-                src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-                height="220px"
-              ></v-img>
-            </v-card>
-            <!-- <v-card class="zoom" width="150px" height="220px">
-              <v-img
-                src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-                height="220px"
-              ></v-img>
-            </v-card>
-            <v-card class="zoom" width="150px" height="220px">
-              <v-img
-                src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-                height="220px"
-              ></v-img>
-            </v-card>
-            <v-card class="zoom" width="150px" height="220px">
-              <v-img
-                src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-                height="220px"
-              ></v-img>
-            </v-card>
-            <v-card class="zoom" width="150px" height="220px">
-              <v-img
-                src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-                height="220px"
-              ></v-img>
-            </v-card> -->
-          </div>
+          <!-- <div class="scroll" height="100%" width="100%"> -->
+          <v-card height="600px" width="100%" class="overflow-y-auto">
+            <v-list>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-card class="zoom" width="150px" height="220px">
+                    <v-img
+                      src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+                      height="220px"
+                    ></v-img>
+                  </v-card>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-card class="zoom" width="150px" height="220px">
+                    <v-img
+                      src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+                      height="220px"
+                    ></v-img>
+                  </v-card>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-card class="zoom" width="150px" height="220px">
+                    <v-img
+                      src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+                      height="220px"
+                    ></v-img>
+                  </v-card>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-card class="zoom" width="150px" height="220px">
+                    <v-img
+                      src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+                      height="220px"
+                    ></v-img>
+                  </v-card>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </v-card>
+          <!-- </div> -->
           <!-- <v-card class="scroll" height="500px" width="800px"> -->
           <!-- </v-card> -->
         </div>
@@ -267,10 +285,34 @@
 </template>
 
 <script>
+import axios from "axios"
+function matchGenreId(name) {
+  switch (name) {
+    case "모험":
+      return 12
+    case "공포/스릴러":
+      return [27, 53]
+    case "애니메이션":
+      return 16
+    case "액션":
+      return 28
+    case "SF/판타지":
+      return [878, 14]
+    case "로맨스":
+      return 10749
+    case "코미디":
+      return 35
+    case "음악":
+      return 10402
+    case "Etc.":
+      return [18, 36, 37, 80, 99, 9648, 10751, 10752, 10770]
+  }
+}
 export default {
   name: "App",
   data() {
     return {
+      keyword: null,
       selectedOption: "영화 제목",
       searchOptions: ["영화 제목", "영화 배우/감독"],
       checked: false,
@@ -325,25 +367,47 @@ export default {
     openSearchModal() {
       this.$bvModal.show("showSearchModal")
     },
-    querySelections(v) {
-      this.loading = true
-      // Simulated ajax query
-      //  window.axios.get(`https://paperlesssolutionsltd.com.ng/inventory/invapi/api/get_item_by_name_paged/${v}/100`)
+    // querySelections(v) {
+    //   this.loading = true
+    //   // Simulated ajax query
+    //   //  window.axios.get(`https://paperlesssolutionsltd.com.ng/inventory/invapi/api/get_item_by_name_paged/${v}/100`)
 
-      // example v = milk
+    //   // example v = milk
 
-      setTimeout(() => {
-        this.items.push(this.search)
-        this.items = this.states.filter((e) => {
-          return (e || "").toLowerCase().indexOf((v || "").toLowerCase()) > -1
-        })
-        this.loading = false
-      }, 500)
-    },
+    //   setTimeout(() => {
+    //     this.items.push(this.search)
+    //     this.items = this.states.filter((e) => {
+    //       return (e || "").toLowerCase().indexOf((v || "").toLowerCase()) > -1
+    //     })
+    //     this.loading = false
+    //   }, 500)
+    // },
 
     // 모달 검색창에 엔터를 친 경우
-    enterInput() {
-      console.log(this.search)
+    // enterInput() {
+    //   console.log(this.search)
+    // },
+    inputFunc() {
+      const selectedGenreIds = []
+      this.selectedGenres.forEach((element) => {
+        const id = matchGenreId(element)
+        if (id.length > 1) selectedGenreIds.push(...id)
+        else selectedGenreIds.push(id)
+      })
+      axios({
+        method: "get",
+        params: {
+          search: this.keyword,
+          genres: selectedGenreIds,
+        },
+        url: `http://127.0.0.1:8000/movies/search_movie/`,
+      })
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((e) => {
+          console.log(e)
+        })
     },
   },
   created() {
