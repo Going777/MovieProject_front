@@ -361,10 +361,10 @@ export default {
       // console.log("herererere")
     },
     goSignUp() {
-      this.$router.push({ name: "login" })
+      this.$router.push({ name: "signup" })
     },
     goLogIn() {
-      this.$router.push({ name: "signup" })
+      this.$router.push({ name: "login" })
     },
   },
   created() {
