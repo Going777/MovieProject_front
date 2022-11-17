@@ -18,9 +18,23 @@ export default {
   },
   mounted() {
     document.querySelector("#backImg").style.backgroundImage =
-      "linear-gradient(to bottom, rgba(0, 0, 0, 0.12), rgba(255,255,255, 0.63), rgba(255,255,255, 100)), url(" +
+      "linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255,255,255, 0.5), rgba(255,255,255, 100)), \
+      linear-gradient(to left, rgba(255,255,255,0) 80%,rgba(255,255,255,1) 100%), \
+      linear-gradient(to right, rgba(255,255,255,0) 80%,rgba(255,255,255,1) 100%), \
+      url(" +
       this.posterURL +
       ")"
+  },
+  // URL은 바꼈는데 배경이미지 바뀌지 않는 것 해결
+  beforeRouteUpdate(to, from, next) {
+    document.querySelector("#backImg").style.backgroundImage =
+      "linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255,255,255, 0.5), rgba(255,255,255, 100)), \
+      linear-gradient(to left, rgba(255,255,255,0) 80%,rgba(255,255,255,1) 100%), \
+      linear-gradient(to right, rgba(255,255,255,0) 80%,rgba(255,255,255,1) 100%), \
+      url(" +
+      this.posterURL +
+      ")"
+    next()
   },
 }
 </script>

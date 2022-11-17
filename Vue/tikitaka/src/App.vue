@@ -216,7 +216,7 @@
         </div>
 
         <!-- 결과 섹션 -->
-        <div class="scroll" style="width: 100%; height: 700px">
+        <div class="scroll" style="width: 100%; height: 65rem">
           <v-card flat width="100%">
             <div class="m-3">
               <div>
@@ -225,6 +225,7 @@
                     v-for="(movie, idx) in searchMovieList"
                     :key="idx"
                     :movie="movie"
+                    @close-modal="closeSearchModal"
                   />
                 </div>
               </div>
@@ -328,6 +329,9 @@ export default {
     openSearchModal() {
       this.$bvModal.show("showSearchModal")
     },
+    closeSearchModal() {
+      this.$bvModal.hide("showSearchModal")
+    },
     // querySelections(v) {
     //   this.loading = true
     //   // Simulated ajax query
@@ -393,8 +397,7 @@ export default {
 .modal .modal-huge {
   max-width: 75%;
   width: 75%;
-  /* height: 80%;
-  max-height: 80%; */
+  /* height: 80%; */
 }
 
 .scroll {
@@ -406,7 +409,6 @@ export default {
 .v-text-field {
   width: 280px;
 }
-
 .v-navigation-drawer >>> .v-navigation-drawer__border {
   display: none;
 }
