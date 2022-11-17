@@ -12,9 +12,9 @@ const DJ_URL = "http://127.0.0.1:8000"
 export default new Vuex.Store({
   plugins: [createPersistedState()],
   state: {
-    nowPlayingMovieList: ["상영중 영화"],
-    popularMovieList: ["인기영화"],
-    nowPlayingMovieVideoList: ["상영중 영화 비디오"],
+    nowPlayingMovieList: { title: "상영중 영화", movies: [] },
+    popularMovieList: { title: "인기영화", movies: [] },
+    nowPlayingMovieVideoList: { title: "상영중 영화 비디오", movies: [] },
     searchMovieList: [],
     movie: null,
     token: null,
@@ -31,15 +31,16 @@ export default new Vuex.Store({
       for (const movie of response) {
         // overview 존재하는 영화만 가져오기
         if (movie.overview.length > 0) {
-          state.popularMovieList.push(movie)
+          state.popularMovieList.movies.push(movie)
         }
       }
     },
     LOAD_NOW_PLAYING_MOVIE_LIST(state, response) {
-      state.nowPlayingMovieList.push(...response)
+      state.nowPlayingMovieList.movies = response
+      console.log(state.nowPlayingMovieList)
     },
     LOAD_NOW_PLAYING_MOVIE_VIDEO_LIST(state, response) {
-      state.nowPlayingMovieVideoList.push(...response)
+      state.nowPlayingMovieVideoList.movies = response
     },
     SEARCH_MOVIE_LIST(state, response) {
       state.searchMovieList = []

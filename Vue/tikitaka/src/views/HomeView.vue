@@ -2,19 +2,19 @@
   <div id="home">
     <div>
       <movie-video-list
-        :movieList="nowPlayingMovieVideoList.slice(1)"
-        :titleText="nowPlayingMovieVideoList[0]"
+        :movieList="nowPlayingMovieVideoList.movies"
+        :titleText="nowPlayingMovieVideoList.title"
       />
     </div>
     <div id="container-box">
       <br /><br />
       <movie-list
-        :movieList="popularMovieList.slice(1)"
-        :titleText="popularMovieList[0]"
+        :movieList="popularMovieList.movies.movies"
+        :titleText="popularMovieList.title"
       />
       <movie-list
-        :movieList="nowPlayingMovieList.slice(1)"
-        :titleText="nowPlayingMovieList[0]"
+        :movieList="nowPlayingMovieList.movies"
+        :titleText="nowPlayingMovieList.title"
       />
     </div>
   </div>
