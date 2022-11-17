@@ -53,7 +53,11 @@ export default new Vuex.Store({
     SAVE_TOKEN(state, data) {
       state.user = data.user
       state.token = data.access_token
-      state.nickname = "익명의 티키타카"
+      if (data.user.nickname) {
+        state.nickname = data.user.nickname
+      } else {
+        state.nickname = "익명의 티키타카"
+      }
       router.push({ name: "home" })
     },
     DROP_TOKEN(state) {
