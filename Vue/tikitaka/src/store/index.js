@@ -53,8 +53,8 @@ export default new Vuex.Store({
     SAVE_TOKEN(state, data) {
       state.user = data.user
       state.token = data.access_token
-      if (data.user.nickname) {
-        state.nickname = data.user.nickname
+      if (data.user.first_name) {
+        state.nickname = data.user.first_name
       } else {
         state.nickname = "익명의 티키타카"
       }
@@ -66,7 +66,6 @@ export default new Vuex.Store({
       state.user = null
       state.token = null
       state.nickname = "로그인해주세요!"
-      location.reload()
     },
   },
   actions: {
