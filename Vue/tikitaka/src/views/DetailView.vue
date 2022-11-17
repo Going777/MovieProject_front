@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="detail-container">
     <p>{{ movie }}</p>
   </div>
 </template>
@@ -18,4 +18,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.detail-container {
+  background-image: ;
+}
+</style>
