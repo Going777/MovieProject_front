@@ -4,7 +4,7 @@
     <v-app-bar
       fixed
       clipped-left
-      color="navy"
+      color="white"
       elevate-on-scroll
       scroll-target="#scrolling-techniques-7"
     >
@@ -16,17 +16,22 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
+      <v-btn @click="goSignUp"> SignUp </v-btn>
+      <v-btn @click="goLogIn"> LogIn </v-btn>
+      <!-- 참고 아이콘 -->
+      <!-- <div>
+        <v-btn icon>
+          <v-icon>mdi-magnify</v-icon>
+        </v-btn>
+  
+        <v-btn icon>
+          <v-icon>mdi-heart</v-icon>
+        </v-btn>
+  
+        <v-btn icon>
+          <v-icon>mdi-dots-vertical</v-icon>
+        </v-btn>
+      </div> -->
     </v-app-bar>
 
     <!-- 왼쪽 side nav bar -->
@@ -354,6 +359,12 @@ export default {
       // }
       // console.log(this.searchMovieList)
       // console.log("herererere")
+    },
+    goSignUp() {
+      this.$router.push({ name: "login" })
+    },
+    goLogIn() {
+      this.$router.push({ name: "signup" })
     },
   },
   created() {

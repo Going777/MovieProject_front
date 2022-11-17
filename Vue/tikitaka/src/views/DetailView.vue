@@ -1,7 +1,5 @@
 <template>
-  <div id="backImg" style="margin-top: 60px; height: 60%">
-    <p>{{ movie }}</p>
-  </div>
+  <div id="backImg" style="margin-top: 60px; height: 70%"></div>
 </template>
 
 <script>
@@ -18,22 +16,12 @@ export default {
       return `https://image.tmdb.org/t/p/original${path}`
     },
   },
-  created() {
-    // this.movie = this.$store.state.movie
-    console.log(this.movie)
-  },
   mounted() {
     document.querySelector("#backImg").style.backgroundImage =
       "linear-gradient(to bottom, rgba(0, 0, 0, 0.12), rgba(255,255,255, 0.63), rgba(255,255,255, 100)), url(" +
       this.posterURL +
       ")"
   },
-  // updated() {
-  //   document.querySelector("#backImg").style.backgroundImage =
-  //     "linear-gradient(to bottom, rgba(0, 0, 0, 0.12), rgba(255,255,255, 0.63), rgba(255,255,255, 100)), url(" +
-  //     this.posterURL +
-  //     ")"
-  // },
 }
 </script>
 
@@ -43,6 +31,6 @@ export default {
   height: auto;
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position: 0 5px;
 }
 </style>

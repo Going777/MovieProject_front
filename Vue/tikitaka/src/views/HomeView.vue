@@ -55,7 +55,8 @@ export default {
 } */
 
 #container-box {
-  background-color: #004e66;
+  /* background-color: #004e66; */
+  background-color: white;
   border-radius: 80px;
   margin: -70px 20px;
   padding: 20px;
