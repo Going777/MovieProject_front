@@ -3,15 +3,22 @@
 </template>
 
 <script>
+import _ from "lodash"
+
 export default {
   name: "DetailView",
+  data() {
+    return {
+      random_idx: _.random(0, 4),
+    }
+  },
   computed: {
     movie() {
       return this.$store.state.movie
     },
 
     posterURL() {
-      const path = this.movie.backdrop_set[0].path
+      const path = this.movie.backdrop_set[this.random_idx].path
 
       return `https://image.tmdb.org/t/p/original${path}`
     },
@@ -27,6 +34,7 @@ export default {
   },
   // URL은 바꼈는데 배경이미지 바뀌지 않는 것 해결
   beforeRouteUpdate(to, from, next) {
+    this.random_idx = _.random(0, 4)
     document.querySelector("#backImg").style.backgroundImage =
       "linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255,255,255, 0.5), rgba(255,255,255, 100)), \
       linear-gradient(to left, rgba(255,255,255,0) 80%,rgba(255,255,255,1) 100%), \
