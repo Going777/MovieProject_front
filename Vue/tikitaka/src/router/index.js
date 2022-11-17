@@ -2,6 +2,7 @@ import Vue from "vue"
 import VueRouter from "vue-router"
 import IntroView from "../views/IntroView.vue"
 import HomeView from "../views/HomeView.vue"
+import DetailView from "../views/DetailView.vue"
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,11 @@ const routes = [
     path: "/home",
     name: "home",
     component: HomeView,
+  },
+  {
+    path: "/movie/:id",
+    name: "detail",
+    component: DetailView,
   },
 ]
 
