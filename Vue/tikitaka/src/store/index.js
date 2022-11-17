@@ -4,6 +4,7 @@ import Vuex from "vuex"
 Vue.use(Vuex)
 
 import axios from "axios"
+import router from "@/router"
 
 const DJ_URL = "http://127.0.0.1:8000"
 
@@ -36,7 +37,9 @@ export default new Vuex.Store({
       state.searchMovieList.push(...response)
     },
     GET_MOVIE_BY_ID(state, response) {
-      state.movie = response
+      console.log(response.id)
+      state.movie = response.movie
+      router.push({ name: "detail", params: { id: response.id } })
     },
   },
   actions: {
@@ -119,7 +122,11 @@ export default new Vuex.Store({
         url: `${DJ_URL}/movies/movie_detail/`,
       })
         .then((response) => {
-          context.commit("GET_MOVIE_BY_ID", response.data)
+          const payload = {
+            movie: response.data,
+            id: movie_id,
+          }
+          context.commit("GET_MOVIE_BY_ID", payload)
         })
         .catch((error) => {
           console.log(error)

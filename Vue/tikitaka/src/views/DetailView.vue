@@ -1,7 +1,5 @@
 <template>
-  <div class="detail-container">
-    <p>{{ movie }}</p>
-  </div>
+  <div id="backImg" style="margin-top: 60px; height: 60%"></div>
 </template>
 
 <script>
@@ -11,17 +9,42 @@ export default {
     movie() {
       return this.$store.state.movie
     },
+
+    posterURL() {
+      const path = this.movie.backdrop_set[0].path
+
+      return `https://image.tmdb.org/t/p/original${path}`
+    },
   },
-  beforeCreate() {
-    this.$store.dispatch("getMovieById", this.$route.params.id)
+  created() {
+    console.log("hihi", this.$store.state.movie)
+    console.log("디테일 페이지")
   },
+  // mounted() {
+  //   this.movie = this.$store.state.movie
+  //   console.log(this.movie)
+  // },
+  // mounted() {
+  //   document.querySelector("#backImg").style.backgroundImage =
+  //     "linear-gradient(to bottom, rgba(0, 0, 0, 0.12), rgba(255,255,255, 0.63), rgba(255,255,255, 100)), url(" +
+  //     this.posterURL +
+  //     ")"
+  // },
+  // updated() {
+  //   document.querySelector("#backImg").style.backgroundImage =
+  //     "linear-gradient(to bottom, rgba(0, 0, 0, 0.12), rgba(255,255,255, 0.63), rgba(255,255,255, 100)), url(" +
+  //     this.posterURL +
+  //     ")"
+  // },
 }
 </script>
 
 <style>
-.detail-container {
-  background-image: url("@/assets/tikitaka_coke.png");
-  margin-left: -70px;
-  margin-top: -6px;
+#backImg {
+  width: 100%;
+  height: auto;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 </style>

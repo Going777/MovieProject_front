@@ -24,7 +24,9 @@ export default {
   },
   methods: {
     goDetail(id) {
-      this.$router.push({ name: "detail", params: { id: id } })
+      console.log("명령시작")
+      this.$store.dispatch("getMovieById", id)
+      console.log("명령보냄")
     },
   },
 }
