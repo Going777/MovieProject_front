@@ -1,7 +1,11 @@
 <template>
   <div>
     <v-card class="zoom" width="150px" height="220px">
-      <v-img :src="posterPath" height="220px"></v-img>
+      <v-img
+        :src="posterPath"
+        height="220px"
+        @click="goDetail(movie.id)"
+      ></v-img>
     </v-card>
   </div>
 </template>
@@ -16,6 +20,11 @@ export default {
   computed: {
     posterPath() {
       return "https://image.tmdb.org/t/p/original" + this.movie.poster_path
+    },
+  },
+  methods: {
+    goDetail(id) {
+      this.$router.push({ name: "detail", params: { id: id } })
     },
   },
 }

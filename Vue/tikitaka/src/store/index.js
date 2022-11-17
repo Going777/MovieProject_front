@@ -13,6 +13,7 @@ export default new Vuex.Store({
     popularMovieList: ["인기영화"],
     nowPlayingMovieVideoList: ["상영중 영화 비디오"],
     searchMovieList: [],
+    movie: null,
   },
   getters: {},
   mutations: {
@@ -33,6 +34,9 @@ export default new Vuex.Store({
     SEARCH_MOVIE_LIST(state, response) {
       state.searchMovieList = []
       state.searchMovieList.push(...response)
+    },
+    GET_MOVIE_BY_ID(state, response) {
+      state.movie = response
     },
   },
   actions: {
@@ -101,6 +105,21 @@ export default new Vuex.Store({
         .then((response) => {
           context.commit("SEARCH_MOVIE_LIST", response.data)
           console.log(response)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    getMovieById(context, movie_id) {
+      axios({
+        method: "get",
+        params: {
+          id: movie_id,
+        },
+        url: `${DJ_URL}/movies/movie_detail/`,
+      })
+        .then((response) => {
+          context.commit("GET_MOVIE_BY_ID", response.data)
         })
         .catch((error) => {
           console.log(error)
