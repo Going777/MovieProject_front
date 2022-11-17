@@ -18,6 +18,8 @@
 
       <v-btn @click="goSignUp"> SignUp </v-btn>
       <v-btn @click="goLogIn"> LogIn </v-btn>
+      <v-btn @click="logOut"> LogOut </v-btn>
+      <p>{{ nickname }}</p>
       <!-- 참고 아이콘 -->
       <!-- <div>
         <v-btn icon>
@@ -310,6 +312,9 @@ export default {
     searchMovieList() {
       return this.$store.state.searchMovieList
     },
+    nickname() {
+      return this.$store.state.nickname
+    },
   },
   watch: {
     search(val) {
@@ -365,6 +370,9 @@ export default {
     },
     goLogIn() {
       this.$router.push({ name: "login" })
+    },
+    logOut() {
+      this.$store.dispatch("logOut")
     },
   },
   created() {

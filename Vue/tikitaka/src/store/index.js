@@ -18,6 +18,8 @@ export default new Vuex.Store({
     searchMovieList: [],
     movie: null,
     token: null,
+    user: null,
+    nickname: "로그인해주세요!",
   },
   getters: {
     isLogin(state) {
@@ -48,9 +50,19 @@ export default new Vuex.Store({
       router.push({ name: "detail", params: { id: response.id } })
     },
 
-    SAVE_TOKEN(state, token) {
-      state.token = token
+    SAVE_TOKEN(state, data) {
+      state.user = data.user
+      state.token = data.access_token
+      state.nickname = "익명의 티키타카"
       router.push({ name: "home" })
+    },
+    DROP_TOKEN(state) {
+      localStorage.removeItem("user")
+      localStorage.removeItem("token")
+      state.user = null
+      state.token = null
+      state.nickname = "로그인해주세요!"
+      location.reload()
     },
   },
   actions: {
@@ -154,8 +166,7 @@ export default new Vuex.Store({
           password: payload.password,
         },
       }).then((res) => {
-        console.log(res.data.access_token)
-        context.commit("SAVE_TOKEN", res.data.access_token)
+        context.commit("SAVE_TOKEN", res.data)
       })
     },
     signUp(context, payload) {
@@ -170,11 +181,14 @@ export default new Vuex.Store({
       })
         .then((res) => {
           console.log(res.data.access_token)
-          context.commit("SAVE_TOKEN", res.data.access_token)
+          context.commit("SAVE_TOKEN", res.data)
         })
         .catch((err) => {
           console.log(err)
         })
+    },
+    logOut(context) {
+      context.commit("DROP_TOKEN")
     },
   },
   modules: {},
