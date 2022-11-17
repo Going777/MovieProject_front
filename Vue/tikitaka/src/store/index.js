@@ -12,6 +12,7 @@ export default new Vuex.Store({
     nowPlayingMovieList: ["상영중 영화"],
     popularMovieList: ["인기영화"],
     nowPlayingMovieVideoList: ["상영중 영화 비디오"],
+    searchMovieList: [],
   },
   getters: {},
   mutations: {
@@ -28,6 +29,10 @@ export default new Vuex.Store({
     },
     LOAD_NOW_PLAYING_MOVIE_VIDEO_LIST(state, response) {
       state.nowPlayingMovieVideoList.push(...response)
+    },
+    SEARCH_MOVIE_LIST(state, response) {
+      state.searchMovieList = []
+      state.searchMovieList.push(...response)
     },
   },
   actions: {
@@ -63,6 +68,39 @@ export default new Vuex.Store({
         .then((response) => {
           // console.log(response)
           context.commit("LOAD_NOW_PLAYING_MOVIE_VIDEO_LIST", response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    searchMovieListByTitle(context, payload) {
+      axios({
+        method: "get",
+        params: {
+          search: payload.keyword,
+          genres: payload.genres,
+        },
+        url: `${DJ_URL}/movies/search_movie/`,
+      })
+        .then((response) => {
+          context.commit("SEARCH_MOVIE_LIST", response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    searchMovieListByPerson(context, payload) {
+      axios({
+        method: "get",
+        params: {
+          search: payload.keyword,
+          // genres: payload.genres,
+        },
+        url: `${DJ_URL}/movies/search_movie_people/`,
+      })
+        .then((response) => {
+          context.commit("SEARCH_MOVIE_LIST", response.data)
+          console.log(response)
         })
         .catch((error) => {
           console.log(error)

@@ -92,7 +92,7 @@
     </v-main>
 
     <!-- 영화 검색 모달 -->
-    <b-modal size="huge" id="showSearchModal" title="Search Movies">
+    <b-modal size="huge" id="showSearchModal" title="Search Movies" hide-footer>
       <!-- 검색창 (auto) -->
       <!-- <v-toolbar flat prominent>
         <v-autocomplete
@@ -112,30 +112,16 @@
         <!-- 검색 섹션 -->
         <div
           class="p-2"
-          style="background-color: lightgray; border-radius: 30px"
+          style="background-color: lightgray; border-radius: 30px; width: 25%"
         >
-          <!-- 검색 카테고리 -->
-          <!-- <b-form-select
-            v-model="selected"
-            :options="options"
-            class="mt-4 mb-2"
-            value-field="item"
-            text-field="name"
-            disabled-field="notEnabled"
-            style="
-              border: 2px solid black;
-              background-color: white;
-              border-radius: 50px;
-            "
-          ></b-form-select> -->
-          <v-select
+          <!-- 검색 카테고리 (영화인 검색은 일단 생략) -->
+          <!-- <v-select
             class="mt-4"
             v-model="selectedOption"
             :items="searchOptions"
             dense
             outlined
-            full-width
-          ></v-select>
+          ></v-select> -->
 
           <!-- 입력폼 -->
           <v-text-field
@@ -146,6 +132,9 @@
             dense
             solo
             flat
+            v-model="keyword"
+            @input="inputFunc"
+            style="margin-top: 40px; margin-bottom: 20px"
           ></v-text-field>
 
           <!-- 장르 선택 -->
@@ -156,110 +145,84 @@
               label="모험"
               value="모험"
               hide-details
+              @click="inputFunc"
             ></v-checkbox>
             <v-checkbox
               v-model="selectedGenres"
               label="공포/스릴러"
               value="공포/스릴러"
               hide-details
+              @click="inputFunc"
             ></v-checkbox>
             <v-checkbox
               v-model="selectedGenres"
               label="애니메이션"
               value="애니메이션"
               hide-details
+              @click="inputFunc"
             ></v-checkbox>
             <v-checkbox
               v-model="selectedGenres"
               label="액션"
               value="액션"
               hide-details
+              @click="inputFunc"
             ></v-checkbox>
             <v-checkbox
               v-model="selectedGenres"
               label="SF/판타지"
               value="SF/판타지"
               hide-details
+              @click="inputFunc"
             ></v-checkbox>
             <v-checkbox
               v-model="selectedGenres"
               label="로맨스"
               value="로맨스"
               hide-details
+              @click="inputFunc"
             ></v-checkbox>
             <v-checkbox
               v-model="selectedGenres"
               label="코미디"
               value="코미디"
               hide-details
+              @click="inputFunc"
             ></v-checkbox>
             <v-checkbox
               v-model="selectedGenres"
               label="음악"
               value="음악"
               hide-details
+              @click="inputFunc"
             ></v-checkbox>
             <v-checkbox
               v-model="selectedGenres"
               label="Etc."
               value="Etc."
               hide-details
+              @click="inputFunc"
             ></v-checkbox>
           </div>
 
-          <!-- 검색 버튼 -->
-          <button
-            class="btn btn-warning"
-            style="float: right; margin-right: 10px"
-          >
-            검색
-          </button>
           <br /><br /><br />
         </div>
 
         <!-- 결과 섹션 -->
-        <div
-          class="p-2"
-          style="
-            /* background-color: lightgray; */
-            margin-left: 30px;
-            height: 50px;
-          "
-        >
-          <div class="scroll" height="100%" width="100%">
-            <v-card class="zoom" width="150px" height="220px">
-              <v-img
-                src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-                height="220px"
-              ></v-img>
-            </v-card>
-            <!-- <v-card class="zoom" width="150px" height="220px">
-              <v-img
-                src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-                height="220px"
-              ></v-img>
-            </v-card>
-            <v-card class="zoom" width="150px" height="220px">
-              <v-img
-                src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-                height="220px"
-              ></v-img>
-            </v-card>
-            <v-card class="zoom" width="150px" height="220px">
-              <v-img
-                src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-                height="220px"
-              ></v-img>
-            </v-card>
-            <v-card class="zoom" width="150px" height="220px">
-              <v-img
-                src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-                height="220px"
-              ></v-img>
-            </v-card> -->
-          </div>
-          <!-- <v-card class="scroll" height="500px" width="800px"> -->
-          <!-- </v-card> -->
+        <div class="scroll" style="width: 100%; height: 700px">
+          <v-card flat width="100%">
+            <div class="m-3">
+              <div>
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+                  <search-movie-list-item
+                    v-for="(movie, idx) in searchMovieList"
+                    :key="idx"
+                    :movie="movie"
+                  />
+                </div>
+              </div>
+            </div>
+          </v-card>
         </div>
       </div>
     </b-modal>
@@ -267,12 +230,37 @@
 </template>
 
 <script>
+import SearchMovieListItem from "./components/SearchMovieListItem.vue"
+function matchGenreId(name) {
+  switch (name) {
+    case "모험":
+      return 12
+    case "공포/스릴러":
+      return [27, 53]
+    case "애니메이션":
+      return 16
+    case "액션":
+      return 28
+    case "SF/판타지":
+      return [878, 14]
+    case "로맨스":
+      return 10749
+    case "코미디":
+      return 35
+    case "음악":
+      return 10402
+    case "Etc.":
+      return [18, 36, 37, 80, 99, 9648, 10751, 10752, 10770]
+  }
+}
 export default {
+  components: { SearchMovieListItem },
   name: "App",
   data() {
     return {
-      selectedOption: "영화 제목",
-      searchOptions: ["영화 제목", "영화 배우/감독"],
+      keyword: null,
+      // selectedOption: "영화 제목",
+      // searchOptions: ["영화 제목", "영화 배우/감독"],
       checked: false,
       selectedGenres: [
         "모험",
@@ -313,6 +301,11 @@ export default {
       // ],
     }
   },
+  computed: {
+    searchMovieList() {
+      return this.$store.state.searchMovieList
+    },
+  },
   watch: {
     search(val) {
       val && val !== this.select && this.querySelections(val)
@@ -325,25 +318,42 @@ export default {
     openSearchModal() {
       this.$bvModal.show("showSearchModal")
     },
-    querySelections(v) {
-      this.loading = true
-      // Simulated ajax query
-      //  window.axios.get(`https://paperlesssolutionsltd.com.ng/inventory/invapi/api/get_item_by_name_paged/${v}/100`)
+    // querySelections(v) {
+    //   this.loading = true
+    //   // Simulated ajax query
+    //   //  window.axios.get(`https://paperlesssolutionsltd.com.ng/inventory/invapi/api/get_item_by_name_paged/${v}/100`)
 
-      // example v = milk
+    //   // example v = milk
 
-      setTimeout(() => {
-        this.items.push(this.search)
-        this.items = this.states.filter((e) => {
-          return (e || "").toLowerCase().indexOf((v || "").toLowerCase()) > -1
-        })
-        this.loading = false
-      }, 500)
-    },
+    //   setTimeout(() => {
+    //     this.items.push(this.search)
+    //     this.items = this.states.filter((e) => {
+    //       return (e || "").toLowerCase().indexOf((v || "").toLowerCase()) > -1
+    //     })
+    //     this.loading = false
+    //   }, 500)
+    // },
 
     // 모달 검색창에 엔터를 친 경우
-    enterInput() {
-      console.log(this.search)
+    // enterInput() {
+    //   console.log(this.search)
+    // },
+    inputFunc() {
+      const selectedGenreIds = []
+      this.selectedGenres.forEach((element) => {
+        const id = matchGenreId(element)
+        if (id.length > 1) selectedGenreIds.push(...id)
+        else selectedGenreIds.push(id)
+      })
+      const payload = { keyword: this.keyword, genres: selectedGenreIds }
+      this.$store.dispatch("searchMovieListByTitle", payload)
+      // if (this.selectedOption == "영화 제목") {
+      //   this.$store.dispatch("searchMovieListByTitle", payload)
+      // } else {
+      //   this.$store.dispatch("searchMovieListByPerson", payload)
+      // }
+      // console.log(this.searchMovieList)
+      // console.log("herererere")
     },
   },
   created() {
