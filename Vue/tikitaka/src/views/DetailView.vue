@@ -1,7 +1,5 @@
 <template>
-  <div id="backImg" style="margin-top: 60px; height: 60%">
-    <p>{{ movie }}</p>
-  </div>
+  <div id="backImg" style="margin-top: 60px; height: 60%"></div>
 </template>
 
 <script>

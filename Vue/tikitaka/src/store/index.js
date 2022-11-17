@@ -10,7 +10,7 @@ import createPersistedState from "vuex-persistedstate"
 const DJ_URL = "http://127.0.0.1:8000"
 
 export default new Vuex.Store({
-  plugins: [createPersistedState],
+  plugins: [createPersistedState()],
   state: {
     nowPlayingMovieList: ["상영중 영화"],
     popularMovieList: ["인기영화"],
