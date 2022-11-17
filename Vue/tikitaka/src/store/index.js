@@ -43,7 +43,9 @@ export default new Vuex.Store({
     },
     GET_MOVIE_BY_ID(state, response) {
       state.movie = response.movie
-      router.push({ name: "detail", params: { id: response.id } })
+      router
+        .push({ name: "detail", params: { id: response.id } })
+        .catch(() => {}) // Avoided redundant navigation 에러 해결
     },
 
     SAVE_TOKEN(state, data) {
