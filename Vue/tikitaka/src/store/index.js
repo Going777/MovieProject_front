@@ -28,16 +28,11 @@ export default new Vuex.Store({
   },
   mutations: {
     LOAD_POPULAR_MOVIE_LIST(state, response) {
-      for (const movie of response) {
-        // overview 존재하는 영화만 가져오기
-        if (movie.overview.length > 0) {
-          state.popularMovieList.movies.push(movie)
-        }
-      }
+      state.popularMovieList.movies = response
+      console.log(state.popularMovieList.movies)
     },
     LOAD_NOW_PLAYING_MOVIE_LIST(state, response) {
       state.nowPlayingMovieList.movies = response
-      console.log(state.nowPlayingMovieList)
     },
     LOAD_NOW_PLAYING_MOVIE_VIDEO_LIST(state, response) {
       state.nowPlayingMovieVideoList.movies = response

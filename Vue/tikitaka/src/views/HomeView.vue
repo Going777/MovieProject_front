@@ -9,7 +9,7 @@
     <div id="container-box">
       <br /><br />
       <movie-list
-        :movieList="popularMovieList.movies.movies"
+        :movieList="popularMovieList.movies"
         :titleText="popularMovieList.title"
       />
       <movie-list
