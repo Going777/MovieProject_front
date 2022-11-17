@@ -11,7 +11,7 @@
       <!-- 메뉴 호출 아이콘 -->
       <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
 
-      <v-toolbar-title>TikiTaka</v-toolbar-title>
+      <v-toolbar-title id="logoText">TikiTaka</v-toolbar-title>
       <img src="@/assets/tikitaka_logo_small.png" style="width: 50px" />
 
       <v-spacer></v-spacer>
@@ -49,15 +49,6 @@
       v-if="!['intro'].includes($route.name)"
     >
       <v-list nav dense fixed style="margin-top: 70px">
-        <!-- 영화 검색 버튼 -->
-        <v-list-item link @click="openSearchModal" style="margin-bottom: 20px">
-          <v-list-item-icon>
-            <v-img src="@/assets/icon_search.png" height="24px" width="24px">
-            </v-img>
-          </v-list-item-icon>
-          <v-list-item-title>Search Movies</v-list-item-title>
-        </v-list-item>
-
         <!-- 홈 버튼 -->
         <v-list-item link @click="goHome" style="margin-bottom: 20px">
           <v-list-item-icon>
@@ -65,6 +56,15 @@
             </v-img>
           </v-list-item-icon>
           <v-list-item-title>Home</v-list-item-title>
+        </v-list-item>
+
+        <!-- 영화 검색 버튼 -->
+        <v-list-item link @click="openSearchModal" style="margin-bottom: 20px">
+          <v-list-item-icon>
+            <v-img src="@/assets/icon_search.png" height="24px" width="24px">
+            </v-img>
+          </v-list-item-icon>
+          <v-list-item-title>Search Movies</v-list-item-title>
         </v-list-item>
 
         <!-- 커뮤니티 버튼 -->
@@ -239,6 +239,8 @@
 
 <script>
 import SearchMovieListItem from "./components/SearchMovieListItem.vue"
+
+// 장르 이름 -> 장르아이디 매핑
 function matchGenreId(name) {
   switch (name) {
     case "모험":
@@ -388,7 +390,16 @@ export default {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Pacifico&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Pacifico&family=Titan+One&display=swap");
+
+#logoText {
+  font-family: "Titan One", cursive;
+}
+
+.v-toolbar__title {
+  font-size: 1.7rem !important;
+}
 
 #showSearchModal {
   font-family: "Do Hyeon", sans-serif;
