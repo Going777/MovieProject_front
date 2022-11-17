@@ -92,7 +92,7 @@
     </v-main>
 
     <!-- 영화 검색 모달 -->
-    <b-modal size="huge" id="showSearchModal" title="Search Movies">
+    <b-modal size="huge" id="showSearchModal" title="Search Movies" hide-footer>
       <!-- 검색창 (auto) -->
       <!-- <v-toolbar flat prominent>
         <v-autocomplete
@@ -112,29 +112,16 @@
         <!-- 검색 섹션 -->
         <div
           class="p-2"
-          style="background-color: lightgray; border-radius: 30px; width: 20%"
+          style="background-color: lightgray; border-radius: 30px; width: 25%"
         >
-          <!-- 검색 카테고리 -->
-          <!-- <b-form-select
-            v-model="selected"
-            :options="options"
-            class="mt-4 mb-2"
-            value-field="item"
-            text-field="name"
-            disabled-field="notEnabled"
-            style="
-              border: 2px solid black;
-              background-color: white;
-              border-radius: 50px;
-            "
-          ></b-form-select> -->
-          <v-select
+          <!-- 검색 카테고리 (영화인 검색은 일단 생략) -->
+          <!-- <v-select
             class="mt-4"
             v-model="selectedOption"
             :items="searchOptions"
             dense
             outlined
-          ></v-select>
+          ></v-select> -->
 
           <!-- 입력폼 -->
           <v-text-field
@@ -147,6 +134,7 @@
             flat
             v-model="keyword"
             @input="inputFunc"
+            style="margin-top: 40px; margin-bottom: 20px"
           ></v-text-field>
 
           <!-- 장르 선택 -->
@@ -221,63 +209,20 @@
         </div>
 
         <!-- 결과 섹션 -->
-        <div
-          class="p-2"
-          style="
-            /* background-color: lightgray; */
-            margin-left: 30px;
-            width: 100%;
-            /* height: 50px; */
-          "
-        >
-          <!-- <div class="scroll" height="100%" width="100%"> -->
-          <v-card height="600px" width="100%" class="overflow-y-auto">
-            <v-list>
-              <v-list-item>
-                <v-list-item-content>
-                  <v-card class="zoom" width="150px" height="220px">
-                    <v-img
-                      src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-                      height="220px"
-                    ></v-img>
-                  </v-card>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-content>
-                  <v-card class="zoom" width="150px" height="220px">
-                    <v-img
-                      src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-                      height="220px"
-                    ></v-img>
-                  </v-card>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-content>
-                  <v-card class="zoom" width="150px" height="220px">
-                    <v-img
-                      src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-                      height="220px"
-                    ></v-img>
-                  </v-card>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-content>
-                  <v-card class="zoom" width="150px" height="220px">
-                    <v-img
-                      src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-                      height="220px"
-                    ></v-img>
-                  </v-card>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
+        <div class="scroll" style="width: 100%; height: 700px">
+          <v-card flat width="100%">
+            <div class="m-3">
+              <div>
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+                  <search-movie-list-item
+                    v-for="(movie, idx) in searchMovieList"
+                    :key="idx"
+                    :movie="movie"
+                  />
+                </div>
+              </div>
+            </div>
           </v-card>
-          <!-- </div> -->
-          <!-- <v-card class="scroll" height="500px" width="800px"> -->
-          <!-- </v-card> -->
         </div>
       </div>
     </b-modal>
@@ -285,7 +230,7 @@
 </template>
 
 <script>
-import axios from "axios"
+import SearchMovieListItem from "./components/SearchMovieListItem.vue"
 function matchGenreId(name) {
   switch (name) {
     case "모험":
@@ -309,12 +254,13 @@ function matchGenreId(name) {
   }
 }
 export default {
+  components: { SearchMovieListItem },
   name: "App",
   data() {
     return {
       keyword: null,
-      selectedOption: "영화 제목",
-      searchOptions: ["영화 제목", "영화 배우/감독"],
+      // selectedOption: "영화 제목",
+      // searchOptions: ["영화 제목", "영화 배우/감독"],
       checked: false,
       selectedGenres: [
         "모험",
@@ -355,6 +301,11 @@ export default {
       // ],
     }
   },
+  computed: {
+    searchMovieList() {
+      return this.$store.state.searchMovieList
+    },
+  },
   watch: {
     search(val) {
       val && val !== this.select && this.querySelections(val)
@@ -394,20 +345,15 @@ export default {
         if (id.length > 1) selectedGenreIds.push(...id)
         else selectedGenreIds.push(id)
       })
-      axios({
-        method: "get",
-        params: {
-          search: this.keyword,
-          genres: selectedGenreIds,
-        },
-        url: `http://127.0.0.1:8000/movies/search_movie/`,
-      })
-        .then((res) => {
-          console.log(res)
-        })
-        .catch((e) => {
-          console.log(e)
-        })
+      const payload = { keyword: this.keyword, genres: selectedGenreIds }
+      this.$store.dispatch("searchMovieListByTitle", payload)
+      // if (this.selectedOption == "영화 제목") {
+      //   this.$store.dispatch("searchMovieListByTitle", payload)
+      // } else {
+      //   this.$store.dispatch("searchMovieListByPerson", payload)
+      // }
+      // console.log(this.searchMovieList)
+      // console.log("herererere")
     },
   },
   created() {
