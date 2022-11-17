@@ -139,7 +139,7 @@
             dense
             solo
             flat
-            v-model="keyword"
+            :value="keyword"
             @input="inputFunc"
             style="margin-top: 40px; margin-bottom: 20px"
           ></v-text-field>
@@ -354,7 +354,8 @@ export default {
     // enterInput() {
     //   console.log(this.search)
     // },
-    inputFunc() {
+    inputFunc(event) {
+      this.keyword = event.target.value
       const selectedGenreIds = []
       this.selectedGenres.forEach((element) => {
         const id = matchGenreId(element)
