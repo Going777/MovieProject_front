@@ -268,7 +268,7 @@ export default {
   name: "App",
   data() {
     return {
-      keyword: null,
+      keyword: "",
       // selectedOption: "영화 제목",
       // searchOptions: ["영화 제목", "영화 배우/감독"],
       checked: false,
