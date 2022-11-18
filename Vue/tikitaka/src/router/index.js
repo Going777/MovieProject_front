@@ -5,6 +5,7 @@ import HomeView from "../views/HomeView.vue"
 import DetailView from "../views/DetailView.vue"
 import LoginView from "../views/LoginView.vue"
 import SignupView from "../views/SignupView.vue"
+import CommunityView from "../views/CommunityView.vue"
 
 Vue.use(VueRouter)
 
@@ -24,9 +25,7 @@ const routes = [
     name: "detail",
     component: DetailView,
   },
-
   // 로그인
-
   {
     path: "/login",
     name: "login",
@@ -36,6 +35,11 @@ const routes = [
     path: "/signup",
     name: "signup",
     component: SignupView,
+  },
+  {
+    path: "community",
+    name: "community",
+    component: CommunityView,
   },
 ]
 

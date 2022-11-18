@@ -2,6 +2,7 @@
   <v-app>
     <!-- 최상단 nav bar -->
     <v-app-bar
+      app
       fixed
       clipped-left
       color="white"
@@ -48,7 +49,7 @@
       left
       v-if="!['intro'].includes($route.name)"
     >
-      <v-list nav dense fixed style="margin-top: 70px">
+      <v-list nav dense fixed>
         <!-- 홈 버튼 -->
         <v-list-item link @click="goHome" style="margin-bottom: 20px">
           <v-list-item-icon>
@@ -68,7 +69,7 @@
         </v-list-item>
 
         <!-- 커뮤니티 버튼 -->
-        <v-list-item link style="margin-bottom: 20px">
+        <v-list-item link @click="goCommunity" style="margin-bottom: 20px">
           <v-list-item-icon>
             <v-img
               src="@/assets/icon_community.png"
@@ -327,6 +328,9 @@ export default {
   methods: {
     goHome() {
       this.$router.push({ name: "home" }).catch(() => {}) // Avoided redundant navigation 에러 해결
+    },
+    goCommunity() {
+      this.$router.push({ name: "community" }).catch(() => {})
     },
     openSearchModal() {
       this.$bvModal.show("showSearchModal")
