@@ -27,17 +27,16 @@ export default {
   display: flex;
   width: 100vw;
   height: 100vh;
-  /* justify-content: space-between; */
 }
 
 #feed-container {
   margin-left: 20px;
-  width: 55%;
+  margin-right: 20px;
+  width: 50%;
 }
 
 #side-container {
-  width: 18%;
+  width: 22%;
   margin-left: 20px;
-  margin-right: 20px;
 }
 </style>
