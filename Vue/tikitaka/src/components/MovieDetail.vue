@@ -48,7 +48,7 @@
       <!-- 영화 줄거리 -->
       <div>
         <h2>Overview</h2>
-        <p>{{ movie.overview }}</p>
+        <p style="line-height: 200%">{{ movie.overview }}</p>
       </div>
     </div>
 
