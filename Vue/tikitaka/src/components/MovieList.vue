@@ -6,11 +6,7 @@
     </h2>
 
     <!-- 영화 리스트 -->
-    <v-sheet
-      style="margin: 10px 10px; border-radius: 15px"
-      elevation="3"
-      max-width="100vw"
-    >
+    <v-sheet style="margin: 10px 10px; border-radius: 15px" max-width="100vw">
       <v-slide-group class="pa-5" active-class="success" show-arrows>
         <v-slide-item v-for="(movie, idx) in movieList" :key="idx">
           <!-- 리스트 뷰 내 아이템  -->

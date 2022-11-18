@@ -18,6 +18,17 @@
           :movieList="popularMovieList.movies"
           :titleText="popularMovieList.title"
         />
+        <hr class="movielist-divide" />
+        <movie-list
+          :movieList="nowPlayingMovieList.movies"
+          :titleText="nowPlayingMovieList.title"
+        />
+        <hr class="movielist-divide" />
+        <movie-list
+          :movieList="nowPlayingMovieList.movies"
+          :titleText="nowPlayingMovieList.title"
+        />
+        <hr class="movielist-divide" />
         <movie-list
           :movieList="nowPlayingMovieList.movies"
           :titleText="nowPlayingMovieList.title"
@@ -57,12 +68,6 @@ export default {
   width: 100vw;
   background-color: white;
 }
-/* #trailer-box {
-  display: absolute;
-  top: 0;
-  left: 0;
-  z-index: 10;
-} */
 
 #profile-container {
   width: 18%;
@@ -85,6 +90,14 @@ export default {
   /* padding: 20px; */
   display: absolute;
   top: 10px;
-  /* width: 100%; */
+  width: 100%;
+}
+
+.movielist-divide {
+  width: 90%;
+  height: 7px;
+  background-color: gray;
+  margin: 0 auto;
+  border: 0;
 }
 </style>
