@@ -168,6 +168,7 @@ export default new Vuex.Store({
           console.log(error)
         })
     },
+
     // 로그인 서버 통신
     logIn(context, payload) {
       axios({
@@ -203,6 +204,24 @@ export default new Vuex.Store({
     // 로그아웃
     logOut(context) {
       context.commit("DROP_TOKEN")
+    },
+
+    // 유저 검색 서버 통신
+    searchUser(context, userName) {
+      axios({
+        method: "get",
+        params: {
+          search: userName,
+        },
+        url: `${DJ_URL}/movies/search_user/`,
+      })
+        .then((response) => {
+          console.log(response)
+          // context.commit("SEARCH_MOVIE_LIST", response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     },
   },
   modules: {},
