@@ -2,7 +2,7 @@
   <div id="home">
     <!-- 좌측(프로필) -->
     <div id="profile-container">
-      <profile-list />
+      <community-profile />
     </div>
     <!-- 우측(영화출력) -->
     <div id="movie-container">
@@ -41,10 +41,10 @@
 <script>
 import MovieList from "@/components/MovieList.vue"
 import MovieVideoList from "../components/MovieVideoList.vue"
-import ProfileList from "../components/ProfileList.vue"
+import CommunityProfile from "../components/CommunityProfile.vue"
 export default {
   name: "HomeView",
-  components: { MovieList, MovieVideoList, ProfileList },
+  components: { MovieList, MovieVideoList, CommunityProfile },
   computed: {
     popularMovieList() {
       return this.$store.state.popularMovieList
@@ -64,7 +64,6 @@ export default {
 #home {
   display: flex;
   font-family: "Do Hyeon", sans-serif;
-  margin-top: 70px;
   width: 100vw;
   background-color: white;
 }
@@ -72,7 +71,6 @@ export default {
 #profile-container {
   width: 18%;
   margin-right: 10px;
-  margin-left: 20px;
   margin-top: 0;
 }
 
@@ -86,8 +84,6 @@ export default {
   background-color: transparent;
   border-radius: 80px;
   margin-top: -70px;
-  /* margin: -70px 20px; */
-  /* padding: 20px; */
   display: absolute;
   top: 10px;
   width: 100%;
