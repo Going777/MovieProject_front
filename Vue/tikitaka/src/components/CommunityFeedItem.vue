@@ -17,9 +17,11 @@
       <div class="card-body">
         <div style="display: flex; justify-content: space-between">
           <p style="font-size: 30px; margin: 0">피드 제목</p>
-          <v-icon color="red" size="35" style="align-self: center"
-            >mdi-heart
-          </v-icon>
+          <v-btn icon color="red lighten-2">
+            <v-icon color="red" size="35" style="align-self: center"
+              >mdi-heart
+            </v-icon>
+          </v-btn>
         </div>
       </div>
     </div>
