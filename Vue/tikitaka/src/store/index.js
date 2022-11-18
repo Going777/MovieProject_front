@@ -7,8 +7,8 @@ import axios from "axios"
 import router from "@/router"
 import createPersistedState from "vuex-persistedstate" // 로컬에 데이터 자동저장을 학기 위한 패키지
 
-const DJ_URL = "http://127.0.0.1:8000"
-// const DJ_URL = "http://3.228.21.204"
+// const DJ_URL = "http://127.0.0.1:8000"
+const DJ_URL = "http://35.174.62.42"
 
 export default new Vuex.Store({
   plugins: [createPersistedState()],
