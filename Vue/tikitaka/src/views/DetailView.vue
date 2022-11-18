@@ -1,7 +1,11 @@
 <template>
-  <div id="backImg" style="margin-top: 60px; height: 70%">
+  <div style="margin-top: 60px;">
+    <div id="backImg">
+      <div></div>
+    </div>
     <MovieDetail
     :movie="movie"
+    style="margin-top: -150px;"
     />
   </div>
 </template>
@@ -58,7 +62,7 @@ export default {
 <style>
 #backImg {
   width: 100%;
-  height: auto;
+  height: 500px;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 5px;

@@ -1,15 +1,17 @@
 <template>
-  <div style="background-color: moccasin; margin: 0px 20% 0px; padding-top: 300px; display: flex;">
+  <div style="margin: 0px 15% 200px; display: flex;">
 
 
     <!-- 영화 포스터 및 버튼 영역 -->
-    <div style="background-color: blue; max-width: 150px; margin-right: 5px;">
+    <div style="max-width: 150px; margin-right: 30px;">
       <img :src="posterURL" alt="" style="width: 100%; max-height: 220px;">
-      <p> {{ movie.watch_providers }} </p>  
+      <v-btn style="width: 100%; margin-top: 30px;"> isWatched </v-btn>
+      <v-btn style="width: 100%; margin-top: 30px;"> isBookmarked </v-btn>
+      <v-btn style="width: 100%; margin-top: 30px;"> writeReview </v-btn>
     </div>
-    <div style="background-color: green;">
 
-
+    <!-- 영화 정보 -->
+    <div>
       <!-- 제목 영역 -->
       <div style="display: flex; align-items:flex-end;">
         <h1>{{ movie.title }}</h1>
@@ -17,29 +19,27 @@
       </div>
 
       <!-- 영화 정보 영역 -->
-      <div style="display: flex; align-items:flex-end;">
+      <div style="display: flex; margin: 10px 0px 30px;">
 
         <!-- 영화 상세 정보 -->
-        <div>
-          <h2>Detail</h2>
-          <p>감독 : {{ movie.director }}</p>
-          <div>
-            <span>
-              <b>장르</b>
-              <span v-for="(genre, idx) in movie.genres" :key="idx">
-                <span>{{ genre.name }} </span>
-              </span>
-            </span>
-          </div>
-          <p>{{ movie.release_date }} 개봉 | {{ movie.runtime }}분</p>
-          <p></p>
-          <p>{{ movie.countries }}</p>
+        <div style="width: 50%">
+          <h2>Info</h2>
+          <MovieDetailBasic
+            :movie="movie"
+          />
         </div>
 
         <!-- 영화 캐스팅 -->
-        <div>
+        <div style="width: 50%;">
           <h2>Cast</h2>
           <MovieDetailCastBoard
+            :movie="movie"
+          />
+        </div>
+        <!-- 커뮤니티 영역 -->
+        <div>
+          <h3>Feed</h3>
+          <MovieDetailCommunity
             :movie="movie"
           />
         </div>
@@ -47,17 +47,11 @@
       
       <!-- 영화 줄거리 -->
       <div>
+        <h2>Overview</h2>
         <p>{{ movie.overview }}</p>
       </div>
-      <p>상세정보</p>
     </div>
 
-    <!-- 커뮤니티 영역 -->
-    <div style="background-color: pink;">
-      <h3>커뮤니티</h3>
-      {{ movie.video_key }}
-      <button>메세지 보내기</button>
-    </div>
 
   </div>
   
@@ -65,11 +59,17 @@
 
 <script>
 import MovieDetailCastBoard from "@/components/MovieDetailCastBoard.vue"
+import MovieDetailBasic from "@/components/MovieDetailBasic.vue"
+import MovieDetailCommunity from "@/components/MovieDetailCommunity.vue"
+
 
 export default {
   name: "MovieDetail",
   components: {
-    MovieDetailCastBoard
+    MovieDetailCastBoard,
+    MovieDetailBasic,
+    MovieDetailCommunity
+
   },
   props: {
     movie: Object,
