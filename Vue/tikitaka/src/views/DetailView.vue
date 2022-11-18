@@ -1,12 +1,20 @@
 <template>
-  <div id="backImg" style="margin-top: 60px; height: 70%"></div>
+  <div id="backImg" style="margin-top: 60px; height: 70%">
+    <MovieDetail
+    :movie="movie"
+    />
+  </div>
 </template>
 
 <script>
 import _ from "lodash"
+import MovieDetail from "@/components/MovieDetail.vue"
 
 export default {
   name: "DetailView",
+  components: {
+    MovieDetail
+  },
   data() {
     return {
       random_idx: _.random(0, 4),
