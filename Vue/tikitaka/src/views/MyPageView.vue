@@ -7,40 +7,13 @@
 
     <!-- 메뉴 이동 섹션(아이콘 바)(우측 상단) -->
     <div id="icon-container">
-      <!-- 피드 아이콘 -->
-      <span class="mx-5">
-        <font-awesome-icon icon="fa-solid fa-file" size="2x" />
-      </span>
-
-      <div class="v-line"></div>
-
-      <!-- 북마크 아이콘 -->
-      <span class="mx-5">
-        <font-awesome-icon icon="fa-solid fa-bookmark" size="2x" />
-      </span>
-
-      <div class="v-line"></div>
-
-      <!-- 좋아요한 피드 아이콘 -->
-      <span class="mx-5">
-        <font-awesome-icon icon="fa-solid fa-heart" size="2x" />
-      </span>
-
-      <div class="v-line"></div>
-
-      <!-- 달력 아이콘 -->
-      <span class="mx-5">
-        <font-awesome-icon icon="fa-solid fa-calendar-days" size="2x" />
-      </span>
-
+      <my-page-icon-bar />
       <!-- <font-awesome-icon class="fa-3x" icon="stopwatch" /> -->
     </div>
 
     <!-- 콘텐츠 섹션(우측 하단) -->
     <div id="content-container">
-      <h1>My Page</h1>
-      <p>{{ nickname }}</p>
-      <v-btn color="yellow" @click="openCreateFeedModal">게시물 작성</v-btn>
+      <my-page-contet @open-create-feed-modal="openCreateFeedModal" />
 
       <!-- 게시글 작성 모달 -->
       <b-modal
@@ -61,8 +34,15 @@
 <script>
 import CommunityProfile from "../components/CommunityProfile.vue"
 import FeedCreateModal from "../components/FeedCreateModal.vue"
+import MyPageContet from "../components/MyPageContet.vue"
+import MyPageIconBar from "../components/MyPageIconBar.vue"
 export default {
-  components: { FeedCreateModal, CommunityProfile },
+  components: {
+    FeedCreateModal,
+    CommunityProfile,
+    MyPageIconBar,
+    MyPageContet,
+  },
   name: "MyPageView",
   computed: {
     nickname() {
@@ -94,11 +74,7 @@ export default {
 
 #icon-container {
   grid-area: iconArea;
-  /* text-align: center; */
   padding-top: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 #content-container {

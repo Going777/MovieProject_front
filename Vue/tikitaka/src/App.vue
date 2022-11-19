@@ -100,7 +100,13 @@
     </v-main>
 
     <!-- 영화 검색 모달 -->
-    <b-modal size="huge" class="mainText" title="Search Movies" hide-footer>
+    <b-modal
+      id="showSearchModal"
+      size="huge"
+      class="mainText"
+      title="Search Movies"
+      hide-footer
+    >
       <div style="display: flex">
         <!-- 검색 섹션 -->
         <div
