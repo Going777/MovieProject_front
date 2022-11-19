@@ -29,6 +29,7 @@ export default {
   grid-template-rows: 100%;
   height: 100%;
   grid-template-areas: "profile feed side";
+  grid-gap: 10px;
 }
 
 #feed-container {

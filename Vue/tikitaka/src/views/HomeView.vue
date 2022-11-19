@@ -61,12 +61,12 @@ export default {
 
 <style>
 #home {
-  background-color: white;
   display: grid;
   grid-template-columns: 25% 75%;
   grid-template-rows: 100%;
   height: 100%;
   grid-template-areas: "profile movie";
+  grid-gap: 10px;
 }
 
 #profile-container {

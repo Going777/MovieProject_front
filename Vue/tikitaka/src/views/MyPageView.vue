@@ -1,9 +1,43 @@
 <template>
   <div class="mainText" id="mypage">
+    <!-- 프로필 섹션(좌측) -->
     <div id="profile-container">
       <community-profile />
     </div>
-    <div>
+
+    <!-- 메뉴 이동 섹션(아이콘 바)(우측 상단) -->
+    <div id="icon-container">
+      <!-- 피드 아이콘 -->
+      <span class="mx-5">
+        <font-awesome-icon icon="fa-solid fa-file" size="2x" />
+      </span>
+
+      <div class="v-line"></div>
+
+      <!-- 북마크 아이콘 -->
+      <span class="mx-5">
+        <font-awesome-icon icon="fa-solid fa-bookmark" size="2x" />
+      </span>
+
+      <div class="v-line"></div>
+
+      <!-- 좋아요한 피드 아이콘 -->
+      <span class="mx-5">
+        <font-awesome-icon icon="fa-solid fa-heart" size="2x" />
+      </span>
+
+      <div class="v-line"></div>
+
+      <!-- 달력 아이콘 -->
+      <span class="mx-5">
+        <font-awesome-icon icon="fa-solid fa-calendar-days" size="2x" />
+      </span>
+
+      <!-- <font-awesome-icon class="fa-3x" icon="stopwatch" /> -->
+    </div>
+
+    <!-- 콘텐츠 섹션(우측 하단) -->
+    <div id="content-container">
       <h1>My Page</h1>
       <p>{{ nickname }}</p>
       <v-btn color="yellow" @click="openCreateFeedModal">게시물 작성</v-btn>
@@ -48,8 +82,33 @@ export default {
 
 <style>
 #mypage {
+  display: grid;
+  grid-template-columns: 25% 1fr;
+  grid-template-rows: 8% 1fr;
+  height: 100%;
+  grid-template-areas:
+    "profile iconArea"
+    "profile contentArea";
+  grid-gap: 10px;
+}
+
+#icon-container {
+  grid-area: iconArea;
+  /* text-align: center; */
+  padding-top: 20px;
   display: flex;
-  width: 100vw;
-  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+#content-container {
+  grid-area: contentArea;
+  background-color: rgb(246, 228, 228);
+}
+
+.v-line {
+  border-left: thick solid rgba(213, 204, 204, 0.735);
+  height: 30px;
+  margin: 0 40px;
 }
 </style>
