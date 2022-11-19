@@ -169,7 +169,8 @@ export default {
   padding: 30px 10px;
   background-color: rgb(238, 238, 238);
   position: fixed;
-  max-width: 22%;
+  max-width: 23.7%;
+  float: right;
 }
 #user-box {
   background-color: white;

@@ -1,13 +1,13 @@
 <template>
   <div>
-    <v-sheet id="profile-box">
+    <v-sheet id="profile-box" class="mainText">
       <div>
         <!-- 프로필 이미지 -->
         <img src="@/assets/tikitaka_film.png" id="profile-image" />
         <!-- 프로필 텍스트 영역 -->
         <div id="profile-content-box">
           <!-- 닉네임 -->
-          <h2 style="">TIKITAKA</h2>
+          <h2 style="">{{ nickname }}</h2>
           <!-- 영화 MBTI -->
           <p style="color: gray; margin-top: -7px">나만의 감성 (CJI)</p>
           <!-- 팔로워/팔로잉/피드 수 -->
@@ -100,20 +100,23 @@ export default {
       //   profileImageURL: require("@/assets/tikitaka_chips.png"),
     }
   },
+  computed: {
+    nickname() {
+      return this.$route.params.nickname
+    },
+  },
 }
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap");
-
 #profile-box {
-  font-family: "Do Hyeon", sans-serif;
   border-radius: 15px;
   height: 80vh;
   padding: 30px 10px;
   background-color: rgb(238, 238, 238);
   position: fixed;
-  max-width: 18%;
+  margin: auto;
+  max-width: 23.7%;
 }
 
 #profile-content-box {
@@ -121,7 +124,6 @@ export default {
   border-radius: 40px;
   margin-top: -30px;
   padding: 30px 10px;
-  /* height: 60vh; */
 }
 
 #profile-image {
