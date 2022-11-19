@@ -238,10 +238,20 @@ export default new Vuex.Store({
     logOut(context) {
       context.commit("DROP_TOKEN")
     },
+    // DB 내 모든 유저 받아오기
+    loadAllUserList() {
+      axios({
+        method: "get",
+        url: `${DJ_URL}/accounts/all_user_list/`,
+      }).then((response) => {
+        console.log(response)
+      })
+    },
 
     // ***************************************************************
     // COMMUNITY
     // ***************************************************************
+    // DB 내 모든 영화 받아오기 ([{id: , title: }] 형식)
     loadAllMovieList(context) {
       axios({
         method: "get",

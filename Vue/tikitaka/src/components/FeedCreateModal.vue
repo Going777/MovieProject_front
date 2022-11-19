@@ -1,7 +1,7 @@
 <template>
   <div class="mainText">
     <!-- 영화 선택(검색) -->
-    <div class="mb-3" style="width: 40%">
+    <div class="mb-3" style="width: 40%; margin-left: -15px">
       <div style="margin-top: 30px">
         <v-toolbar flat dense>
           <v-autocomplete

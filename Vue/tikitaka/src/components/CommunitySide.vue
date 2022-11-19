@@ -50,7 +50,7 @@
         </v-sheet>
       </div>
 
-      <!-- 팔로우한 유저 -->
+      <!-- 서로 맞팔한 유저 -->
       <div style="margin-top: 30px">
         <h4>Mutual Friends</h4>
         <div id="user-box">
