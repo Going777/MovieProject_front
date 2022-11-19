@@ -253,10 +253,10 @@ export default new Vuex.Store({
       console.log(payload)
       axios({
         method: "post",
-        params: {
+        data: {
           title: payload.title,
           content: payload.content,
-          backdrop: payload.img_id,
+          backdrop: 1,
           user: 1,
         },
         url: `${DJ_URL}/community/${payload.movie_id}/create_review/`,

@@ -83,7 +83,6 @@ export default {
       ]
       const payload = { keyword: this.select, genres: selectedGenreIds }
       this.$store.dispatch("searchMovieByTitle", payload)
-      console.log(this.select)
     },
   },
 }
