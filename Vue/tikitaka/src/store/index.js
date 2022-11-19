@@ -231,6 +231,23 @@ export default new Vuex.Store({
         })
     },
 
+    // 피드(리뷰)에서 영화 검색 -> 하나만 나옴
+    searchMovieByTitle(context, payload) {
+      axios({
+        method: "get",
+        params: {
+          search: payload.keyword,
+          genres: payload.genres,
+        },
+        url: `${DJ_URL}/movies/search_movie/`,
+      })
+        .then((response) => {
+          context.commit("SEARCH_MOVIE", response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
     // 피드 작성
     addFeed(context, payload) {
       axios({
@@ -246,24 +263,6 @@ export default new Vuex.Store({
       })
         .then((response) => {
           console.log(response)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-    },
-
-    // 피드(리뷰)에서 영화 검색 -> 하나만 나옴
-    searchMovieByTitle(context, payload) {
-      axios({
-        method: "get",
-        params: {
-          search: payload.keyword,
-          genres: payload.genres,
-        },
-        url: `${DJ_URL}/movies/search_movie/`,
-      })
-        .then((response) => {
-          context.commit("SEARCH_MOVIE", response.data)
         })
         .catch((error) => {
           console.log(error)
