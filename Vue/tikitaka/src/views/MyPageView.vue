@@ -1,11 +1,14 @@
 <template>
-  <div>
+  <div class="mainText">
     <h1>My Page</h1>
     <p>{{ nickname }}</p>
-    <v-btn color="yellow" @click="openCreateFeedModal">피드 작성</v-btn>
+    <v-btn color="yellow" @click="openCreateFeedModal">게시물 작성</v-btn>
 
-    <b-modal size="huge" id="openCreateFeedModal" title="Create Your Own Feed">
-      <feed-create-modal />
+    <b-modal hide-footer hide-header-close size="medi" id="openCreateFeedModal">
+      <template #modal-header>
+        <h2 class="logoText">CREATE YOUR OWN POST</h2>
+      </template>
+      <feed-create-modal @close-modal="closeCreateFeedModal" />
     </b-modal>
   </div>
 </template>
