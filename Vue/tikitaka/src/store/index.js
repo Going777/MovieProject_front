@@ -256,9 +256,8 @@ export default new Vuex.Store({
         params: {
           title: payload.title,
           content: payload.content,
-          viewing_date: null,
-          backdrop_id: payload.img_id,
-          user_id: 1,
+          backdrop: payload.img_id,
+          user: 1,
         },
         url: `${DJ_URL}/community/${payload.movie_id}/create_review/`,
       })
