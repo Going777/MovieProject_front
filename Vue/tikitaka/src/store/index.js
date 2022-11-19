@@ -250,6 +250,7 @@ export default new Vuex.Store({
     },
     // 피드 작성
     addFeed(context, payload) {
+      console.log(payload)
       axios({
         method: "post",
         params: {
@@ -259,7 +260,7 @@ export default new Vuex.Store({
           backdrop_id: payload.img_id,
           user_id: 1,
         },
-        url: `${DJ_URL}/community/${payload.movie_id}}/create_review/`,
+        url: `${DJ_URL}/community/${payload.movie_id}/create_review/`,
       })
         .then((response) => {
           console.log(response)
