@@ -6,6 +6,7 @@ import DetailView from "../views/DetailView.vue"
 import LoginView from "../views/LoginView.vue"
 import SignupView from "../views/SignupView.vue"
 import CommunityView from "../views/CommunityView.vue"
+import MyPageView from "../views/MyPageView.vue"
 
 Vue.use(VueRouter)
 
@@ -37,9 +38,14 @@ const routes = [
     component: SignupView,
   },
   {
-    path: "community",
+    path: "/community",
     name: "community",
     component: CommunityView,
+  },
+  {
+    path: "/community/:nickname",
+    name: "mypage",
+    component: MyPageView,
   },
 ]
 

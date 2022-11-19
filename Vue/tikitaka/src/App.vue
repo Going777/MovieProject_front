@@ -81,7 +81,7 @@
         </v-list-item>
 
         <!-- 마이페이지 버튼 -->
-        <v-list-item link style="margin-bottom: 20px">
+        <v-list-item link @click="goMyPage" style="margin-bottom: 20px">
           <v-list-item-icon>
             <v-img
               src="@/assets/icon_mypage.png"
@@ -101,21 +101,6 @@
 
     <!-- 영화 검색 모달 -->
     <b-modal size="huge" id="showSearchModal" title="Search Movies" hide-footer>
-      <!-- 검색창 (auto) -->
-      <!-- <v-toolbar flat prominent>
-        <v-autocomplete
-          clearable
-          :loading="loading"
-          :items="items"
-          :search-input.sync="search"
-          v-model="select"
-          hide-details
-          label="Search..."
-          @keydown.enter="enterInput"
-          auto-select-first
-        ></v-autocomplete>
-      </v-toolbar> -->
-
       <div style="display: flex">
         <!-- 검색 섹션 -->
         <div
@@ -284,32 +269,6 @@ export default {
         "음악",
         "Etc.",
       ],
-      // loading: false,
-      // items: [],
-      // search: null,
-      // select: null,
-      // states: [
-      //   "김태열",
-      //   "김태식",
-      //   "김태팔",
-      //   "김태구",
-      //   "김태오",
-      //   "김태리",
-      //   "김태사",
-      //   "김태식",
-      //   "김태리",
-      //   "김태열",
-      //   "김태식",
-      //   "김태리",
-      //   "김태열",
-      //   "김태식",
-      //   "김태칠",
-      //   "김태열",
-      //   "김태식",
-      //   "김태육",
-      //   "홍성범",
-      //   "가인",
-      // ],
     }
   },
   computed: {
@@ -332,32 +291,19 @@ export default {
     goCommunity() {
       this.$router.push({ name: "community" }).catch(() => {})
     },
+    goMyPage() {
+      this.$router
+        .push({ name: "mypage", params: { nickname: this.nickname } })
+        .catch(() => {})
+    },
+
     openSearchModal() {
       this.$bvModal.show("showSearchModal")
     },
     closeSearchModal() {
       this.$bvModal.hide("showSearchModal")
     },
-    // querySelections(v) {
-    //   this.loading = true
-    //   // Simulated ajax query
-    //   //  window.axios.get(`https://paperlesssolutionsltd.com.ng/inventory/invapi/api/get_item_by_name_paged/${v}/100`)
 
-    //   // example v = milk
-
-    //   setTimeout(() => {
-    //     this.items.push(this.search)
-    //     this.items = this.states.filter((e) => {
-    //       return (e || "").toLowerCase().indexOf((v || "").toLowerCase()) > -1
-    //     })
-    //     this.loading = false
-    //   }, 500)
-    // },
-
-    // 모달 검색창에 엔터를 친 경우
-    // enterInput() {
-    //   console.log(this.search)
-    // },
     inputFunc() {
       // this.keyword = event.target.value
       const selectedGenreIds = []
@@ -416,7 +362,6 @@ export default {
 .modal .modal-huge {
   max-width: 75%;
   width: 75%;
-  /* height: 80%; */
 }
 
 .scroll {
