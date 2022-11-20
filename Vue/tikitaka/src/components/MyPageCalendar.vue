@@ -1,11 +1,6 @@
 <template>
   <div style="margin-right: 20px">
-    <FullCalendar :options="calendarOptions">
-      <template v-slot:eventContent="arg">
-        <b>{{ arg.event.title }}</b>
-        <b>{{ hello }}</b>
-      </template>
-    </FullCalendar>
+    <FullCalendar :options="calendarOptions" />
     <!-- <FullCalendar :options="calendarOptions" /> -->
   </div>
 </template>
@@ -18,7 +13,7 @@ import interactionPlugin from "@fullcalendar/interaction"
 export default {
   name: "MyPageCalendar",
   components: {
-    FullCalendar, // make the <FullCalendar> tag available
+    FullCalendar,
   },
   data() {
     return {
@@ -27,29 +22,64 @@ export default {
         initialView: "dayGridMonth",
         headerToolbar: {
           left: "title",
-          right: "today prev next",
+          right: "prev next today",
           center: "",
         },
         editable: true,
         selectable: true,
         selectMirror: true,
         dayMaxEvents: true,
-        select: this.handleDateSelect,
+        // select: this.handleDateSelect,
         eventClick: this.handleEventClick,
         eventsSet: this.handleEvents,
-        eventContent: this.eventRender,
+        eventContent: function (arg) {
+          let arrayOfDomNodes = []
+          // title event
+          let titleEvent = document.createElement("div")
+          if (arg.event._def.title) {
+            titleEvent.innerHTML = arg.event._def.title
+            titleEvent.classList = "fc-event-title fc-sticky"
+          }
+
+          // image event
+          let imgEventWrap = document.createElement("div")
+          if (arg.event.extendedProps.image_url) {
+            let imgEvent =
+              '<img src="' +
+              arg.event.extendedProps.image_url +
+              '"  style="width:100%">'
+            // imgEventWrap.style.width = "150px"
+            imgEventWrap.style.width = "100%"
+            imgEventWrap.classList = "fc-event-img"
+            imgEventWrap.innerHTML = imgEvent
+          }
+
+          arrayOfDomNodes = [titleEvent, imgEventWrap]
+
+          return { domNodes: arrayOfDomNodes }
+        },
         // weekends: true,
         // dateClick: this.handleDateClick,
-        // height: "500px",
+        // height: "1000px",
         // expandRows: true,
         events: [
           {
-            title: "https://gradium.co.kr/wp-content/uploads/coffee-3-1.jpg",
             date: "2022-11-20",
             // description: "This is a cool event",
-            imageurl: "https://gradium.co.kr/wp-content/uploads/coffee-3-1.jpg",
+            image_url:
+              "https://image.tmdb.org/t/p/original/f0oDtB2JCMlPKjphBJ90GcfVzWg.jpg",
           },
-          { title: "Long Event", start: "2022-11-07", end: "2022-11-10" },
+          {
+            image_url:
+              "https://image.tmdb.org/t/p/original/f0oDtB2JCMlPKjphBJ90GcfVzWg.jpg",
+            start: "2022-11-07",
+            // end: "2022-11-10",
+          },
+          {
+            image_url:
+              "https://image.tmdb.org/t/p/original/f0oDtB2JCMlPKjphBJ90GcfVzWg.jpg",
+            start: "2022-11-01",
+          },
         ],
       },
     }
@@ -61,12 +91,11 @@ export default {
     // 일정 생성
     handleDateSelect(selectInfo) {
       let title = prompt("Please enter a new title")
-      let description = prompt("Please enter a new dfsf")
       let calendarApi = selectInfo.view.calendar
       console.log(calendarApi)
       calendarApi.unselect()
 
-      if (title & description) {
+      if (title) {
         calendarApi.addEvent({
           title,
           start: selectInfo.startStr,
@@ -76,29 +105,17 @@ export default {
     },
     // 일정 삭제
     handleEventClick(clickInfo) {
-      if (confirm(`Are you sure you want to delete ${clickInfo.event.title}`)) {
-        clickInfo.event.remove()
-      }
+      console.log(clickInfo)
+      // if (confirm(`Are you sure you want to delete ${clickInfo.event.title}`)) {
+      //   clickInfo.event.remove()
+      // }
     },
     handleEvents(events) {
       this.currentEvents = events
     },
-    eventRender: function (event, eventElement) {
-      console.log(event)
-      if (event.imageurl) {
-        eventElement
-          .find("span.fc-title")
-          .prepend("<center><img src='" + event.imageurl + "'><center>")
-      }
-    },
-    // eventRender: function (event, eventElement) {
-    //   console.log(event)
-    //   if (event.imageurl) {
-    //     eventElement
-    //       .find("div.fc-content")
-    //       .prepend("<img src='" + event.imageurl + "' width='12' height='12'>")
-    //   }
-    // },
+  },
+  created() {
+    this.event
   },
 }
 </script>
