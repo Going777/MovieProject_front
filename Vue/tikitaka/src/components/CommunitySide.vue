@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-sheet id="sidebar-box">
+    <v-sheet id="sidebar-box" class="mainText" elevation="5">
       <!-- 유저 검색 -->
       <div style="margin: 20px 0">
         <v-toolbar flat dense>
@@ -118,28 +118,7 @@ export default {
       items: [],
       searchUser: null,
       select: null,
-      users: [
-        "김태열",
-        "김태식",
-        "김태팔",
-        "김태구",
-        "김태오",
-        "김태리",
-        "김태사",
-        "김태식",
-        "김태리",
-        "김태열",
-        "김태식",
-        "김태리",
-        "김태열",
-        "김태식",
-        "김태칠",
-        "김태열",
-        "김태식",
-        "김태육",
-        "홍성범",
-        "가인",
-      ],
+      users: this.$store.state.allUserList,
     }
   },
   watch: {
@@ -163,7 +142,6 @@ export default {
 
 <style>
 #sidebar-box {
-  font-family: "Do Hyeon", sans-serif;
   border-radius: 15px;
   height: 80vh;
   padding: 30px 10px;
@@ -171,6 +149,8 @@ export default {
   position: fixed;
   max-width: 23.7%;
   float: right;
+  margin-right: 10px;
+  margin-top: 10px;
 }
 #user-box {
   background-color: white;

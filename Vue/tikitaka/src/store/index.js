@@ -14,8 +14,9 @@ export default new Vuex.Store({
   plugins: [createPersistedState()],
   state: {
     allMovieList: [],
-    nowPlayingMovieList: { title: "상영중 영화", movies: [] },
-    popularMovieList: { title: "인기영화", movies: [] },
+    allUserList: [],
+    nowPlayingMovieList: { title: "NOW PLAYING MOVIE", movies: [] },
+    popularMovieList: { title: "POPULAR MOVIE", movies: [] },
     nowPlayingMovieVideoList: { title: "상영중 영화 비디오", movies: [] },
     searchMovieList: [],
     feedMovieId: null, // 안 필요할 수도 있음
@@ -81,6 +82,9 @@ export default new Vuex.Store({
       state.user = null
       state.token = null
       state.nickname = "로그인해주세요!"
+    },
+    LOAD_ALL_USER_LIST(state, response) {
+      state.allUserList = response
     },
 
     // ***************************************************************
@@ -227,7 +231,6 @@ export default new Vuex.Store({
         },
       })
         .then((res) => {
-          console.log(res.data.access_token)
           context.commit("SAVE_TOKEN", res.data)
         })
         .catch((err) => {
@@ -239,12 +242,12 @@ export default new Vuex.Store({
       context.commit("DROP_TOKEN")
     },
     // DB 내 모든 유저 받아오기
-    loadAllUserList() {
+    loadAllUserList(context) {
       axios({
         method: "get",
         url: `${DJ_URL}/accounts/all_user_list/`,
       }).then((response) => {
-        console.log(response)
+        context.commit("LOAD_ALL_USER_LIST", response.data)
       })
     },
 

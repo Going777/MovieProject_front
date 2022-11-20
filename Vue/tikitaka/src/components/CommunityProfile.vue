@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-sheet id="profile-box" class="mainText">
+    <v-sheet id="profile-box" class="mainText" elevation="5">
       <div>
         <!-- 프로필 이미지 -->
         <img src="@/assets/tikitaka_film.png" id="profile-image" />

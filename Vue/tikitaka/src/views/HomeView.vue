@@ -4,6 +4,7 @@
     <div id="profile-container">
       <community-profile />
     </div>
+
     <!-- 우측(영화출력) -->
     <div id="movie-container">
       <div>
@@ -66,11 +67,13 @@ export default {
   grid-template-rows: 100%;
   height: 100%;
   grid-template-areas: "profile movie";
-  grid-gap: 10px;
+  grid-gap: 15px;
 }
 
 #profile-container {
   grid-area: profile;
+  margin-left: 10px;
+  margin-top: 10px;
 }
 
 #movie-container {

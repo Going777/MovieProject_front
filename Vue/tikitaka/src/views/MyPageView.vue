@@ -7,54 +7,64 @@
 
     <!-- 메뉴 이동 섹션(아이콘 바)(우측 상단) -->
     <div id="icon-container">
-      <my-page-icon-bar />
+      <my-page-icon-bar
+        @show-feed="showFeed"
+        @show-bookmark="showBookmark"
+        @show-heart-feed="showHeartFeed"
+        @show-calendar="showCalendar"
+      />
       <!-- <font-awesome-icon class="fa-3x" icon="stopwatch" /> -->
     </div>
 
     <!-- 콘텐츠 섹션(우측 하단) -->
     <div id="content-container">
-      <my-page-contet @open-create-feed-modal="openCreateFeedModal" />
-
-      <!-- 게시글 작성 모달 -->
-      <b-modal
-        hide-footer
-        hide-header-close
-        size="medi"
-        id="openCreateFeedModal"
-      >
-        <template #modal-header>
-          <h2 class="logoText">CREATE YOUR OWN POST</h2>
-        </template>
-        <feed-create-modal @close-modal="closeCreateFeedModal" />
-      </b-modal>
+      <my-page-feed v-if="activeTab === 'MyPageFeed'" />
+      <my-page-bookmark v-if="activeTab === 'MyPageBookmark'" />
+      <my-page-heart-feed v-if="activeTab === 'MyPageHeartFeed'" />
+      <my-page-calendar v-if="activeTab === 'MyPageCalendar'" />
     </div>
   </div>
 </template>
 
 <script>
 import CommunityProfile from "../components/CommunityProfile.vue"
-import FeedCreateModal from "../components/FeedCreateModal.vue"
-import MyPageContet from "../components/MyPageContet.vue"
+import MyPageBookmark from "../components/MyPageBookmark.vue"
+import MyPageCalendar from "../components/MyPageCalendar.vue"
+import MyPageFeed from "../components/MyPageFeed.vue"
+import MyPageHeartFeed from "../components/MyPageHeartFeed.vue"
 import MyPageIconBar from "../components/MyPageIconBar.vue"
 export default {
   components: {
-    FeedCreateModal,
     CommunityProfile,
     MyPageIconBar,
-    MyPageContet,
+    MyPageFeed,
+    MyPageBookmark,
+    MyPageHeartFeed,
+    MyPageCalendar,
   },
   name: "MyPageView",
+  data() {
+    return {
+      activeTab: "MyPageFeed",
+    }
+  },
   computed: {
     nickname() {
       return this.$store.state.nickname
     },
   },
   methods: {
-    openCreateFeedModal() {
-      this.$bvModal.show("openCreateFeedModal")
+    showFeed(currentPage) {
+      this.activeTab = currentPage
     },
-    closeCreateFeedModal() {
-      this.$bvModal.hide("openCreateFeedModal")
+    showBookmark(currentPage) {
+      this.activeTab = currentPage
+    },
+    showHeartFeed(currentPage) {
+      this.activeTab = currentPage
+    },
+    showCalendar(currentPage) {
+      this.activeTab = currentPage
     },
   },
 }
@@ -69,7 +79,7 @@ export default {
   grid-template-areas:
     "profile iconArea"
     "profile contentArea";
-  grid-gap: 10px;
+  grid-gap: 20px;
 }
 
 #icon-container {
@@ -80,11 +90,5 @@ export default {
 #content-container {
   grid-area: contentArea;
   background-color: rgb(246, 228, 228);
-}
-
-.v-line {
-  border-left: thick solid rgba(213, 204, 204, 0.735);
-  height: 30px;
-  margin: 0 40px;
 }
 </style>
