@@ -350,7 +350,6 @@ export default {
   },
 }
 </script>
-
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Pacifico&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Pacifico&family=Titan+One&display=swap");

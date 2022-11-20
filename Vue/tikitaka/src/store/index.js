@@ -224,6 +224,15 @@ export default new Vuex.Store({
         context.commit("SAVE_TOKEN", res.data)
       })
     },
+    // 카카오 로그인 서버 통신
+    kakaoLogIn(context) {
+      axios({
+        method: "get",
+        url: `${DJ_URL}/accounts/kakao/login`,
+      }).then((res) => {
+        context.commit("SAVE_TOKEN", res.data)
+      })
+    },
     // 회원 가입 서버 통신
     signUp(context, payload) {
       axios({

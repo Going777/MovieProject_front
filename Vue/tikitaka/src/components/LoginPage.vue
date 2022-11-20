@@ -62,13 +62,7 @@ export default {
       this.$store.dispatch("logIn", payload)
     },
     kakaoLogIn() {
-      const email = this.email
-      const password = this.password
-      const payload = {
-        email,
-        password,
-      }
-      this.$store.dispatch("logIn", payload)
+      this.$store.dispatch("kakaoLogIn")
     },
   },
   computed: {
