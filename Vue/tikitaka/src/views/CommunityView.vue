@@ -24,19 +24,19 @@ export default {
 
 <style>
 #community {
-  display: flex;
-  width: 100vw;
-  height: 100vh;
+  display: grid;
+  grid-template-columns: 25% 1fr 25%;
+  grid-template-rows: 100%;
+  height: 100%;
+  grid-template-areas: "profile feed side";
+  grid-gap: 10px;
 }
 
 #feed-container {
-  margin-left: 20px;
-  margin-right: 20px;
-  width: 50%;
+  grid-area: feed;
 }
 
 #side-container {
-  width: 22%;
-  margin-left: 20px;
+  grid-area: side;
 }
 </style>

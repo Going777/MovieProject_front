@@ -13,11 +13,14 @@ const DJ_URL = "http://127.0.0.1:8000"
 export default new Vuex.Store({
   plugins: [createPersistedState()],
   state: {
-    nowPlayingMovieList: { title: "상영중 영화", movies: [] },
-    popularMovieList: { title: "인기영화", movies: [] },
+    allMovieList: [],
+    allUserList: [],
+    nowPlayingMovieList: { title: "NOW PLAYING MOVIE", movies: [] },
+    popularMovieList: { title: "POPULAR MOVIE", movies: [] },
     nowPlayingMovieVideoList: { title: "상영중 영화 비디오", movies: [] },
     searchMovieList: [],
-    feedMovie: null,
+    feedMovieId: null, // 안 필요할 수도 있음
+    feedBackDropList: [],
     movie: null,
     token: null,
     // 현재 로그인 유저
@@ -31,6 +34,9 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    // ***************************************************************
+    // MOVIE
+    // ***************************************************************
     // 인기 영화
     LOAD_POPULAR_MOVIE_LIST(state, response) {
       state.popularMovieList.movies = response
@@ -56,11 +62,10 @@ export default new Vuex.Store({
         .push({ name: "detail", params: { id: response.id } })
         .catch(() => {}) // Avoided redundant navigation 에러 해결
     },
-    // 피드 작성시 필요한 영화
-    SEARCH_MOVIE(state, response) {
-      state.feedMovie = response[0]
-    },
 
+    // ***************************************************************
+    // 인증 관련
+    // ***************************************************************
     SAVE_TOKEN(state, data) {
       state.user = data.user
       state.token = data.access_token
@@ -78,8 +83,30 @@ export default new Vuex.Store({
       state.token = null
       state.nickname = "로그인해주세요!"
     },
+    LOAD_ALL_USER_LIST(state, response) {
+      state.allUserList = response
+    },
+
+    // ***************************************************************
+    // COMMUNITY
+    // ***************************************************************
+    // DB에 저장된 모든 영화 데이터 가져오기
+    LOAD_ALL_MOVIE_LIST(state, response) {
+      state.allMovieList = response
+    },
+    // 피드 작성시 필요한 영화
+    SEARCH_MOVIE(state, response) {
+      state.feedMovie = response[0]
+    },
+    GET_BACKDROP_LIST(state, payload) {
+      state.feedMovieId = payload.movie_id
+      state.feedBackDropList = payload.response
+    },
   },
   actions: {
+    // ***************************************************************
+    // MOVIE
+    // ***************************************************************
     // 인기영화 서버 통신
     loadPopularMovieList(context) {
       axios({
@@ -176,6 +203,9 @@ export default new Vuex.Store({
         })
     },
 
+    // ***************************************************************
+    // 인증 관련
+    // ***************************************************************
     // 로그인 서버 통신
     logIn(context, payload) {
       axios({
@@ -201,7 +231,6 @@ export default new Vuex.Store({
         },
       })
         .then((res) => {
-          console.log(res.data.access_token)
           context.commit("SAVE_TOKEN", res.data)
         })
         .catch((err) => {
@@ -211,6 +240,28 @@ export default new Vuex.Store({
     // 로그아웃
     logOut(context) {
       context.commit("DROP_TOKEN")
+    },
+    // DB 내 모든 유저 받아오기
+    loadAllUserList(context) {
+      axios({
+        method: "get",
+        url: `${DJ_URL}/accounts/all_user_list/`,
+      }).then((response) => {
+        context.commit("LOAD_ALL_USER_LIST", response.data)
+      })
+    },
+
+    // ***************************************************************
+    // COMMUNITY
+    // ***************************************************************
+    // DB 내 모든 영화 받아오기 ([{id: , title: }] 형식)
+    loadAllMovieList(context) {
+      axios({
+        method: "get",
+        url: `${DJ_URL}/community/all_movie_list/`,
+      }).then((response) => {
+        context.commit("LOAD_ALL_MOVIE_LIST", response.data)
+      })
     },
 
     // 유저 검색 서버 통신
@@ -231,29 +282,44 @@ export default new Vuex.Store({
         })
     },
 
-    // 피드(리뷰)에서 영화 검색 -> 하나만 나옴
-    searchMovieByTitle(context, payload) {
+    // 피드(리뷰)에서 영화 검색 -> 백드롭 이미지 5개 받아오기
+    // searchMovieByTitle(context, payload) {
+    //   axios({
+    //     method: "get",
+    //     params: {
+    //       search: payload.keyword,
+    //       genres: payload.genres,
+    //     },
+    //     url: `${DJ_URL}/movies/search_movie/`,
+    //   })
+    //     .then((response) => {
+    //       context.commit("SEARCH_MOVIE", response.data)
+    //     })
+    //     .catch((error) => {
+    //       console.log(error)
+    //     })
+    // },
+    getBackDropList(context, movie_id) {
       axios({
         method: "get",
         params: {
-          search: payload.keyword,
-          genres: payload.genres,
+          id: movie_id,
         },
-        url: `${DJ_URL}/movies/search_movie/`,
+        url: `${DJ_URL}/community/get_backdrop/`,
+      }).then((response) => {
+        const payload = {
+          movie_id: movie_id,
+          response: response.data,
+        }
+        context.commit("GET_BACKDROP_LIST", payload)
       })
-        .then((response) => {
-          context.commit("SEARCH_MOVIE", response.data)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
     },
     // 피드 작성
     addFeed(context, payload) {
       console.log(payload)
       axios({
         method: "post",
-        params: {
+        data: {
           title: payload.title,
           content: payload.content,
           backdrop: payload.img_id,
@@ -264,8 +330,8 @@ export default new Vuex.Store({
         .then((response) => {
           console.log(response)
         })
-        .catch((error) => {
-          console.log(error)
+        .catch(() => {
+          alert("필수 항목이 빠졌어요!!")
         })
     },
   },

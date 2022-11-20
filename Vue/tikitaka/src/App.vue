@@ -12,7 +12,7 @@
       <!-- 메뉴 호출 아이콘 -->
       <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
 
-      <v-toolbar-title id="logoText">TikiTaka</v-toolbar-title>
+      <v-toolbar-title class="logoText">TikiTaka</v-toolbar-title>
       <img src="@/assets/tikitaka_logo_small.png" style="width: 50px" />
 
       <v-spacer></v-spacer>
@@ -100,7 +100,13 @@
     </v-main>
 
     <!-- 영화 검색 모달 -->
-    <b-modal size="huge" id="showSearchModal" title="Search Movies" hide-footer>
+    <b-modal
+      id="showSearchModal"
+      size="huge"
+      class="mainText"
+      title="Search Movies"
+      hide-footer
+    >
       <div style="display: flex">
         <!-- 검색 섹션 -->
         <div
@@ -336,9 +342,11 @@ export default {
     },
   },
   created() {
+    this.$store.dispatch("loadAllMovieList")
     this.$store.dispatch("loadPopularMovieList")
     this.$store.dispatch("loadNowPlayingMovieList")
     this.$store.dispatch("loadNowPlayingMovieVideoList")
+    this.$store.dispatch("loadAllUserList")
   },
 }
 </script>
@@ -347,7 +355,7 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Pacifico&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Pacifico&family=Titan+One&display=swap");
 
-#logoText {
+.logoText {
   font-family: "Titan One", cursive;
 }
 
@@ -355,13 +363,18 @@ export default {
   font-size: 1.7rem !important;
 }
 
-#showSearchModal {
+.mainText {
   font-family: "Do Hyeon", sans-serif;
 }
 
 .modal .modal-huge {
   max-width: 75%;
   width: 75%;
+}
+
+.modal .modal-medi {
+  max-width: 60%;
+  width: 60%;
 }
 
 .scroll {

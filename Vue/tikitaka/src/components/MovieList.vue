@@ -1,12 +1,12 @@
 <template>
   <div>
     <!-- 영화 리스트 타이틀 -->
-    <h2 style="margin-left: 20px; margin-top: 50px; color: #ffcc00">
+    <h1 style="color: #ffcc00">
       {{ titleText }}
-    </h2>
+    </h1>
 
     <!-- 영화 리스트 -->
-    <v-sheet style="margin: 10px 10px; border-radius: 15px" max-width="100vw">
+    <v-sheet style="border-radius: 15px">
       <v-slide-group class="pa-5" active-class="success" show-arrows>
         <v-slide-item v-for="(movie, idx) in movieList" :key="idx">
           <!-- 리스트 뷰 내 아이템  -->

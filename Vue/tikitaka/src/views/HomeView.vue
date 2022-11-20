@@ -1,9 +1,10 @@
 <template>
-  <div id="home">
+  <div id="home" class="mainText">
     <!-- 좌측(프로필) -->
     <div id="profile-container">
       <community-profile />
     </div>
+
     <!-- 우측(영화출력) -->
     <div id="movie-container">
       <div>
@@ -60,40 +61,37 @@ export default {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap");
 #home {
-  display: flex;
-  font-family: "Do Hyeon", sans-serif;
-  width: 100vw;
-  background-color: white;
+  display: grid;
+  grid-template-columns: 25% 75%;
+  grid-template-rows: 100%;
+  height: 100%;
+  grid-template-areas: "profile movie";
+  grid-gap: 15px;
 }
 
 #profile-container {
-  width: 18%;
-  margin-right: 10px;
-  margin-top: 0;
+  grid-area: profile;
+  margin-left: 10px;
+  margin-top: 10px;
 }
 
 #movie-container {
-  width: 73%;
-  margin-left: 10px;
+  grid-area: movie;
 }
 
 #container-box {
-  /* background-color: #004e66; */
   background-color: transparent;
   border-radius: 80px;
-  margin-top: -70px;
-  display: absolute;
-  top: 10px;
-  width: 100%;
 }
 
 .movielist-divide {
-  width: 90%;
+  width: 95%;
   height: 7px;
   background-color: gray;
   margin: 0 auto;
   border: 0;
+  border-radius: 50px;
+  margin-bottom: 30px;
 }
 </style>

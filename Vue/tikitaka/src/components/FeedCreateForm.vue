@@ -2,28 +2,29 @@
   <div>
     <!-- 포스터 선택 영역 -->
     <div>
+      <h4>SELECT POSTER</h4>
       <v-sheet style="background-color: transparent">
         <v-slide-group active-class="success" show-arrows>
-          <div v-for="imgPath in feedMovie.backdrop_set" :key="imgPath.id">
+          <div v-for="backdrop in feedBackDropList" :key="backdrop.id">
             <v-slide-item class="mx-2">
-              <img
-                width="220px"
-                :src="`https://image.tmdb.org/t/p/original${imgPath.path}`"
-                alt=""
-              />
+              <v-btn dark height="150px">
+                <img
+                  width="220px"
+                  :src="`https://image.tmdb.org/t/p/original${backdrop.path}`"
+                  @click="selectImage(backdrop.id)"
+                />
+              </v-btn>
             </v-slide-item>
           </div>
         </v-slide-group>
       </v-sheet>
     </div>
-
-    <hr />
+    <hr class="mt-5 mb-4" />
 
     <!-- 피드 작성 영역-->
     <div>
-      <h3>피드 작성</h3>
+      <h4>TITLE</h4>
       <div>
-        <p>title</p>
         <v-text-field
           outlined
           type="text"
@@ -31,19 +32,21 @@
           @input.native="inputTitle"
         >
         </v-text-field>
-        <p>content</p>
-
-        <v-textarea
-          outlined
-          type="text"
-          :value="content"
-          @input.native="inputContent"
-        >
-        </v-textarea>
-
-        <!-- 피드 작성 완료 버튼 -->
-        <v-btn @click="addFeed">작성완료</v-btn>
       </div>
+
+      <h4>CONTENT</h4>
+      <v-textarea
+        outlined
+        type="text"
+        :value="content"
+        @input.native="inputContent"
+      >
+      </v-textarea>
+
+      <!-- 피드 작성 완료 버튼 -->
+      <v-btn dark height="45" @click="addFeed" style="float: right"
+        >CREATE</v-btn
+      >
     </div>
   </div>
 </template>
@@ -52,12 +55,14 @@
 export default {
   name: "FeedCreateForm",
   props: {
-    feedMovie: Object,
+    feedMovieId: Number,
+    feedBackDropList: Array,
   },
   data() {
     return {
       title: null,
       content: null,
+      selected: this.feedBackDropList[0].id,
     }
   },
   methods: {
@@ -67,14 +72,19 @@ export default {
     inputContent(event) {
       this.content = event.target.value
     },
+    selectImage(backdrop_id) {
+      this.selected = backdrop_id
+      console.log("clicked!!")
+    },
     addFeed() {
       const payload = {
-        movie_id: this.feedMovie.id,
-        img_id: "/yzqaKAhglTrkeOfuIXYYArf0WnA.jpg",
+        movie_id: this.feedMovieId,
+        img_id: this.selected,
         title: this.title,
         content: this.content,
       }
       this.$store.dispatch("addFeed", payload)
+      // this.$emit("close-modal")
     },
   },
 }
