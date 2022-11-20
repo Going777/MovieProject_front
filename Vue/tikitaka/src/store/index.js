@@ -69,11 +69,16 @@ export default new Vuex.Store({
     SAVE_TOKEN(state, data) {
       state.user = data.user
       state.token = data.access_token
-      if (data.user.first_name) {
-        state.nickname = data.user.first_name
-      } else {
-        state.nickname = "익명의 티키타카"
-      }
+      console.log(data.user)
+      axios({
+        method: "get",
+        url: `${DJ_URL}/accounts/${data.user.pk}/user/`,
+        data: {
+          user_id: data.user.pk
+        },
+      }).then((res) => {
+        state.nickname = res.data.username
+      })
       router.push({ name: "home" })
     },
     DROP_TOKEN(state) {
@@ -225,6 +230,7 @@ export default new Vuex.Store({
         method: "post",
         url: `${DJ_URL}/accounts/signup/`,
         data: {
+          username: payload.nickname,
           email: payload.email,
           password1: payload.password1,
           password2: payload.password2,
