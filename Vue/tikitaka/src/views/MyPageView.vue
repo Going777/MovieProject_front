@@ -89,6 +89,5 @@ export default {
 
 #content-container {
   grid-area: contentArea;
-  background-color: rgb(246, 228, 228);
 }
 </style>
