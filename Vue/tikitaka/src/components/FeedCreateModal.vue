@@ -23,9 +23,12 @@
 
     <!-- 피드 작성 폼(포스터 선택 & 내용 채우기) // 수정할 때 & 디테일 페이지에서 작성할 때 재사용!!! -->
     <feed-create-form
+      :isFeedRequest="isFeedRequest"
+      :isCalendarRequest="isCalendarRequest"
       :feedMovieId="feedMovieId"
       :feedBackDropList="feedBackDropList"
       @close-modal="closeModal"
+      @select-image-for-calendar="selectImageForCalendar"
     />
   </div>
 </template>
@@ -35,6 +38,10 @@ import FeedCreateForm from "./FeedCreateForm.vue"
 export default {
   components: { FeedCreateForm },
   name: "FeedCreateModal",
+  props: {
+    isFeedRequest: Boolean,
+    isCalendarRequest: Boolean,
+  },
   data() {
     return {
       keyword: "",
@@ -79,6 +86,9 @@ export default {
     },
     closeModal() {
       this.$emit("close-modal")
+    },
+    selectImageForCalendar(select_img) {
+      this.$emit("select-image-for-calendar", select_img)
     },
   },
 }
