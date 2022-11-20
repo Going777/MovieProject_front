@@ -11,7 +11,7 @@
                 <img
                   width="220px"
                   :src="`https://image.tmdb.org/t/p/original${backdrop.path}`"
-                  @click="selectImage(backdrop.id)"
+                  @click="selectImage(backdrop)"
                 />
               </v-btn>
             </v-slide-item>
@@ -19,10 +19,11 @@
         </v-slide-group>
       </v-sheet>
     </div>
-    <hr class="mt-5 mb-4" />
 
-    <!-- 피드 작성 영역-->
-    <div>
+    <!-- 피드 작성 요청시 렌더링 될 영역 -->
+    <div v-show="isFeedRequest">
+      <hr class="mt-5 mb-4" />
+      <!-- (title, content 작성 영역) -->
       <h4>TITLE</h4>
       <div>
         <v-text-field
@@ -48,6 +49,17 @@
         >CREATE</v-btn
       >
     </div>
+
+    <!-- 캘린더 작성 요청시 렌더링 될 영역 -->
+    <!-- <div v-show="isCalendarRequest">
+      <v-btn
+        dark
+        height="45"
+        @click="addCalendar"
+        style="float: right; margin-top: 20px"
+        >POST</v-btn
+      >
+    </div> -->
   </div>
 </template>
 
@@ -55,6 +67,8 @@
 export default {
   name: "FeedCreateForm",
   props: {
+    isFeedRequest: Boolean,
+    isCalendarRequest: Boolean,
     feedMovieId: Number,
     feedBackDropList: Array,
   },
@@ -62,7 +76,8 @@ export default {
     return {
       title: null,
       content: null,
-      selected: this.feedBackDropList[0].id,
+      selectedImgId: this.feedBackDropList[0].id, // 선택한 이미지 백드롭 아이디
+      selectedImgPath: this.feedBackDropList[0].path, // 선택한 이미지 백드롭 키(path)
     }
   },
   methods: {
@@ -72,19 +87,28 @@ export default {
     inputContent(event) {
       this.content = event.target.value
     },
-    selectImage(backdrop_id) {
-      this.selected = backdrop_id
+    selectImage(backdrop) {
+      this.selectedImgId = backdrop.id
+      this.selectedImgPath = backdrop.path
+      const selectedImgUrl =
+        "https://image.tmdb.org/t/p/original" + this.selectedImgPath
+      this.$emit("select-image-for-calendar", selectedImgUrl)
       console.log("clicked!!")
     },
     addFeed() {
       const payload = {
         movie_id: this.feedMovieId,
-        img_id: this.selected,
+        img_id: this.selectedImgId,
         title: this.title,
         content: this.content,
       }
       this.$store.dispatch("addFeed", payload)
       // this.$emit("close-modal")
+    },
+    addCalendar() {
+      const selectedImgUrl =
+        "https://image.tmdb.org/t/p/original" + this.selectedImgPath
+      this.$emit("add-calendar", selectedImgUrl)
     },
   },
 }

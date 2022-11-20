@@ -8,7 +8,10 @@
       <template #modal-header>
         <h2 class="logoText">CREATE YOUR OWN POST</h2>
       </template>
-      <feed-create-modal @close-modal="closeCreateFeedModal" />
+      <feed-create-modal
+        :isFeedRequest="isFeedRequest"
+        @close-modal="closeCreateFeedModal"
+      />
     </b-modal>
   </div>
 </template>
@@ -18,6 +21,11 @@ import FeedCreateModal from "./FeedCreateModal.vue"
 export default {
   components: { FeedCreateModal },
   name: "MyPageFeed",
+  data() {
+    return {
+      isFeedRequest: true,
+    }
+  },
   methods: {
     openCreateFeedModal() {
       this.$bvModal.show("openCreateFeedModal")
