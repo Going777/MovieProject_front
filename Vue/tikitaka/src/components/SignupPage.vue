@@ -10,9 +10,9 @@
     <form @submit.prevent="signUp" style="margin: auto; width: 80%">
       <v-text-field
         type="text"
-        id="nickname"
-        v-model="nickname"
-        label="Nickname"
+        id="username"
+        v-model="username"
+        label="Username"
         :rules="nameRules"
         :counter="10"
         required
@@ -59,7 +59,7 @@ export default {
   name: "SignupPage",
   data() {
     return {
-      nickname: "",
+      username: "",
       email: null,
       password1: null,
       password2: null,
@@ -68,21 +68,21 @@ export default {
         (v) => /.+@.+/.test(v) || "E-mail must be valid",
       ],
       nameRules: [
-        (v) => !!v || "Nickname is required",
-        (v) => v.length <= 10 || "nickname must be less than 10 characters",
+        (v) => !!v || "Username is required",
+        (v) => v.length <= 10 || "username must be less than 10 characters",
       ],
       passwordRules: [(v) => !!v || "Password is required"],
     }
   },
   methods: {
     signUp() {
-      const nickname = this.nickname
+      const username = this.username
       const email = this.email
       const password1 = this.password1
       const password2 = this.password2
 
       const payload = {
-        nickname,
+        username,
         email,
         password1,
         password2,

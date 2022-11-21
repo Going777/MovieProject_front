@@ -7,8 +7,7 @@
         <!-- 프로필 텍스트 영역 -->
         <div id="profile-content-box">
           <!-- 닉네임 -->
-          <!-- <h2>{{ nickname }}</h2> -->
-          <h2 style="margin-left: 20px">티키타카</h2>
+          <h2 style="margin-left: 20px">{{ username }}</h2>
           <!-- 영화 MBTI -->
           <!-- <p style="color: gray; margin-top: -7px">나만의 감성 (CJI)</p> -->
           <!-- 팔로워/팔로잉/피드 수 -->
@@ -100,15 +99,18 @@
 <script>
 export default {
   name: "CommunityProfile",
+  props: {
+    username: String,
+  },
   data() {
     return {
       //   profileImageURL: require("@/assets/tikitaka_chips.png"),
     }
   },
   computed: {
-    nickname() {
-      return this.$route.params.nickname
-    },
+    // userame() {
+    //   return this.$route.params.username
+    // },
   },
 }
 </script>

@@ -2,7 +2,7 @@
   <div class="mainText" id="mypage">
     <!-- 프로필 섹션(좌측) -->
     <div id="profile-container">
-      <community-profile />
+      <community-profile :username="username" />
     </div>
 
     <!-- 메뉴 이동 섹션(아이콘 바)(우측 상단) -->
@@ -49,8 +49,8 @@ export default {
     }
   },
   computed: {
-    nickname() {
-      return this.$store.state.nickname
+    username() {
+      return this.$route.params.username
     },
     feedList() {
       return this.$store.state.feedList
@@ -71,8 +71,8 @@ export default {
     },
   },
   created() {
-    console.log(this.$route.params.nickname)
-    this.$store.dispatch("loadFeedList", this.$route.params.nickname)
+    console.log(this.$route.params.username)
+    this.$store.dispatch("loadFeedList", this.$route.params.username)
   },
 }
 </script>
