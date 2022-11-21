@@ -5,7 +5,7 @@
       color="black lighten-2"
       height="70pxs"
       @click="openCreateFeedModal"
-      style="top: 200px"
+      style="bottom: 50px; right: 100px"
       fixed
     >
       <img src="@/assets/add_btn.png" alt="" width="70px" />
