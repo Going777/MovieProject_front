@@ -350,7 +350,7 @@ export default new Vuex.Store({
           title: payload.title,
           content: payload.content,
           backdrop: payload.img_id,
-          user: 1,
+          user: context.state.user.id,
         },
         url: `${DJ_URL}/community/${payload.movie_id}/create_review/`,
       })
