@@ -27,6 +27,8 @@ export default new Vuex.Store({
     user: null,
     // 현재 로그인 유저 닉네임
     nickname: "로그인????",
+
+    feedList: [],
   },
   getters: {
     isLogin(state) {
@@ -74,7 +76,7 @@ export default new Vuex.Store({
         method: "get",
         url: `${DJ_URL}/accounts/${data.user.pk}/user/`,
         data: {
-          user_id: data.user.pk
+          user_id: data.user.pk,
         },
       }).then((res) => {
         state.nickname = res.data.username
@@ -98,6 +100,7 @@ export default new Vuex.Store({
     // DB에 저장된 모든 영화 데이터 가져오기
     LOAD_ALL_MOVIE_LIST(state, response) {
       state.allMovieList = response
+      console.log(state.allMovieList)
     },
     // 피드 작성시 필요한 영화
     SEARCH_MOVIE(state, response) {
@@ -106,6 +109,10 @@ export default new Vuex.Store({
     GET_BACKDROP_LIST(state, payload) {
       state.feedMovieId = payload.movie_id
       state.feedBackDropList = payload.response
+    },
+    // 유저별 피드 리스트 받아오기
+    LOAD_FEED_LIST(state, response) {
+      state.feedList = response
     },
   },
   actions: {
@@ -261,9 +268,13 @@ export default new Vuex.Store({
       axios({
         method: "get",
         url: `${DJ_URL}/accounts/all_user_list/`,
-      }).then((response) => {
-        context.commit("LOAD_ALL_USER_LIST", response.data)
       })
+        .then((response) => {
+          context.commit("LOAD_ALL_USER_LIST", response.data)
+        })
+        .catch((e) => {
+          console.log("loadUser", e)
+        })
     },
 
     // ***************************************************************
@@ -274,9 +285,13 @@ export default new Vuex.Store({
       axios({
         method: "get",
         url: `${DJ_URL}/community/all_movie_list/`,
-      }).then((response) => {
-        context.commit("LOAD_ALL_MOVIE_LIST", response.data)
       })
+        .then((response) => {
+          context.commit("LOAD_ALL_MOVIE_LIST", response.data)
+        })
+        .catch((e) => {
+          console.log("loadMovie", e)
+        })
     },
 
     // 유저 검색 서버 통신
@@ -296,7 +311,6 @@ export default new Vuex.Store({
           console.log(error)
         })
     },
-
     // 피드(리뷰)에서 영화 검색 -> 백드롭 이미지 5개 받아오기
     // searchMovieByTitle(context, payload) {
     //   axios({
@@ -348,6 +362,15 @@ export default new Vuex.Store({
         .catch(() => {
           alert("필수 항목이 빠졌어요!!")
         })
+    },
+    // 유저별 피드 받아오기
+    loadFeedList(context, username) {
+      axios({
+        method: "get",
+        url: `${DJ_URL}/community/review/${username}`,
+      }).then((response) => {
+        context.commit("LOAD_FEED_LIST", response.data)
+      })
     },
   },
   modules: {},

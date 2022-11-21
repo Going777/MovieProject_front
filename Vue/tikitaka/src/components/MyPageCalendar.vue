@@ -63,25 +63,28 @@ export default {
         eventClick: this.handleEventClick,
         eventsSet: this.handleEvents,
         eventContent: this.eventContent,
+        eventColor: "black",
         // weekends: true,
         // dateClick: his.handleDateSelect,
-        height: "1000px",
+        height: "1200px",
         // expandRows: true,
         events: [
           {
-            date: "2022-11-20",
+            title: "배고파요",
+            start: "2022-11-20",
             // description: "This is a cool event",
             image_url:
               "https://image.tmdb.org/t/p/original/f0oDtB2JCMlPKjphBJ90GcfVzWg.jpg",
-            borderColor: "",
           },
           {
+            title: "harry",
             image_url:
               "https://image.tmdb.org/t/p/original/f0oDtB2JCMlPKjphBJ90GcfVzWg.jpg",
             start: "2022-11-07",
             // end: "2022-11-10",
           },
           {
+            title: "help",
             image_url:
               "https://image.tmdb.org/t/p/original/f0oDtB2JCMlPKjphBJ90GcfVzWg.jpg",
             start: "2022-11-01",
@@ -136,6 +139,14 @@ export default {
     },
     // 일정 출력형식 (이미지 출력)
     eventContent(arg) {
+      let arrayOfDomNodes = []
+      // title event
+      let titleEvent = document.createElement("div")
+      if (arg.event._def.title) {
+        titleEvent.innerHTML = arg.event._def.title
+        titleEvent.style.backgroundColor = "black"
+        titleEvent.classList = "fc-event-title fc-sticky"
+      }
       // image event
       let imgEventWrap = document.createElement("div")
       if (arg.event.extendedProps.image_url) {
@@ -147,8 +158,9 @@ export default {
         imgEventWrap.classList = "fc-event-img"
         imgEventWrap.innerHTML = imgEvent
       }
+      arrayOfDomNodes = [imgEventWrap, titleEvent]
 
-      return { domNodes: [imgEventWrap] }
+      return { domNodes: arrayOfDomNodes }
     },
   },
 }

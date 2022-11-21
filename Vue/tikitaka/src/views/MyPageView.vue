@@ -18,7 +18,7 @@
 
     <!-- 콘텐츠 섹션(우측 하단) -->
     <div id="content-container">
-      <my-page-feed v-if="activeTab === 'MyPageFeed'" />
+      <my-page-feed v-if="activeTab === 'MyPageFeed'" :feedList="feedList" />
       <my-page-bookmark v-if="activeTab === 'MyPageBookmark'" />
       <my-page-heart-feed v-if="activeTab === 'MyPageHeartFeed'" />
       <my-page-calendar v-if="activeTab === 'MyPageCalendar'" />
@@ -52,6 +52,9 @@ export default {
     nickname() {
       return this.$store.state.nickname
     },
+    feedList() {
+      return this.$store.state.feedList
+    },
   },
   methods: {
     showFeed(currentPage) {
@@ -66,6 +69,10 @@ export default {
     showCalendar(currentPage) {
       this.activeTab = currentPage
     },
+  },
+  created() {
+    console.log(this.$route.params.nickname)
+    this.$store.dispatch("loadFeedList", this.$route.params.nickname)
   },
 }
 </script>
@@ -89,5 +96,6 @@ export default {
 
 #content-container {
   grid-area: contentArea;
+  margin-right: 20px;
 }
 </style>

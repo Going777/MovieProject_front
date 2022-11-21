@@ -346,7 +346,7 @@ export default {
     this.$store.dispatch("loadPopularMovieList")
     this.$store.dispatch("loadNowPlayingMovieList")
     this.$store.dispatch("loadNowPlayingMovieVideoList")
-    this.$store.dispatch("loadAllUserList")
+    // this.$store.dispatch("loadAllUserList")
   },
 }
 </script>
