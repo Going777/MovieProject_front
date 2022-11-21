@@ -2,7 +2,7 @@
   <div id="home" class="mainText">
     <!-- 좌측(프로필) -->
     <div id="profile-container">
-      <community-profile />
+      <community-profile :username="username" />
     </div>
 
     <!-- 우측(영화출력) -->
@@ -55,6 +55,16 @@ export default {
     },
     nowPlayingMovieVideoList() {
       return this.$store.state.nowPlayingMovieVideoList
+    },
+    user() {
+      return this.$store.state.user
+    },
+    username() {
+      if (this.user) {
+        return this.user.username
+      } else {
+        return "로그인해주세요"
+      }
     },
   },
 }

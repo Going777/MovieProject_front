@@ -71,15 +71,13 @@ export default new Vuex.Store({
     SAVE_TOKEN(state, data) {
       state.user = data.user
       state.token = data.access_token
-      console.log(data.user)
+      // console.log(data.user)
       axios({
         method: "get",
         url: `${DJ_URL}/accounts/${data.user.pk}/user/`,
-        data: {
-          user_id: data.user.pk,
-        },
       }).then((res) => {
-        state.nickname = res.data.username
+        console.log(res.data)
+        state.user = res.data
       })
       router.push({ name: "home" })
     },
@@ -247,7 +245,7 @@ export default new Vuex.Store({
         method: "post",
         url: `${DJ_URL}/accounts/signup/`,
         data: {
-          username: payload.nickname,
+          username: payload.username,
           email: payload.email,
           password1: payload.password1,
           password2: payload.password2,
@@ -353,7 +351,7 @@ export default new Vuex.Store({
           title: payload.title,
           content: payload.content,
           backdrop: payload.img_id,
-          user: 1,
+          user: context.state.user.id,
         },
         url: `${DJ_URL}/community/${payload.movie_id}/create_review/`,
       })

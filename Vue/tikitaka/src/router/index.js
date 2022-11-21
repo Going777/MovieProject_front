@@ -43,7 +43,7 @@ const routes = [
     component: CommunityView,
   },
   {
-    path: "/community/:nickname",
+    path: "/community/:username",
     name: "mypage",
     component: MyPageView,
   },

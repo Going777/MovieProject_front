@@ -52,7 +52,7 @@
       >
       </v-text-field>
       <v-text-field
-        type="text"
+        type="password"
         id="password"
         v-model="password"
         label="password"
