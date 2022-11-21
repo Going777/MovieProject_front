@@ -18,9 +18,9 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn @click="goSignUp"> SignUp </v-btn>
-      <v-btn @click="goLogIn"> LogIn </v-btn>
-      <v-btn @click="logOut"> LogOut </v-btn>
+      <v-btn v-if="!isLogin" @click="goSignUp"> SignUp </v-btn>
+      <v-btn v-if="!isLogin" @click="goLogIn"> LogIn </v-btn>
+      <v-btn v-if="isLogin" @click="logOut"> LogOut </v-btn>
       <!-- 참고 아이콘 -->
       <!-- <div>
         <v-btn icon>
@@ -283,6 +283,9 @@ export default {
     },
     username() {
       return this.$store.state.user.username
+    },
+    isLogin() {
+      return this.$store.getters.isLogin
     },
   },
   watch: {
