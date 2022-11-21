@@ -1,9 +1,8 @@
 <template>
   <div style="margin: 0px 15% 200px; display: flex" class="mainText">
     <!-- 영화 포스터 및 버튼 영역 -->
-    <div style="max-width: 150px; margin-right: 30px">
-      <img :src="posterURL" alt="" style="width: 100%; max-height: 220px" />
-      <v-btn style="width: 100%; margin-top: 30px"> isWatched </v-btn>
+    <div style="max-width: 230px; margin-right: 30px">
+      <img :src="posterURL" alt="" style="width: 100%" />
       <v-btn style="width: 100%; margin-top: 30px"> isBookmarked </v-btn>
       <v-btn style="width: 100%; margin-top: 30px"> writeReview </v-btn>
     </div>
@@ -19,18 +18,18 @@
       <!-- 영화 정보 영역 -->
       <div style="display: flex; margin: 10px 0px 30px">
         <!-- 영화 상세 정보 -->
-        <div style="width: 50%">
+        <div style="width: 35%">
           <h2>Info</h2>
           <MovieDetailBasic :movie="movie" />
         </div>
 
         <!-- 영화 캐스팅 -->
-        <div style="width: 50%">
+        <div style="width: 35%">
           <h2>Cast</h2>
           <MovieDetailCastBoard :movie="movie" />
         </div>
         <!-- 커뮤니티 영역 -->
-        <div>
+        <div style="width: 30%">
           <h3>Feed</h3>
           <MovieDetailCommunity :movie="movie" />
         </div>
