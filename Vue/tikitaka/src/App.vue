@@ -298,12 +298,20 @@ export default {
       this.$router.push({ name: "home" }).catch(() => {}) // Avoided redundant navigation 에러 해결
     },
     goCommunity() {
-      this.$router.push({ name: "community" }).catch(() => {})
+      if (this.isLogin) {
+        this.$router.push({ name: "community" }).catch(() => {})
+      } else {
+        this.$router.push({ name: "login" })
+      }
     },
     goMyPage() {
-      this.$router
-        .push({ name: "mypage", params: { username: this.username } })
-        .catch(() => {})
+      if (this.isLogin) {
+        this.$router
+          .push({ name: "mypage", params: { username: this.username } })
+          .catch(() => {})
+      } else {
+        this.$router.push({ name: "login" })
+      }
     },
 
     openSearchModal() {
