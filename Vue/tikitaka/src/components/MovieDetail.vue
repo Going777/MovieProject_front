@@ -1,10 +1,20 @@
 <template>
-  <div style="margin: 0px 15% 200px; display: flex" class="mainText">
+  <div style="margin: 0px 10% 200px; display: flex" class="mainText">
     <!-- 영화 포스터 및 버튼 영역 -->
-    <div style="max-width: 230px; margin-right: 30px">
+    <div style="max-width: 220px; margin-right: 30px">
       <img :src="posterURL" alt="" style="width: 100%" />
-      <v-btn style="width: 100%; margin-top: 30px"> isBookmarked </v-btn>
-      <v-btn style="width: 100%; margin-top: 30px"> writeReview </v-btn>
+      <v-btn style="width: 100%; margin-top: 30px">
+        <v-icon left>
+          mdi-star
+        </v-icon>
+        Bookmark
+      </v-btn>
+      <v-btn style="width: 100%; margin-top: 30px">
+        <v-icon left>
+          mdi-pencil
+        </v-icon>
+        Review
+      </v-btn>
     </div>
 
     <!-- 영화 정보 -->

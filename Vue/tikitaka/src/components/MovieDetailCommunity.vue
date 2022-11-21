@@ -7,7 +7,12 @@
       :src="videoPath"
       frameborder="0"
     />
-    <v-btn style="width: 100%"> sendMessage </v-btn>
+    <v-btn style="width: 100%">
+      <v-icon left>
+          mdi-message
+        </v-icon>
+      Message
+    </v-btn>
   </div>
 </template>
 
