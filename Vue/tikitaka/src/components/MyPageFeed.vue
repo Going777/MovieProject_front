@@ -47,7 +47,8 @@
       size="medi"
       id="openFeedModal"
     >
-      <feed-detail-modal />
+      <feed-detail-modal :clickedFeed="clickedFeed" />
+      <!-- <feed-detail-modal /> -->
     </b-modal>
 
     <!-- 게시글 작성 모달 -->
@@ -65,9 +66,10 @@
 
 <script>
 import FeedCreateModal from "./FeedCreateModal.vue"
+import FeedDetailModal from "./FeedDetailModal.vue"
 import MyPageFeedItem from "./MyPageFeedItem.vue"
 export default {
-  components: { FeedCreateModal, MyPageFeedItem },
+  components: { FeedCreateModal, MyPageFeedItem, FeedDetailModal },
   name: "MyPageFeed",
   props: {
     feedList: Array,
@@ -75,6 +77,7 @@ export default {
   data() {
     return {
       isFeedRequest: true,
+      clickedFeed: null,
     }
   },
   methods: {
@@ -84,7 +87,10 @@ export default {
     closeCreateFeedModal() {
       this.$bvModal.hide("openCreateFeedModal")
     },
-    clickFeed() {},
+    clickFeed(feed) {
+      this.clickedFeed = feed
+      this.$bvModal.show("openFeedModal")
+    },
   },
 }
 </script>

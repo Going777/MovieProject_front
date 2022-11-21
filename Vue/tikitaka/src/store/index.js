@@ -112,6 +112,7 @@ export default new Vuex.Store({
     },
     // 유저별 피드 리스트 받아오기
     LOAD_FEED_LIST(state, response) {
+      console.log("load_feed_list--------------------------", response)
       state.feedList = response
     },
   },
@@ -357,7 +358,9 @@ export default new Vuex.Store({
         url: `${DJ_URL}/community/${payload.movie_id}/create_review/`,
       })
         .then((response) => {
-          console.log(response)
+          console.log("before", context.state.feedList)
+          context.state.feedList.push(response.data)
+          console.log("after", context.state.feedList)
         })
         .catch(() => {
           alert("필수 항목이 빠졌어요!!")

@@ -17,12 +17,14 @@
     </div>
 
     <!-- 콘텐츠 섹션(우측 하단) -->
-    <div id="content-container">
+    <!-- <div > -->
+    <v-sheet id="content-container" elevation="3">
       <my-page-feed v-if="activeTab === 'MyPageFeed'" :feedList="feedList" />
       <my-page-bookmark v-if="activeTab === 'MyPageBookmark'" />
       <my-page-heart-feed v-if="activeTab === 'MyPageHeartFeed'" />
       <my-page-calendar v-if="activeTab === 'MyPageCalendar'" />
-    </div>
+    </v-sheet>
+    <!-- </div> -->
   </div>
 </template>
 
@@ -52,8 +54,13 @@ export default {
     nickname() {
       return this.$store.state.nickname
     },
-    feedList() {
-      return this.$store.state.feedList
+    feedList: {
+      get() {
+        return this.$store.state.feedList
+      },
+      set(newValue) {
+        return newValue
+      },
     },
   },
   methods: {
@@ -71,8 +78,11 @@ export default {
     },
   },
   created() {
-    console.log(this.$route.params.nickname)
     this.$store.dispatch("loadFeedList", this.$route.params.nickname)
+  },
+  updated() {
+    this.feedList = this.$store.state.feedList
+    console.log(this.feedList)
   },
 }
 </script>
@@ -96,7 +106,9 @@ export default {
 
 #content-container {
   grid-area: contentArea;
-  margin-right: 20px;
-  margin-left: 20px;
+  margin-top: -20%;
+  padding: 50px;
+  background-color: white;
+  border-radius: 20px;
 }
 </style>

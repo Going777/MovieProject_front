@@ -103,7 +103,7 @@ export default {
         content: this.content,
       }
       this.$store.dispatch("addFeed", payload)
-      // this.$emit("close-modal")
+      this.$emit("close-modal")
     },
     addCalendar() {
       const selectedImgUrl =
