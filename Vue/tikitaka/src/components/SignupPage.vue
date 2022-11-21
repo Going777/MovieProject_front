@@ -26,14 +26,14 @@
         required
       ></v-text-field>
       <v-text-field
-        type="text"
+        type="password"
         id="password"
         v-model="password1"
         label="password"
         :rules="passwordRules"
         required
       /><v-text-field
-        type="text"
+        type="password"
         id="password2"
         v-model="password2"
         label="Confirm password"
