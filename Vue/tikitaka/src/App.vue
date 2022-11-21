@@ -5,7 +5,8 @@
       app
       fixed
       clipped-left
-      color="white"
+      dark
+      color="black"
       elevate-on-scroll
       scroll-target="#scrolling-techniques-7"
     >
@@ -47,6 +48,7 @@
       fixed
       mini-variant
       left
+      dark
       v-if="!['intro'].includes($route.name)"
     >
       <v-list nav dense fixed>
