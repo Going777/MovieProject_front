@@ -1,7 +1,7 @@
 <template>
   <div id="box" style="margin-top: auto; margin-bottom: auto">
     <img
-      src="../assets/flat-lay-cinema-elements-with-copyspace.jpg"
+      src="../assets/side_signup.jpg"
       alt=""
       style="
         height: 100%;

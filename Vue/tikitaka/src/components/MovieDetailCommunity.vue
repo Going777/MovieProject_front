@@ -29,6 +29,11 @@ export default {
       // return `https://www.youtube.com/embed/${this.movie.key}?&mute=1&rel=0&showsearch=0&controls=0&fs=0&loop=1&modestbranding=1&loop=1&playlist=${this.movie.key}`
     },
   },
+  created: {
+    getvideoPath() {
+      this.videoPath()
+    }
+  }
 }
 </script>
 
