@@ -1,15 +1,16 @@
 <template>
   <div>
-    <v-sheet id="profile-box" class="mainText" elevation="5">
+    <v-sheet id="profile-box" class="mainText" elevation="3">
       <div>
         <!-- 프로필 이미지 -->
         <img src="@/assets/tikitaka_film.png" id="profile-image" />
         <!-- 프로필 텍스트 영역 -->
         <div id="profile-content-box">
           <!-- 닉네임 -->
-          <h2 style="">{{ nickname }}</h2>
+          <!-- <h2>{{ nickname }}</h2> -->
+          <h2 style="margin-left: 20px">티키타카</h2>
           <!-- 영화 MBTI -->
-          <p style="color: gray; margin-top: -7px">나만의 감성 (CJI)</p>
+          <!-- <p style="color: gray; margin-top: -7px">나만의 감성 (CJI)</p> -->
           <!-- 팔로워/팔로잉/피드 수 -->
           <div id="profile-count-box">
             <!-- 게시물 수(포스트) -->
@@ -30,8 +31,12 @@
           </div>
           <hr />
           <!-- IDENTITY 태그 -->
-          <h5>IDENTITY</h5>
-          <div id="profile-tag-box">
+          <h6 class="logoText">ABOUT ME</h6>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore
+            unde amet dignissimos, molestiae nulla eos nihil provident ipsum
+          </p>
+          <!-- <div id="profile-tag-box">
             <v-chip color="indigo" text-color="white" style="margin: 3px 3px">
               감성적인
             </v-chip>
@@ -56,10 +61,10 @@
             <v-chip color="red" text-color="white" style="margin: 3px 3px">
               1888
             </v-chip>
-          </div>
+          </div> -->
           <hr />
           <!-- 좋아하는 장르 태그 -->
-          <h5>FAVORITE GERENS</h5>
+          <h6 class="logoText">FAVORITE GERENS</h6>
           <div id="profile-tag-box">
             <v-chip color="indigo" text-color="white" style="margin: 3px 3px">
               액션
@@ -111,16 +116,18 @@ export default {
 <style>
 #profile-box {
   border-radius: 15px;
-  height: 80vh;
+  /* height: 80vh; */
   padding: 30px 10px;
-  background-color: rgb(238, 238, 238);
+  /* background-color: rgb(238, 238, 238); */
+  background-color: white;
   position: fixed;
   margin: auto;
-  max-width: 23.7%;
+  max-width: 17%;
 }
 
 #profile-content-box {
   background-color: white;
+  /* border: 7px black solid; */
   border-radius: 40px;
   margin-top: -30px;
   padding: 30px 10px;
@@ -129,6 +136,7 @@ export default {
 #profile-image {
   width: 200px;
   border-radius: 50%;
+  /* border: 5px solid black; */
   border: 10px solid white;
   display: block;
   margin: 0px auto;

@@ -1,12 +1,9 @@
 <template>
-  <div style="margin-top: 60px;">
+  <div style="margin-top: -85px">
     <div id="backImg">
       <div></div>
     </div>
-    <MovieDetail
-    :movie="movie"
-    style="margin-top: -150px;"
-    />
+    <MovieDetail :movie="movie" style="margin-top: -200px" />
   </div>
 </template>
 
@@ -17,7 +14,7 @@ import MovieDetail from "@/components/MovieDetail.vue"
 export default {
   name: "DetailView",
   components: {
-    MovieDetail
+    MovieDetail,
   },
   data() {
     return {
@@ -62,7 +59,7 @@ export default {
 <style>
 #backImg {
   width: 100%;
-  height: 500px;
+  height: 600px;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 5px;

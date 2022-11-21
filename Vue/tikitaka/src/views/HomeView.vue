@@ -19,17 +19,17 @@
           :movieList="popularMovieList.movies"
           :titleText="popularMovieList.title"
         />
-        <hr class="movielist-divide" />
+        <!-- <hr class="movielist-divide" /> -->
         <movie-list
           :movieList="nowPlayingMovieList.movies"
           :titleText="nowPlayingMovieList.title"
         />
-        <hr class="movielist-divide" />
+        <!-- <hr class="movielist-divide" /> -->
         <movie-list
           :movieList="nowPlayingMovieList.movies"
           :titleText="nowPlayingMovieList.title"
         />
-        <hr class="movielist-divide" />
+        <!-- <hr class="movielist-divide" /> -->
         <movie-list
           :movieList="nowPlayingMovieList.movies"
           :titleText="nowPlayingMovieList.title"

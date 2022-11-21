@@ -63,7 +63,6 @@ export default {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   text-align: justify;
-  text-indent: 10px;
   line-height: 2rem;
 }
 </style>

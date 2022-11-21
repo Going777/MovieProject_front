@@ -97,5 +97,6 @@ export default {
 #content-container {
   grid-area: contentArea;
   margin-right: 20px;
+  margin-left: 20px;
 }
 </style>

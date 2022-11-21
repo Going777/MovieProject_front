@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app style="background-color: rgb(250, 250, 250)">
     <!-- 최상단 nav bar -->
     <v-app-bar
       app
@@ -48,7 +48,6 @@
       fixed
       mini-variant
       left
-      dark
       v-if="!['intro'].includes($route.name)"
     >
       <v-list nav dense fixed>
@@ -97,7 +96,7 @@
     </v-navigation-drawer>
 
     <!-- 메인 화면 -->
-    <v-main>
+    <v-main style="margin: 80px 10%">
       <router-view />
     </v-main>
 

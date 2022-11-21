@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="col">
-      <div class="card" style="border-radius: 20px; margin-bottom: 25px">
+      <div
+        class="card"
+        style="border-radius: 20px; margin-bottom: 25px"
+        @click="clickFeed"
+      >
         <img :src="imgPath" id="feed-image" />
         <div class="card-body">
           <div
@@ -48,6 +52,11 @@ export default {
   computed: {
     imgPath() {
       return "https://image.tmdb.org/t/p/original" + this.feed.backdrop.path
+    },
+  },
+  methods: {
+    clickFeed() {
+      this.$emit("click-feed", this.feed)
     },
   },
   created() {

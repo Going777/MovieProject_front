@@ -1,6 +1,15 @@
 <template>
   <div>
-    <v-btn color="yellow" @click="openCreateFeedModal">게시물 작성</v-btn>
+    <v-btn
+      icon
+      color="black lighten-2"
+      height="70pxs"
+      @click="openCreateFeedModal"
+      style="top: 200px"
+      fixed
+    >
+      <img src="@/assets/add_btn.png" alt="" width="70px" />
+    </v-btn>
     <!-- 게시글 작성 모달 -->
     <b-modal hide-footer hide-header-close size="medi" id="openCreateFeedModal">
       <template #modal-header>
@@ -22,12 +31,35 @@
                 v-for="(feed, idx) in feedList"
                 :key="idx"
                 :feed="feed"
+                @click-feed="clickFeed"
               />
             </div>
           </div>
         </div>
       </v-card>
     </div>
+
+    <!-- 게시글 확대 모달 -->
+    <b-modal
+      hide-header
+      hide-footer
+      hide-header-close
+      size="medi"
+      id="openFeedModal"
+    >
+      <feed-detail-modal />
+    </b-modal>
+
+    <!-- 게시글 작성 모달 -->
+    <b-modal hide-footer hide-header-close size="medi" id="openUpdateFeedModal">
+      <template #modal-header>
+        <h2 class="logoText">UPDATE THE POST</h2>
+      </template>
+      <feed-create-modal
+        :isFeedRequest="isFeedRequest"
+        @close-modal="closeCreateFeedModal"
+      />
+    </b-modal>
   </div>
 </template>
 
@@ -52,6 +84,7 @@ export default {
     closeCreateFeedModal() {
       this.$bvModal.hide("openCreateFeedModal")
     },
+    clickFeed() {},
   },
 }
 </script>

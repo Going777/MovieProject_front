@@ -147,7 +147,7 @@ export default {
   padding: 30px 10px;
   background-color: rgb(238, 238, 238);
   position: fixed;
-  max-width: 23.7%;
+  max-width: 17%;
   float: right;
   margin-right: 10px;
   margin-top: 10px;
