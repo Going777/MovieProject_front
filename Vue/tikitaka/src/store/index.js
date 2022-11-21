@@ -17,6 +17,7 @@ export default new Vuex.Store({
     allUserList: [],
     nowPlayingMovieList: { title: "NOW PLAYING MOVIE", movies: [] },
     popularMovieList: { title: "POPULAR MOVIE", movies: [] },
+    topratedMovieList: { title: "TOP CLASSIC MOVIE", movies: [] },
     nowPlayingMovieVideoList: { title: "상영중 영화 비디오", movies: [] },
     searchMovieList: [],
     feedMovieId: null, // 안 필요할 수도 있음
@@ -42,7 +43,11 @@ export default new Vuex.Store({
     // 인기 영화
     LOAD_POPULAR_MOVIE_LIST(state, response) {
       state.popularMovieList.movies = response
-      console.log(state.popularMovieList.movies)
+      // console.log(state.popularMovieList.movies)
+    },
+    LOAD_TOPRATED_MOVIE_LIST(state, response) {
+      state.topratedMovieList.movies = response
+      console.log(state.topratedMovieList.movies)
     },
     // 현재 상영중 영화
     LOAD_NOW_PLAYING_MOVIE_LIST(state, response) {
@@ -126,6 +131,20 @@ export default new Vuex.Store({
       })
         .then((response) => {
           context.commit("LOAD_POPULAR_MOVIE_LIST", response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    // 최고평점영화 서버 통신
+    loadTopratedMovieList(context) {
+      axios({
+        method: "get",
+        url: `${DJ_URL}/movies/top_rated_movie/`,
+      })
+        .then((response) => {
+          console.log(response)
+          context.commit("LOAD_TOPRATED_MOVIE_LIST", response.data)
         })
         .catch((error) => {
           console.log(error)

@@ -26,8 +26,8 @@
         />
         <!-- <hr class="movielist-divide" /> -->
         <movie-list
-          :movieList="nowPlayingMovieList.movies"
-          :titleText="nowPlayingMovieList.title"
+          :movieList="topratedMovieList.movies"
+          :titleText="topratedMovieList.title"
         />
         <!-- <hr class="movielist-divide" /> -->
         <movie-list
@@ -49,6 +49,9 @@ export default {
   computed: {
     popularMovieList() {
       return this.$store.state.popularMovieList
+    },
+    topratedMovieList() {
+      return this.$store.state.topratedMovieList
     },
     nowPlayingMovieList() {
       return this.$store.state.nowPlayingMovieList
