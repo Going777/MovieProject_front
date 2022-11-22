@@ -18,7 +18,9 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn v-if="!isLogin" @click="goSignUp"> SignUp </v-btn>
+      <v-btn v-if="!isLogin" @click="goSignUp" style="margin-right: 15px">
+        SignUp
+      </v-btn>
       <v-btn v-if="!isLogin" @click="goLogIn"> LogIn </v-btn>
       <v-btn v-if="isLogin" @click="logOut"> LogOut </v-btn>
       <!-- 참고 아이콘 -->

@@ -123,7 +123,10 @@ export default {
     //   return this.$route.params.username
     // },
     isMyPage() {
-      return this.$store.state.user.username == this.$route.params.username
+      return (
+        this.$store.state.user.username == this.$route.params.username ||
+        this.$route.params.username == null
+      )
     },
     isFollowing() {
       return this.$store.state.user.following.includes(this.user.id)
