@@ -1,6 +1,6 @@
 <template>
   <div style="margin-right: 20px">
-    <FullCalendar :options="calendarOptions" />
+    <FullCalendar :options="calendarOptions" id="font-face" />
 
     <!-- 캘린더 포스터 등록 모달 -->
     <b-modal hide-footer hide-header-close size="medi" id="createCalendarModal">
@@ -14,7 +14,7 @@
       />
 
       <v-btn
-        class="mainText"
+        id="font-face"
         dark
         height="45"
         @click="addCalendar"
@@ -117,9 +117,8 @@ export default {
       this.$bvModal.hide("createCalendarModal")
     },
 
-    // 일정 삭제
+    // 이벤트 다시 누르면 일정 삭제
     handleEventClick(clickInfo) {
-      // console.log(clickInfo)
       if (confirm(`Are you sure you want to delete ${clickInfo.event.title}`)) {
         clickInfo.event.remove()
       }
@@ -135,6 +134,8 @@ export default {
         titleEvent.innerHTML = arg.event._def.title
         titleEvent.style.backgroundColor = "white"
         titleEvent.style.color = "black"
+        titleEvent.style.fontSize = "11px"
+        titleEvent.style.fontWeight = "bold"
         // titleEvent.style.wordBreak = "break-all"
         // titleEvent.style.height = "79px"
         // titleEvent.style.width = "100%"
@@ -151,7 +152,12 @@ export default {
         imgEventWrap.classList = "fc-event-img"
         imgEventWrap.innerHTML = imgEvent
       }
+      arg.borderColor = "white"
       arrayOfDomNodes = [imgEventWrap, titleEvent]
+      console.log("heeeeeeeeeeeer", arg)
+      // arg
+      //   .find("span.fc-event-title")
+      //   .html(element.find("span.fc-event-title").text())
 
       return { domNodes: arrayOfDomNodes }
     },
@@ -159,4 +165,12 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+#font-face {
+  font-family: "S-CoreDream-3Light";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+</style>
