@@ -17,15 +17,48 @@
       <img src="@/assets/tikitaka_logo_small.png" style="width: 50px" />
 
       <v-spacer></v-spacer>
-      <v-btn class="mx-1" color="error" @click="messages = 0">
-        Clear Notifications
-      </v-btn>
-      <v-btn class="mx-1" color="primary" @click="messages++">
-        Send Message
-      </v-btn>
-      <v-badge :content="messages" :value="messages" color="green" overlap>
-        <v-icon large> mdi-bell </v-icon>
-      </v-badge>
+      <v-menu offset-y v-if="isLogin">
+        <template v-slot:activator="{ on, attrs }">
+          <v-badge :content="messages" :value="messages" color="yellow" overlap dot="true">
+            <v-icon
+              v-bind="attrs"
+              v-on="on"
+              
+            > mdi-bell</v-icon>
+          </v-badge>
+        </template>
+        <v-card v-if="isLogin">
+          <v-card-title>Message</v-card-title>
+          <v-card-subtitle>안 읽은 메세지가 1통 있습니다.</v-card-subtitle>
+          <hr>
+          <div style="display: flex; margin:0px 15px 0px">
+            <div style="margin-right:10px;">
+              <div style="display: flex; justify-content:flex-start; align-items: center;"> 
+                <img
+                  style="width: 30px; height: 30px; border-radius: 50%; margin-right:5px"
+                  src="@/assets/tikitaka_nacho.png"
+                />
+                <div>
+                  <span>나쵸</span>
+                  <span style="font-size:5px; color: grey;">11/22/2022 20:35</span>
+                </div>
+              </div>
+              <p style="font-size:14px; color: grey;">
+                이번 주말 해리포터 올나잇 잊지마
+              </p>
+            </div>
+            <div>
+              <img
+              style="width: 35px;"
+              src="@/assets/poster_example.jpg" alt="해리 포터와 마법사의 돌">
+            </div>
+          </div>
+        </v-card>
+      </v-menu>
+      
+
+
+
       <v-btn
         v-if="!isLogin"
         @click="goSignUp"
@@ -34,7 +67,7 @@
         SignUp
       </v-btn>
       <v-btn v-if="!isLogin" @click="goLogIn"> LogIn </v-btn>
-      <v-btn v-if="isLogin" @click="logOut"> LogOut </v-btn>
+      <v-btn v-if="isLogin" @click="logOut" style="margin-right: 15px; margin-left: 15px"> LogOut </v-btn>
       <!-- 참고 아이콘 -->
       <!-- <div>
         <v-btn icon>
@@ -280,7 +313,7 @@ export default {
   name: "App",
   data() {
     return {
-      messages: 0,
+      messages: 1,
       keyword: "",
       // selectedOption: "영화 제목",
       // searchOptions: ["영화 제목", "영화 배우/감독"],
