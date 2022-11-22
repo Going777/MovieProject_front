@@ -8,7 +8,7 @@ import router from "@/router"
 import createPersistedState from "vuex-persistedstate" // 로컬에 데이터 자동저장을 학기 위한 패키지
 
 const DJ_URL = "http://127.0.0.1:8000"
-// const DJ_URL = "http://35.174.62.42"
+// const DJ_URL = "http://34.204.166.25"
 
 export default new Vuex.Store({
   plugins: [createPersistedState()],
@@ -30,6 +30,7 @@ export default new Vuex.Store({
     nickname: "로그인????",
 
     feedList: [],
+    tempUser: null,
   },
   getters: {
     isLogin(state) {
@@ -117,6 +118,11 @@ export default new Vuex.Store({
     LOAD_FEED_LIST(state, response) {
       console.log("load_feed_list--------------------------", response)
       state.feedList = response
+    },
+    // 유저 가져오기
+    GET_USER(state, response) {
+      console.log("get_user--------------------------", response)
+      state.tempUser = response
     },
   },
   actions: {
@@ -324,6 +330,23 @@ export default new Vuex.Store({
         .then((response) => {
           console.log(response)
           // context.commit("SEARCH_MOVIE_LIST", response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    // 닉네임으로 유저 반환
+    getUser(context, username) {
+      axios({
+        method: "get",
+        params: {
+          name: username,
+        },
+        url: `${DJ_URL}/accounts/get_user/`,
+      })
+        .then((response) => {
+          console.log("@@@@@@@@@@@@@@@@@@", response)
+          context.commit("GET_USER", response.data)
         })
         .catch((error) => {
           console.log(error)

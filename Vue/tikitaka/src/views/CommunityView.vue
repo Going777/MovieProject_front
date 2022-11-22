@@ -1,7 +1,7 @@
 <template>
   <div id="community">
     <div id="profile-container">
-      <community-profile :username="username" />
+      <community-profile :user="user" />
     </div>
     <div id="feed-container">
       <community-feed />
@@ -20,8 +20,8 @@ export default {
   components: { CommunityProfile, CommunityFeed, CommunitySide },
   name: "CommunityView",
   computed: {
-    username() {
-      return this.$store.state.user.username
+    user() {
+      return this.$store.state.user
     },
   },
 }
