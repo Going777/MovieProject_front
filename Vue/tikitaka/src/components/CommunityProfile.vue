@@ -41,7 +41,9 @@
               >Unfollow</v-btn
             >
           </div>
-          <v-btn v-if="isMyPage" style="width: 100%">Edit Profile</v-btn>
+          <v-btn v-if="isMyPage" style="width: 100%" @click="openEditProfile"
+            >Edit Profile</v-btn
+          >
           <hr />
           <!-- IDENTITY 태그 -->
           <h6 class="logoText">ABOUT ME</h6>
@@ -108,6 +110,108 @@
         </div>
       </div>
     </v-sheet>
+
+    <!-- 프로필 변경 모달 -->
+    <b-modal hide-footer hide-header-close id="profileEditModal">
+      <template #modal-header>
+        <h3 class="logoText">EDIT YOUR PROFILE</h3>
+      </template>
+      <!-- 프로필 이미지 -->
+      <img :src="selectImgUrl" class="modal-profile-main-image" />
+      <!-- 닉네임 -->
+      <!-- <form>
+        <h5><strong>Nick Name</strong></h5>
+        <div style="margin: 10px">
+          <input type="text" v-model="modalNickName" />
+          <input type="submit" value="Check Availability" />
+        </div>
+      </form> -->
+      <br /><br />
+      <!-- 선택가능 프로필 이미지 -->
+      <h5><strong>You Can Change Your Profile Image</strong></h5>
+      <div>
+        <input type="radio" id="img1" style="display: none" name="radio" />
+        <label for="img1">
+          <img
+            src="../assets/tikitaka_chips.png"
+            @click="selectImage"
+            class="modal-profile-sub-image"
+          />
+        </label>
+        <input type="radio" id="img2" style="display: none" name="radio" />
+        <label for="img2">
+          <img
+            src="../assets/tikitaka_coke.png"
+            @click="selectImage"
+            class="modal-profile-sub-image"
+          />
+        </label>
+        <input type="radio" id="img3" style="display: none" name="radio" />
+        <label for="img3">
+          <img
+            src="../assets/tikitaka_coffee.png"
+            @click="selectImage"
+            class="modal-profile-sub-image"
+          />
+        </label>
+        <input type="radio" id="img4" style="display: none" name="radio" />
+        <label for="img4">
+          <img
+            src="../assets/tikitaka_film.png"
+            @click="selectImage"
+            class="modal-profile-sub-image"
+          />
+        </label>
+        <input type="radio" id="img5" style="display: none" name="radio" />
+        <label for="img5">
+          <img
+            src="../assets/tikitaka_hotdog.png"
+            @click="selectImage"
+            class="modal-profile-sub-image"
+          />
+        </label>
+        <input type="radio" id="img6" style="display: none" name="radio" />
+        <label for="img6">
+          <img
+            src="../assets/tikitaka_nacho.png"
+            @click="selectImage"
+            class="modal-profile-sub-image"
+          />
+        </label>
+        <input type="radio" id="img7" style="display: none" name="radio" />
+        <label for="img7">
+          <img
+            src="../assets/tikitaka_popcorn.png"
+            @click="selectImage"
+            class="modal-profile-sub-image"
+          />
+        </label>
+        <input type="radio" id="img8" style="display: none" name="radio" />
+        <label for="img8">
+          <img
+            src="../assets/tikitaka_ticket.png"
+            @click="selectImage"
+            class="modal-profile-sub-image"
+          />
+        </label>
+      </div>
+
+      <hr />
+      <!-- 외부 파일 첨부 -->
+      <!-- <div>
+        <p>
+          <input type="file" id="file" />
+          <label for="file"></label>
+        </p>
+      </div> -->
+
+      <!-- 본인 소개글 -->
+      <h5><strong>Please Introduce Yourself</strong></h5>
+      <v-text-field outlined></v-text-field>
+
+      <!-- 좋아하는 장르 -->
+      <h5><strong>What's Your Favorite Movie Genres?</strong></h5>
+    </b-modal>
   </div>
 </template>
 
@@ -119,7 +223,9 @@ export default {
   },
   data() {
     return {
-      //   profileImageURL: require("@/assets/tikitaka_chips.png"),
+      profileImgUrl: require(`@/assets/tikitaka_${this.$store.state.tempUser.profile_img}.png`),
+      selectImgUrl: null,
+      isSelected: false,
     }
   },
   computed: {
@@ -143,7 +249,7 @@ export default {
     },
     profile_img() {
       return this.$store.state.tempUser.profile_img
-    }
+    },
   },
   methods: {
     follow() {
@@ -152,6 +258,13 @@ export default {
         you: this.user.id,
       }
       return this.$store.dispatch("follow", payload)
+    },
+    openEditProfile() {
+      this.$bvModal.show("profileEditModal")
+      this.selectImgUrl = this.profileImgUrl
+    },
+    selectImage(event) {
+      this.selectImgUrl = event.target.src
     },
   },
   created: {},
@@ -188,5 +301,18 @@ export default {
   text-align: center;
   display: flex;
   justify-content: space-around;
+}
+
+.modal-profile-main-image {
+  width: 40%;
+  margin: 5px;
+  border-radius: 50%;
+}
+.modal-profile-sub-image {
+  width: 100px;
+  margin: 5px;
+}
+input:checked + label > img {
+  border: 4px solid black;
 }
 </style>
