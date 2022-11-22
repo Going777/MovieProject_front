@@ -377,6 +377,22 @@ export default new Vuex.Store({
           console.log(error)
         })
     },
+    follow(context, payload) {
+      axios({
+        method: "post",
+        data: {
+          id: payload.me,
+        },
+        url: `${DJ_URL}/accounts/${payload.you}/follow/`,
+      })
+        .then((response) => {
+          console.log(response.data)
+          context.dispatch("getMe", context.state.user.username)
+        })
+        .catch(() => {
+          alert("팔로우 실패!!!")
+        })
+    },
     // 피드(리뷰)에서 영화 검색 -> 백드롭 이미지 5개 받아오기
     // searchMovieByTitle(context, payload) {
     //   axios({

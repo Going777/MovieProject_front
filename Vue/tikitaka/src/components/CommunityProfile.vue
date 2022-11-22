@@ -34,7 +34,9 @@
             </div>
           </div>
           <div v-if="!isMyPage">
-            <v-btn v-if="!isFollowing" style="width: 100%">Follow</v-btn>
+            <v-btn v-if="!isFollowing" style="width: 100%" @click="follow"
+              >Follow</v-btn
+            >
             <v-btn v-if="isFollowing" style="width: 100%">Unfollow</v-btn>
           </div>
           <v-btn v-if="isMyPage" style="width: 100%">Edit Profile</v-btn>
@@ -132,7 +134,15 @@ export default {
       return this.$store.state.user.following.includes(this.user.id)
     },
   },
-  methods: {},
+  methods: {
+    follow() {
+      const payload = {
+        me: this.$store.state.user.id,
+        you: this.user.id,
+      }
+      return this.$store.dispatch("follow", payload)
+    },
+  },
   created: {},
 }
 </script>

@@ -58,6 +58,7 @@
         label="password"
         :rules="passwordRules"
         required
+        @keyup.enter="logIn"
       />
       <v-btn
         @click="logIn"
