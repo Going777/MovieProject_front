@@ -1,41 +1,72 @@
 <template>
-  <div id="feed-item" class="mainText">
-    {{ feed }}
+  <div id="feed-item" class="mainText" style="margin-bottom: 30px">
+    <!-- {{ feed }} -->
     <!-- 유저프로필 & 유저 닉네임 -->
-    <div style="display: flex; margin-bottom: 10px">
-      <img
-        style="width: 8%; min-width: 36px; border-radius: 50%"
-        src="@/assets/tikitaka_film.png"
-      />
-      <h5
-        style="
-          align-self: center;
-          margin-left: 10px;
-          margin-top: auto;
-          margin-bottom: auto;
-        "
-      >
-        {{ feed.user.username }}
-      </h5>
-    </div>
-    <!-- 피드 -->
-    <div class="card" style="border-radius: 20px">
-      <img :src="imgPath" id="feed-image" />
-      <div class="card-body">
-        <div style="display: flex; justify-content: space-between">
-          <p style="font-size: 28px; margin: 0">{{ feed.title }}</p>
-          <v-btn icon color="red lighten-2">
-            <v-icon color="red" size="35" style="align-self: center"
-              >mdi-heart
-            </v-icon>
-          </v-btn>
-        </div>
-        <hr />
-        <div id="feed-content">
-          {{ feed.content }}
+    <v-sheet
+      elevation="3"
+      style="padding: 20px; background-color: white; border-radius: 20px"
+    >
+      <div style="display: flex; margin-bottom: 10px">
+        <img
+          style="width: 8%; min-width: 36px; border-radius: 50%"
+          src="@/assets/tikitaka_film.png"
+        />
+        <h5
+          style="
+            align-self: center;
+            margin-left: 10px;
+            margin-top: auto;
+            margin-bottom: auto;
+          "
+        >
+          {{ feed.user.username }}
+        </h5>
+      </div>
+      <!-- 피드 -->
+      <div class="card" style="border-radius: 20px">
+        <img :src="imgPath" id="feed-image" @click="clickFeed" />
+        <div class="card-body">
+          <div @click="clickFeed">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin: -6px 0;
+              "
+            >
+              <div>
+                <h4 style="margin-top: -1px; margin-bottom: -0.5px">
+                  {{ feed.title }}
+                </h4>
+                <p style="font-size: 14px; color: rgb(93, 93, 93)">
+                  {{ feed.movie.title }} - {{ feed.movie.original_title }}
+                </p>
+                <p style="font-size: 12px; color: gray; margin-bottom: -5px">
+                  좋아요 {{ likeCount }}개
+                </p>
+              </div>
+              <v-btn icon color="red lighten-2" @click.stop="clickLikeBtn">
+                <v-icon
+                  v-if="isLike"
+                  color="red"
+                  size="30"
+                  style="align-self: center"
+                  >mdi-heart
+                </v-icon>
+                <v-icon v-else color="red" size="30" style="align-self: center"
+                  >mdi-heart-outline
+                </v-icon>
+              </v-btn>
+            </div>
+            <hr />
+            <div id="feed-content">
+              {{ feed.content }}
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </v-sheet>
   </div>
 </template>
 
@@ -48,6 +79,30 @@ export default {
   computed: {
     imgPath() {
       return "https://image.tmdb.org/t/p/original" + this.feed.backdrop.path
+    },
+    user_id() {
+      return this.$store.state.user.id
+    },
+    isLike() {
+      if (this.feed.like_users.includes(this.user_id)) {
+        return true
+      }
+      return false
+    },
+    likeCount() {
+      return this.feed.like_users.length
+    },
+  },
+  methods: {
+    clickFeed() {
+      this.$emit("click-feed", this.feed)
+    },
+    clickLikeBtn() {
+      const payload = {
+        feed_id: this.feed.id,
+        user_id: this.$store.state.user.id,
+      }
+      this.$store.dispatch("clickLikeBtn", payload)
     },
   },
 }
