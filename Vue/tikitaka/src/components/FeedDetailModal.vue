@@ -23,9 +23,11 @@ export default {
   },
 
   computed: {
+    // 현재 로그인한 유저
     user() {
       return this.$store.state.user
     },
+    // 현재 유저와 피드 작성 유저가 같은지 판단 -> 같을 때만 삭제,수정 가능
     isUser() {
       if (this.user.id === this.clickedFeed.user.id) {
         return true

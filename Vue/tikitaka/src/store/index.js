@@ -21,7 +21,11 @@ export default new Vuex.Store({
     nowPlayingMovieVideoList: { title: "상영중 영화 비디오", movies: [] },
     searchMovieList: [],
     feedMovieId: null, // 안 필요할 수도 있음
+
+    // 캘린더 등록시 필요
     feedBackDropList: [],
+    cal_movie_title: null, //캘린더에서 사용할 영화 제목
+
     movie: null,
     token: null,
     // 현재 로그인 유저
@@ -65,7 +69,7 @@ export default new Vuex.Store({
       state.searchMovieList.push(...response)
     },
     // detail로 들어갈 때 필요한 영화
-    GET_MOVIE_BY_ID(state, response) {
+    GET_MOVIE_BY_ID_AND_GO_DETAIL(state, response) {
       state.movie = response.movie
       router
         .push({ name: "detail", params: { id: response.id } })
@@ -113,6 +117,7 @@ export default new Vuex.Store({
       state.feedMovie = response[0]
     },
     GET_BACKDROP_LIST(state, payload) {
+      state.cal_movie_title = payload.movie_title
       state.feedMovieId = payload.movie_id
       state.feedBackDropList = payload.response
     },
@@ -205,7 +210,7 @@ export default new Vuex.Store({
             movie: response.data,
             id: movie_id,
           }
-          context.commit("GET_MOVIE_BY_ID", payload)
+          context.commit("GET_MOVIE_BY_ID_AND_GO_DETAIL", payload)
         })
         .catch((error) => {
           console.log(error)
@@ -353,7 +358,6 @@ export default new Vuex.Store({
         url: `${DJ_URL}/accounts/get_user/`,
       })
         .then((response) => {
-          console.log("@@@@@@@@@@@@@@@@@@", response)
           context.commit("GET_USER", response.data)
         })
         .catch((error) => {
@@ -370,7 +374,6 @@ export default new Vuex.Store({
         url: `${DJ_URL}/accounts/get_user/`,
       })
         .then((response) => {
-          console.log("@@@@@@@@@@@@@@@@@@", response)
           context.commit("GET_ME", response.data)
         })
         .catch((error) => {
@@ -404,7 +407,8 @@ export default new Vuex.Store({
       }).then((response) => {
         const payload = {
           movie_id: movie_id,
-          response: response.data,
+          response: response.data.backdrops,
+          movie_title: response.data.title,
         }
         context.commit("GET_BACKDROP_LIST", payload)
       })

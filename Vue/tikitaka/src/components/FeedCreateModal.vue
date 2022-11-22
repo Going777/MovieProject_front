@@ -87,8 +87,8 @@ export default {
     closeModal() {
       this.$emit("close-modal")
     },
-    selectImageForCalendar(select_img) {
-      this.$emit("select-image-for-calendar", select_img)
+    selectImageForCalendar(payload) {
+      this.$emit("select-image-for-calendar", payload)
     },
   },
 }
