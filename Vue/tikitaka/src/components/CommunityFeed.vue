@@ -1,15 +1,27 @@
 <template>
   <div>
     <!-- 피드 -->
-    <community-feed-list />
+    <div>
+      <!-- {{ relatedFeedList }} -->
+      <community-feed-item
+        v-for="(feed, idx) in relatedFeedList"
+        :key="idx"
+        :feed="feed"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-import CommunityFeedList from "./CommunityFeedList.vue"
+import CommunityFeedItem from "./CommunityFeedItem.vue"
+// import CommunityFeedList from "./CommunityFeedList.vue"
 export default {
-  components: { CommunityFeedList },
+  components: { CommunityFeedItem },
+  // components: { CommunityFeedList },
   name: "CommunityFeed",
+  props: {
+    relatedFeedList: Array,
+  },
 }
 </script>
 

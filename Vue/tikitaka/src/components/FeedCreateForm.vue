@@ -80,6 +80,11 @@ export default {
       selectedImgPath: this.feedBackDropList[0].path, // 선택한 이미지 백드롭 키(path)
     }
   },
+  computed: {
+    movie_title() {
+      return this.$store.state.cal_movie_title
+    },
+  },
   methods: {
     inputTitle(event) {
       this.title = event.target.value
@@ -90,10 +95,13 @@ export default {
     selectImage(backdrop) {
       this.selectedImgId = backdrop.id
       this.selectedImgPath = backdrop.path
-      const selectedImgUrl =
-        "https://image.tmdb.org/t/p/original" + this.selectedImgPath
-      this.$emit("select-image-for-calendar", selectedImgUrl)
-      console.log("clicked!!")
+      // const selectedImgUrl =
+      //   "https://image.tmdb.org/t/p/original" + this.selectedImgPath
+      const payload = {
+        img_url: "https://image.tmdb.org/t/p/original" + this.selectedImgPath,
+        title: this.movie_title,
+      }
+      this.$emit("select-image-for-calendar", payload)
     },
     addFeed() {
       const payload = {
@@ -110,6 +118,10 @@ export default {
         "https://image.tmdb.org/t/p/original" + this.selectedImgPath
       this.$emit("add-calendar", selectedImgUrl)
     },
+  },
+  created() {
+    console.log(this.feedMovieId)
+    console.log(this.$store.state.movie)
   },
 }
 </script>

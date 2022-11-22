@@ -2,6 +2,26 @@
   <div>
     <div class="col">
       <div
+        v-show="requestFromDetail"
+        class="mainText"
+        style="display: flex; margin-bottom: 10px; margin-left: 5px"
+      >
+        <img
+          style="width: 4%; border-radius: 50%"
+          src="@/assets/tikitaka_film.png"
+        />
+        <h5
+          style="
+            align-self: center;
+            margin-left: 10px;
+            margin-top: auto;
+            margin-bottom: auto;
+          "
+        >
+          {{ feed.user.username }}
+        </h5>
+      </div>
+      <div
         class="card"
         style="
           border-radius: 20px;
@@ -208,9 +228,9 @@ export default {
     },
   },
   created() {
-    // console.log("-----------------")
-    // console.log(this.feed)
-    // console.log("-----------------")
+    console.log("-----------------")
+    console.log(this.feed)
+    console.log("-----------------")
   },
 }
 </script>
