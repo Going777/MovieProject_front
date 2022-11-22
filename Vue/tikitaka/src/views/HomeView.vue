@@ -21,26 +21,26 @@
         />
       </div>
       <div id="container-box">
-        <br /><br />
+        <br /><br /><br />
         <movie-list
           :movieList="popularMovieList.movies"
           :titleText="popularMovieList.title"
-        />
+        /><br /><br />
         <!-- <hr class="movielist-divide" /> -->
         <movie-list
           :movieList="nowPlayingMovieList.movies"
           :titleText="nowPlayingMovieList.title"
-        />
+        /><br /><br />
         <!-- <hr class="movielist-divide" /> -->
         <movie-list
           :movieList="topratedMovieList.movies"
           :titleText="topratedMovieList.title"
-        />
+        /><br /><br />
         <!-- <hr class="movielist-divide" /> -->
-        <movie-list
+        <!-- <movie-list
           :movieList="nowPlayingMovieList.movies"
           :titleText="nowPlayingMovieList.title"
-        />
+        /><br /><br /> -->
       </div>
     </div>
   </div>

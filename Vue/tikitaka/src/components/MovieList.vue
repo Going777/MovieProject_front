@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 영화 리스트 타이틀 -->
-    <h1 style="color: #ffcc00">
+    <h1 style="color: #000000">
       {{ titleText }}
     </h1>
 
