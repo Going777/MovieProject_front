@@ -31,6 +31,7 @@ export default new Vuex.Store({
 
     feedList: [],
     tempUser: null,
+    selectedFeed: null,
   },
   getters: {
     isLogin(state) {
@@ -118,6 +119,9 @@ export default new Vuex.Store({
     // 유저별 피드 리스트 받아오기
     LOAD_FEED_LIST(state, response) {
       state.feedList = response
+    },
+    LOAD_FEED(state, response) {
+      state.selectedFeed = response
     },
     // 유저 가져오기
     GET_USER(state, response) {
@@ -424,6 +428,19 @@ export default new Vuex.Store({
           alert("필수 항목이 빠졌어요!!")
         })
     },
+    //피드 삭제
+    deleteFeed(context, feed_id) {
+      axios({
+        method: "delete",
+        url: `${DJ_URL}/community/review/${feed_id}/`,
+      })
+        .then((response) => {
+          context.dispatch("loadFeedList", response.data)
+        })
+        .catch(() => {
+          alert("필수 항목이 빠졌어요!!")
+        })
+    },
     // 유저별 피드 받아오기
     loadFeedList(context, username) {
       axios({
@@ -443,7 +460,18 @@ export default new Vuex.Store({
         },
       }).then(() => {
         // 저장 성공했으면 받아온 피드 정보 업데이트
-        context.dispatch("loadFeedList", payload.username)
+        context.dispatch("loadFeedList", context.state.tempUser.username)
+        context.dispatch("loadFeed", payload.feed_id)
+        console.log("이거 하트 눌렀어욤!!")
+      })
+    },
+    // 피드 아이디로 피드 조회
+    loadFeed(context, feed_id) {
+      axios({
+        method: "get",
+        url: `${DJ_URL}/community/review/${feed_id}`,
+      }).then((response) => {
+        context.commit("LOAD_FEED", response.data)
       })
     },
   },

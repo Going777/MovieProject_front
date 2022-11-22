@@ -29,7 +29,7 @@
                   {{ feed.movie.title }} - {{ feed.movie.original_title }}
                 </p>
                 <p style="font-size: 12px; color: gray; margin-bottom: -5px">
-                  좋아요 100개
+                  좋아요 {{ likeCount }}개
                 </p>
               </div>
               <v-btn icon color="red lighten-2" @click.stop="clickLikeBtn">
@@ -40,12 +40,8 @@
                   style="align-self: center"
                   >mdi-heart
                 </v-icon>
-                <v-icon
-                  v-else
-                  color="black"
-                  size="25"
-                  style="align-self: center"
-                  >mdi-heart
+                <v-icon v-else color="red" size="25" style="align-self: center"
+                  >mdi-heart-outline
                 </v-icon>
               </v-btn>
             </div>
@@ -195,6 +191,9 @@ export default {
       }
       return false
     },
+    likeCount() {
+      return this.feed.like_users.length
+    },
   },
   methods: {
     clickFeed() {
@@ -204,10 +203,14 @@ export default {
       const payload = {
         feed_id: this.feed.id,
         user_id: this.$store.state.user.id,
-        username: this.$store.state.user.username,
       }
       this.$store.dispatch("clickLikeBtn", payload)
     },
+  },
+  created() {
+    // console.log("-----------------")
+    // console.log(this.feed)
+    // console.log("-----------------")
   },
 }
 </script>
