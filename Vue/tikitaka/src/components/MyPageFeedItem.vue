@@ -8,12 +8,11 @@
           margin-bottom: 25px;
           box-shadow: 4px 4px 4px rgb(200, 200, 200);
         "
-        @click="clickFeed"
       >
-        <img :src="imgPath" id="feed-image" />
+        <img :src="imgPath" id="feed-image" @click="clickFeed" />
         <div class="card-body">
           <!-- 이미지 / 타이틀 / 컨텐츠만 보이게 -->
-          <div>
+          <div @click="clickFeed">
             <div
               style="
                 display: flex;
@@ -33,8 +32,19 @@
                   좋아요 100개
                 </p>
               </div>
-              <v-btn icon color="red lighten-2">
-                <v-icon color="red" size="25" style="align-self: center"
+              <v-btn icon color="red lighten-2" @click.stop="clickLikeBtn">
+                <v-icon
+                  v-if="isLike"
+                  color="red"
+                  size="25"
+                  style="align-self: center"
+                  >mdi-heart
+                </v-icon>
+                <v-icon
+                  v-else
+                  color="black"
+                  size="25"
+                  style="align-self: center"
                   >mdi-heart
                 </v-icon>
               </v-btn>
@@ -176,14 +186,28 @@ export default {
     imgPath() {
       return "https://image.tmdb.org/t/p/original" + this.feed.backdrop.path
     },
+    user_id() {
+      return this.$store.state.user.id
+    },
+    isLike() {
+      if (this.feed.like_users.includes(this.user_id)) {
+        return true
+      }
+      return false
+    },
   },
   methods: {
     clickFeed() {
       this.$emit("click-feed", this.feed)
     },
-  },
-  created() {
-    console.log(this.feed)
+    clickLikeBtn() {
+      const payload = {
+        feed_id: this.feed.id,
+        user_id: this.$store.state.user.id,
+        username: this.$store.state.user.username,
+      }
+      this.$store.dispatch("clickLikeBtn", payload)
+    },
   },
 }
 </script>

@@ -70,6 +70,11 @@ export default {
       }
     },
   },
+  created: {
+    abc() {
+      this.nowPlayingMovieVideoList()
+    },
+  },
 }
 </script>
 

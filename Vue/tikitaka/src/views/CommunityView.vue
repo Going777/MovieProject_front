@@ -24,6 +24,9 @@ export default {
       return this.$store.state.user.username
     },
   },
+  created() {
+    this.$store.dispatch("loadAllUserList")
+  },
 }
 </script>
 
