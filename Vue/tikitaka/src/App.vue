@@ -18,10 +18,10 @@
       <img
         src="@/assets/tikitaka_logo_small.png"
         style="
-          width: 40px;
-          background-color: white;
+          width: 60px;
+          /* background-color: white; */
           border-radius: 50%;
-          margin-left: 10px;
+          /* margin-left: 5px; */
         "
       />
 
