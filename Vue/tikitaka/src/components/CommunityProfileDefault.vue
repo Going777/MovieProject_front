@@ -115,7 +115,7 @@ export default {
   background-color: white;
   position: fixed;
   margin: auto;
-  max-width: 17%;
+  width: 17%;
 }
 
 #profile-content-box {
