@@ -39,7 +39,7 @@
       </v-card>
     </div>
 
-    <!-- 게시글 확대 모달 -->
+    <!-- 게시글 디테일 모달 -->
     <b-modal
       hide-header
       hide-footer

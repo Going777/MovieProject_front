@@ -4,7 +4,7 @@
       :feed="clickedFeed"
       :requestFromDetail="requestFromDetail"
     />
-    <div style="float: right">
+    <div style="float: right" v-show="isUser">
       <v-btn dark class="mx-3" @click="deleteFeed">DELETE</v-btn>
       <v-btn dark>UPDATE</v-btn>
     </div>
@@ -20,6 +20,18 @@ export default {
     return {
       requestFromDetail: true,
     }
+  },
+
+  computed: {
+    user() {
+      return this.$store.state.user
+    },
+    isUser() {
+      if (this.user.id === this.clickedFeed.user.id) {
+        return true
+      }
+      return false
+    },
   },
   props: {
     clickedFeed: Object,
