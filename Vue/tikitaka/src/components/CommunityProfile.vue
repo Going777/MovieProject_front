@@ -37,7 +37,9 @@
             <v-btn v-if="!isFollowing" style="width: 100%" @click="follow"
               >Follow</v-btn
             >
-            <v-btn v-if="isFollowing" style="width: 100%">Unfollow</v-btn>
+            <v-btn v-if="isFollowing" style="width: 100%" @click="follow"
+              >Unfollow</v-btn
+            >
           </div>
           <v-btn v-if="isMyPage" style="width: 100%">Edit Profile</v-btn>
           <hr />
