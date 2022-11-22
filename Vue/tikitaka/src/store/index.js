@@ -93,6 +93,7 @@ export default new Vuex.Store({
       state.user = null
       state.token = null
       state.nickname = "로그인해주세요!"
+      router.push({ name: "home" })
     },
     LOAD_ALL_USER_LIST(state, response) {
       state.allUserList = response

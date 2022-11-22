@@ -5,7 +5,7 @@
         <!-- 프로필 이미지 -->
         <img
           src="@/assets/tikitaka_logo_r.png"
-          id="profile-image"
+          id="profile-image2"
           style="width: 100%; max-width: 160px"
         />
         <!-- 프로필 텍스트 영역 -->
@@ -126,7 +126,7 @@ export default {
   padding: 30px 10px;
 }
 
-#profile-image {
+#profile-image2 {
   width: 200px;
   border-radius: 50%;
   border: 6px solid black;
