@@ -211,6 +211,10 @@
 
       <!-- 좋아하는 장르 -->
       <h5><strong>What's Your Favorite Movie Genres?</strong></h5>
+
+      <v-btn dark height="45" @click="clickSave" style="float: right"
+        >SAVE</v-btn
+      >
     </b-modal>
   </div>
 </template>
