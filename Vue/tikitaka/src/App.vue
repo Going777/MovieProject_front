@@ -17,8 +17,20 @@
       <img src="@/assets/tikitaka_logo_small.png" style="width: 50px" />
 
       <v-spacer></v-spacer>
-
-      <v-btn v-if="!isLogin" @click="goSignUp" style="margin-right: 15px">
+      <v-btn class="mx-1" color="error" @click="messages = 0">
+        Clear Notifications
+      </v-btn>
+      <v-btn class="mx-1" color="primary" @click="messages++">
+        Send Message
+      </v-btn>
+      <v-badge :content="messages" :value="messages" color="green" overlap>
+        <v-icon large> mdi-bell </v-icon>
+      </v-badge>
+      <v-btn
+        v-if="!isLogin"
+        @click="goSignUp"
+        style="margin-right: 15px; margin-left: 15px"
+      >
         SignUp
       </v-btn>
       <v-btn v-if="!isLogin" @click="goLogIn"> LogIn </v-btn>
@@ -262,10 +274,13 @@ function matchGenreId(name) {
   }
 }
 export default {
-  components: { SearchMovieListItem },
+  components: {
+    SearchMovieListItem,
+  },
   name: "App",
   data() {
     return {
+      messages: 0,
       keyword: "",
       // selectedOption: "영화 제목",
       // searchOptions: ["영화 제목", "영화 배우/감독"],
