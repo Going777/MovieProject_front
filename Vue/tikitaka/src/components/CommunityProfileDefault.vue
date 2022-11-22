@@ -11,7 +11,7 @@
         <!-- 프로필 텍스트 영역 -->
         <div id="profile-content-box">
           <!-- 닉네임 -->
-          <h2 style="margin-left: 20px">{{ user.username }}</h2>
+          <h2 style="margin-left: 20px">Be TikiTaka!</h2>
 
           <!-- 영화 MBTI -->
           <!-- <p style="color: gray; margin-top: -7px">나만의 감성 (CJI)</p> -->
@@ -29,20 +29,13 @@
             </div>
             <!-- 팔로잉 수 -->
             <div style="margin-left: 10px; margin-right: 10px">
-              {{ user.following.length }}
               <p style="color: gray; font-size: 14px">Following</p>
             </div>
           </div>
-          <div v-if="!isMyPage">
-            <v-btn v-if="!isFollowing" style="width: 100%">Follow</v-btn>
-            <v-btn v-if="isFollowing" style="width: 100%">Unfollow</v-btn>
-          </div>
-          <v-btn v-if="isMyPage" style="width: 100%">Edit Profile</v-btn>
           <hr />
           <!-- IDENTITY 태그 -->
           <h6 class="logoText">ABOUT ME</h6>
           <p>
-            {{ user.description }}
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora,
             repellendus. Quidem placeat dignissimos eum eaque delectus.
           </p>
@@ -110,25 +103,13 @@
 <script>
 export default {
   name: "CommunityProfile",
-  props: {
-    user: Object,
-  },
+  props: {},
   data() {
     return {
       //   profileImageURL: require("@/assets/tikitaka_chips.png"),
     }
   },
-  computed: {
-    // userame() {
-    //   return this.$route.params.username
-    // },
-    isMyPage() {
-      return this.$store.state.user.username == this.$route.params.username
-    },
-    isFollowing() {
-      return this.$store.state.user.following.includes(this.user.id)
-    },
-  },
+  computed: {},
   methods: {},
   created: {},
 }

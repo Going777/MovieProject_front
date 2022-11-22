@@ -15,7 +15,7 @@ export default {
 
 <style>
 #sub-profile {
-  width: 80px;
+  width: 50px;
   border-radius: 50%;
   text-align: center;
 }

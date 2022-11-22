@@ -1,5 +1,6 @@
 <template>
   <div id="community">
+    {{ user }}
     <div id="profile-container">
       <community-profile :user="user" />
     </div>
@@ -19,10 +20,21 @@ import CommunitySide from "../components/CommunitySide.vue"
 export default {
   components: { CommunityProfile, CommunityFeed, CommunitySide },
   name: "CommunityView",
+  data() {
+    return {
+      // user: null,
+    }
+  },
   computed: {
+    username() {
+      return this.$store.state.user.username
+    },
     user() {
       return this.$store.state.user
     },
+  },
+  created() {
+    this.$store.dispatch("getMe", this.username)
   },
 }
 </script>

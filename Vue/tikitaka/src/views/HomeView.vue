@@ -1,8 +1,15 @@
 <template>
   <div id="home" class="mainText">
     <!-- 좌측(프로필) -->
-    <div id="profile-container">
-      <community-profile :username="username" />
+    <!-- <div v-if="isLogin" id="profile-container">
+      <community-profile-default/>
+    </div> -->
+    <div v-if="!isLogin" id="profile-container2">
+      <community-profile-default />
+    </div>
+
+    <div v-if="isLogin" id="profile-container">
+      <community-profile :user="user" />
     </div>
 
     <!-- 우측(영화출력) -->
@@ -43,10 +50,19 @@
 import MovieList from "@/components/MovieList.vue"
 import MovieVideoList from "../components/MovieVideoList.vue"
 import CommunityProfile from "../components/CommunityProfile.vue"
+import CommunityProfileDefault from "../components/CommunityProfileDefault.vue"
 export default {
   name: "HomeView",
-  components: { MovieList, MovieVideoList, CommunityProfile },
+  components: {
+    MovieList,
+    MovieVideoList,
+    CommunityProfile,
+    CommunityProfileDefault,
+  },
   computed: {
+    isLogin() {
+      return this.$store.getters.isLogin
+    },
     popularMovieList() {
       return this.$store.state.popularMovieList
     },
@@ -70,6 +86,11 @@ export default {
       }
     },
   },
+  created() {
+    console.log("bbbbbbbbbbbbbbbbbb", this.isLogin)
+    console.log("bbbbbbbbbbbbbbbbbb", this.$store.getters.isLogin)
+    this.$store.dispatch("getMe", this.username)
+  },
 }
 </script>
 
@@ -84,6 +105,11 @@ export default {
 }
 
 #profile-container {
+  grid-area: profile;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+#profile-container2 {
   grid-area: profile;
   margin-left: 10px;
   margin-top: 10px;
