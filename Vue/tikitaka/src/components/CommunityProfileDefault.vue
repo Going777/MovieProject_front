@@ -4,14 +4,13 @@
       <div>
         <!-- 프로필 이미지 -->
         <img
-          src="@/assets/tikitaka_hotdog.png"
-          id="profile-image"
-          style="width: 100%; max-width: 200px"
+          src="@/assets/tikitaka_logo_r.png"
+          id="profile-image2"
+          style="width: 100%; max-width: 160px"
         />
         <!-- 프로필 텍스트 영역 -->
         <div id="profile-content-box">
           <!-- 닉네임 -->
-          <h2 style="margin-left: 20px">{{ user.username }}</h2>
 
           <!-- 영화 MBTI -->
           <!-- <p style="color: gray; margin-top: -7px">나만의 감성 (CJI)</p> -->
@@ -19,33 +18,13 @@
           <div id="profile-count-box">
             <!-- 게시물 수(포스트) -->
             <div style="margin-left: 10px; margin-right: 10px">
-              50+
-              <p style="color: gray; font-size: 14px">Posts</p>
-            </div>
-            <!-- 팔로워 수 -->
-            <div style="margin-left: 10px; margin-right: 10px">
-              12k
-              <p style="color: gray; font-size: 14px">Followers</p>
-            </div>
-            <!-- 팔로잉 수 -->
-            <div style="margin-left: 10px; margin-right: 10px">
-              {{ user.following.length }}
-              <p style="color: gray; font-size: 14px">Following</p>
+              <h2>Let's TikiTaka!</h2>
+              나만의 영화 커뮤니티
+              <p style="color: gray; font-size: 14px">로그인 해주세요</p>
+              <v-btn style="width: 100%" dark @click="goLogIn">Login</v-btn>
             </div>
           </div>
-          <div v-if="!isMyPage">
-            <v-btn v-if="!isFollowing" style="width: 100%">Follow</v-btn>
-            <v-btn v-if="isFollowing" style="width: 100%">Unfollow</v-btn>
-          </div>
-          <v-btn v-if="isMyPage" style="width: 100%">Edit Profile</v-btn>
-          <hr />
-          <!-- IDENTITY 태그 -->
-          <h6 class="logoText">ABOUT ME</h6>
-          <p>
-            {{ user.description }}
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora,
-            repellendus. Quidem placeat dignissimos eum eaque delectus.
-          </p>
+
           <!-- <div id="profile-tag-box">
             <v-chip color="indigo" text-color="white" style="margin: 3px 3px">
               감성적인
@@ -74,8 +53,11 @@
           </div> -->
           <hr />
           <!-- 좋아하는 장르 태그 -->
-          <h6 class="logoText">FAVORITE GERENS</h6>
-          <div id="profile-tag-box">
+          <h6 class="logoText">Contact</h6>
+          https://github.com/Going777 <br />
+          https://github.com/seoda0000
+
+          <!-- <div id="profile-tag-box">
             <v-chip color="indigo" text-color="white" style="margin: 3px 3px">
               액션
             </v-chip>
@@ -100,7 +82,7 @@
             <v-chip color="red" text-color="white" style="margin: 3px 3px">
               로맨스
             </v-chip>
-          </div>
+          </div> -->
         </div>
       </div>
     </v-sheet>
@@ -110,29 +92,18 @@
 <script>
 export default {
   name: "CommunityProfile",
-  props: {
-    user: Object,
-  },
+  props: {},
   data() {
     return {
       //   profileImageURL: require("@/assets/tikitaka_chips.png"),
     }
   },
-  computed: {
-    // userame() {
-    //   return this.$route.params.username
-    // },
-    isMyPage() {
-      return (
-        this.$store.state.user.username == this.$route.params.username ||
-        this.$route.params.username == null
-      )
-    },
-    isFollowing() {
-      return this.$store.state.user.following.includes(this.user.id)
+  computed: {},
+  methods: {
+    goLogIn() {
+      this.$router.push({ name: "login" })
     },
   },
-  methods: {},
   created: {},
 }
 </script>
@@ -151,16 +122,16 @@ export default {
   background-color: white;
   /* border: 7px black solid; */
   border-radius: 40px;
-  margin-top: -30px;
+  /* margin-top: -30px; */
   padding: 30px 10px;
 }
 
-#profile-image {
+#profile-image2 {
   width: 200px;
   border-radius: 50%;
-  border: 10px solid white;
+  border: 6px solid black;
   display: block;
-  margin: 0px auto;
+  margin: 0px auto 30px;
 }
 
 #profile-count-box {

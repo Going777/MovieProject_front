@@ -56,7 +56,7 @@
         <div id="user-box">
           <div style="display: flex">
             <img
-              style="width: 60px; border-radius: 50%; margin-left: 20px"
+              style="width: 50px; border-radius: 50%; margin-left: 20px"
               src="@/assets/tikitaka_film.png"
             />
             <h6 style="align-self: center; margin-left: 10px">Follow1</h6>
@@ -64,7 +64,7 @@
           <hr />
           <div style="display: flex">
             <img
-              style="width: 60px; border-radius: 50%; margin-left: 20px"
+              style="width: 50px; border-radius: 50%; margin-left: 20px"
               src="@/assets/tikitaka_film.png"
             />
             <h6 style="align-self: center; margin-left: 10px">Follow1</h6>
@@ -72,7 +72,7 @@
           <hr />
           <div style="display: flex">
             <img
-              style="width: 60px; border-radius: 50%; margin-left: 20px"
+              style="width: 50px; border-radius: 50%; margin-left: 20px"
               src="@/assets/tikitaka_film.png"
             />
             <h6 style="align-self: center; margin-left: 10px">Follow1</h6>
@@ -80,7 +80,7 @@
           <hr />
           <div style="display: flex">
             <img
-              style="width: 60px; border-radius: 50%; margin-left: 20px"
+              style="width: 50px; border-radius: 50%; margin-left: 20px"
               src="@/assets/tikitaka_film.png"
             />
             <h6 style="align-self: center; margin-left: 10px">Follow1</h6>
@@ -88,7 +88,7 @@
           <hr />
           <div style="display: flex">
             <img
-              style="width: 60px; border-radius: 50%; margin-left: 20px"
+              style="width: 50px; border-radius: 50%; margin-left: 20px"
               src="@/assets/tikitaka_film.png"
             />
             <h6 style="align-self: center; margin-left: 10px">Follow1</h6>
@@ -96,7 +96,7 @@
           <hr />
           <div style="display: flex">
             <img
-              style="width: 60px; border-radius: 50%; margin-left: 20px"
+              style="width: 50px; border-radius: 50%; margin-left: 20px"
               src="@/assets/tikitaka_film.png"
             />
             <h6 style="align-self: center; margin-left: 10px">Follow1</h6>

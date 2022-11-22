@@ -94,6 +94,7 @@ export default new Vuex.Store({
       state.user = null
       state.token = null
       state.nickname = "로그인해주세요!"
+      router.push({ name: "home" })
     },
     LOAD_ALL_USER_LIST(state, response) {
       state.allUserList = response
@@ -126,6 +127,10 @@ export default new Vuex.Store({
     GET_USER(state, response) {
       console.log("get_user--------------------------", response)
       state.tempUser = response
+    },
+    GET_ME(state, response) {
+      console.log("get_user--------------------------", response)
+      state.user = response
     },
   },
   actions: {
@@ -350,6 +355,23 @@ export default new Vuex.Store({
         .then((response) => {
           console.log("@@@@@@@@@@@@@@@@@@", response)
           context.commit("GET_USER", response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    // 나 반환
+    getMe(context, username) {
+      axios({
+        method: "get",
+        params: {
+          name: username,
+        },
+        url: `${DJ_URL}/accounts/get_user/`,
+      })
+        .then((response) => {
+          console.log("@@@@@@@@@@@@@@@@@@", response)
+          context.commit("GET_ME", response.data)
         })
         .catch((error) => {
           console.log(error)
