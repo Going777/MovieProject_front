@@ -48,7 +48,7 @@ export default new Vuex.Store({
     },
     followerCnt(state) {
       return state.tempUser.following.length
-    }
+    },
   },
   mutations: {
     // ***************************************************************
@@ -499,7 +499,7 @@ export default new Vuex.Store({
         url: `${DJ_URL}/community/calendar/delete/`,
       }).then((response) => {
         console.log("삭제됨", response.data)
-        context.dispatch("UPDATE_CALENDAR", response.data)
+        context.commit("UPDATE_CALENDAR", response.data)
       })
     },
 

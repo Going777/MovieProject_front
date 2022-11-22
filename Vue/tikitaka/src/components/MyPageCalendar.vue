@@ -144,6 +144,8 @@ export default {
         ) {
           clickInfo.event.remove()
           this.$store.dispatch("deleteCalendar", clickInfo.event.startStr)
+        } else {
+          console.log(clickInfo)
         }
       }
     },
@@ -156,13 +158,13 @@ export default {
       let titleEvent = document.createElement("div")
       if (arg.event._def.title) {
         titleEvent.innerHTML = arg.event._def.title
+        titleEvent.width = "100%"
+        titleEvent.style.wordBreak = "break-all"
         titleEvent.style.backgroundColor = "white"
         titleEvent.style.color = "black"
         titleEvent.style.fontSize = "11px"
         titleEvent.style.fontWeight = "bold"
-        // titleEvent.style.wordBreak = "break-all"
         // titleEvent.style.height = "79px"
-        // titleEvent.style.width = "100%"
         // titleEvent.classList = "fc-event-title fc-sticky"
       }
       // image event
