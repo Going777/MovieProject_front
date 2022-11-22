@@ -13,6 +13,9 @@
       <!-- 메뉴 호출 아이콘 -->
       <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
 
+
+
+      <!-- 메세지 영역 -->
       <v-toolbar-title class="logoText">TikiTaka</v-toolbar-title>
       <img src="@/assets/tikitaka_logo_small.png" style="width: 50px" />
 
@@ -34,13 +37,13 @@
           <div style="display: flex; margin:0px 15px 0px">
             <div style="margin-right:10px;">
               <div style="display: flex; justify-content:flex-start; align-items: center;"> 
-                <img
+                <!-- <img
                   style="width: 30px; height: 30px; border-radius: 50%; margin-right:5px"
                   src="@/assets/tikitaka_nacho.png"
-                />
+                /> -->
                 <div>
-                  <span>나쵸</span>
-                  <span style="font-size:5px; color: grey;">11/22/2022 20:35</span>
+                  <b>나쵸 </b>
+                  <span style="font-size:5px; color: grey;"> 11/22/2022 20:35</span>
                 </div>
               </div>
               <p style="font-size:14px; color: grey;">
