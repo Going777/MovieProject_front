@@ -1,25 +1,20 @@
 <template>
   <div style="margin-right: 20px">
-    <FullCalendar :options="calendarOptions" />
+    <FullCalendar :options="calendarOptions" id="font-face" />
 
     <!-- 캘린더 포스터 등록 모달 -->
-    <b-modal
-      hide-footer
-      hide-header-close
-      size="medi"
-      id="openCreateCalendarModal"
-    >
+    <b-modal hide-footer hide-header-close size="medi" id="createCalendarModal">
       <template #modal-header>
         <h2 class="logoText">CUSTOMIZE YOUR OWN CALENDAR</h2>
       </template>
-      <!-- <feed-create-modal @close-modal="closeCreateCalendarModal" /> -->
+
       <feed-create-modal
         :isCalendarRequest="isCalendarRequest"
         @select-image-for-calendar="selectImageForCalendar"
       />
 
       <v-btn
-        class="mainText"
+        id="font-face"
         dark
         height="45"
         @click="addCalendar"
@@ -45,6 +40,7 @@ export default {
   data() {
     return {
       isCalendarRequest: true,
+      movie_title: null,
       select_img: null,
       selectedInfo: null,
       calendarOptions: {
@@ -66,22 +62,20 @@ export default {
         eventColor: "black",
         // weekends: true,
         // dateClick: his.handleDateSelect,
-        height: "1200px",
+        height: "900px",
         // expandRows: true,
         events: [
           {
-            title: "배고파요",
+            title: "스타워즈4: 제국의 역사",
             start: "2022-11-20",
-            // description: "This is a cool event",
             image_url:
               "https://image.tmdb.org/t/p/original/f0oDtB2JCMlPKjphBJ90GcfVzWg.jpg",
           },
           {
-            title: "harry",
+            title: "블랙팬서 와칸다 포에버",
             image_url:
               "https://image.tmdb.org/t/p/original/f0oDtB2JCMlPKjphBJ90GcfVzWg.jpg",
             start: "2022-11-07",
-            // end: "2022-11-10",
           },
           {
             title: "help",
@@ -93,22 +87,19 @@ export default {
       },
     }
   },
-  // computed: {
-  //   isClicked() {
-  //     return false
-  //   },
-  // },
   methods: {
     // handleDateClick: function (arg) {
     //   alert("date click! " + arg.dateStr)
     // },
-    // 모달 열기
-    closeCreateFeedModal() {
-      this.$bvModal.hide("closeCreateCalendarModal")
+
+    handleDateSelect(selectInfo) {
+      this.$bvModal.show("createCalendarModal")
+      this.selectedInfo = selectInfo
     },
     // 선택된 이미지 변수에 저장
-    selectImageForCalendar(select_img) {
-      this.select_img = select_img
+    selectImageForCalendar(payload) {
+      this.select_img = payload.img_url
+      this.movie_title = payload.title
     },
     // 일정 생성
     addCalendar() {
@@ -118,21 +109,19 @@ export default {
       calendarApi.unselect()
       if (image_url) {
         calendarApi.addEvent({
+          title: this.movie_title,
           image_url: image_url,
           start: this.selectedInfo.startStr,
         })
       }
+      this.$bvModal.hide("createCalendarModal")
     },
-    handleDateSelect(selectInfo) {
-      this.$bvModal.show("openCreateCalendarModal")
-      this.selectedInfo = selectInfo
-    },
-    // 일정 삭제
+
+    // 이벤트 다시 누르면 일정 삭제
     handleEventClick(clickInfo) {
-      console.log(clickInfo)
-      // if (confirm(`Are you sure you want to delete ${clickInfo.event.title}`)) {
-      //   clickInfo.event.remove()
-      // }
+      if (confirm(`Are you sure you want to delete ${clickInfo.event.title}`)) {
+        clickInfo.event.remove()
+      }
     },
     handleEvents(events) {
       this.currentEvents = events
@@ -140,12 +129,17 @@ export default {
     // 일정 출력형식 (이미지 출력)
     eventContent(arg) {
       let arrayOfDomNodes = []
-      // title event
       let titleEvent = document.createElement("div")
       if (arg.event._def.title) {
         titleEvent.innerHTML = arg.event._def.title
-        titleEvent.style.backgroundColor = "black"
-        titleEvent.classList = "fc-event-title fc-sticky"
+        titleEvent.style.backgroundColor = "white"
+        titleEvent.style.color = "black"
+        titleEvent.style.fontSize = "11px"
+        titleEvent.style.fontWeight = "bold"
+        // titleEvent.style.wordBreak = "break-all"
+        // titleEvent.style.height = "79px"
+        // titleEvent.style.width = "100%"
+        // titleEvent.classList = "fc-event-title fc-sticky"
       }
       // image event
       let imgEventWrap = document.createElement("div")
@@ -158,7 +152,12 @@ export default {
         imgEventWrap.classList = "fc-event-img"
         imgEventWrap.innerHTML = imgEvent
       }
+      arg.borderColor = "white"
       arrayOfDomNodes = [imgEventWrap, titleEvent]
+      console.log("heeeeeeeeeeeer", arg)
+      // arg
+      //   .find("span.fc-event-title")
+      //   .html(element.find("span.fc-event-title").text())
 
       return { domNodes: arrayOfDomNodes }
     },
@@ -166,4 +165,12 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+#font-face {
+  font-family: "S-CoreDream-3Light";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+</style>

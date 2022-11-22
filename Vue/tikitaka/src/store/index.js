@@ -21,7 +21,11 @@ export default new Vuex.Store({
     nowPlayingMovieVideoList: { title: "상영중 영화 비디오", movies: [] },
     searchMovieList: [],
     feedMovieId: null, // 안 필요할 수도 있음
+
+    // 캘린더 등록시 필요
     feedBackDropList: [],
+    cal_movie_title: null, //캘린더에서 사용할 영화 제목
+
     movie: null,
     token: null,
     // 현재 로그인 유저
@@ -30,6 +34,7 @@ export default new Vuex.Store({
     nickname: "로그인????",
 
     feedList: [],
+    relatedFeedList: [],
     tempUser: null,
     selectedFeed: null,
   },
@@ -65,7 +70,7 @@ export default new Vuex.Store({
       state.searchMovieList.push(...response)
     },
     // detail로 들어갈 때 필요한 영화
-    GET_MOVIE_BY_ID(state, response) {
+    GET_MOVIE_BY_ID_AND_GO_DETAIL(state, response) {
       state.movie = response.movie
       router
         .push({ name: "detail", params: { id: response.id } })
@@ -113,6 +118,7 @@ export default new Vuex.Store({
       state.feedMovie = response[0]
     },
     GET_BACKDROP_LIST(state, payload) {
+      state.cal_movie_title = payload.movie_title
       state.feedMovieId = payload.movie_id
       state.feedBackDropList = payload.response
     },
@@ -120,16 +126,19 @@ export default new Vuex.Store({
     LOAD_FEED_LIST(state, response) {
       state.feedList = response
     },
+    // 나 포함, 팔로잉 유저 피드 받아오기
+    LOAD_RELATED_FEED_LIST(state, response) {
+      state.relatedFeedList = response
+    },
+    // 선택한 피드 가져오기
     LOAD_FEED(state, response) {
       state.selectedFeed = response
     },
     // 유저 가져오기
     GET_USER(state, response) {
-      console.log("get_user--------------------------", response)
       state.tempUser = response
     },
     GET_ME(state, response) {
-      console.log("get_user--------------------------", response)
       state.user = response
     },
   },
@@ -205,7 +214,7 @@ export default new Vuex.Store({
             movie: response.data,
             id: movie_id,
           }
-          context.commit("GET_MOVIE_BY_ID", payload)
+          context.commit("GET_MOVIE_BY_ID_AND_GO_DETAIL", payload)
         })
         .catch((error) => {
           console.log(error)
@@ -353,7 +362,6 @@ export default new Vuex.Store({
         url: `${DJ_URL}/accounts/get_user/`,
       })
         .then((response) => {
-          console.log("@@@@@@@@@@@@@@@@@@", response)
           context.commit("GET_USER", response.data)
         })
         .catch((error) => {
@@ -370,7 +378,6 @@ export default new Vuex.Store({
         url: `${DJ_URL}/accounts/get_user/`,
       })
         .then((response) => {
-          console.log("@@@@@@@@@@@@@@@@@@", response)
           context.commit("GET_ME", response.data)
         })
         .catch((error) => {
@@ -420,7 +427,8 @@ export default new Vuex.Store({
       }).then((response) => {
         const payload = {
           movie_id: movie_id,
-          response: response.data,
+          response: response.data.backdrops,
+          movie_title: response.data.title,
         }
         context.commit("GET_BACKDROP_LIST", payload)
       })
@@ -466,6 +474,21 @@ export default new Vuex.Store({
         context.commit("LOAD_FEED_LIST", response.data)
       })
     },
+
+    // 나 포함 팔로잉 피드 받아오기
+    loadRelatedFeedlist(context, user_id) {
+      axios({
+        method: "get",
+        url: `${DJ_URL}/community/feed/${user_id}`,
+      })
+        .then((response) => {
+          context.commit("LOAD_RELATED_FEED_LIST", response.data)
+        })
+        .catch((e) => {
+          console.log("에러발생", e)
+        })
+    },
+
     // 좋아요 클릭 -> DB에 저장
     clickLikeBtn(context, payload) {
       axios({
