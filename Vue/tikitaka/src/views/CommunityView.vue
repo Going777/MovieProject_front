@@ -1,11 +1,10 @@
 <template>
   <div id="community">
-    {{ user }}
     <div id="profile-container">
       <community-profile :user="user" />
     </div>
     <div id="feed-container">
-      <community-feed />
+      <community-feed :relatedFeedList="relatedFeedList" />
     </div>
     <div id="side-container">
       <community-side />
@@ -26,16 +25,20 @@ export default {
     }
   },
   computed: {
-    username() {
-      return this.$store.state.user.username
-    },
+    // username() {
+    //   return this.$store.state.user.username
+    // },
     user() {
       return this.$store.state.user
     },
+    relatedFeedList() {
+      return this.$store.state.relatedFeedList
+    },
   },
   created() {
-    this.$store.dispatch("getMe", this.username)
-    this.$store.dispatch("loadAllUserList")
+    this.$store.dispatch("getMe", this.user.username)
+    // this.$store.dispatch("loadAllUserList")
+    this.$store.dispatch("loadRelatedFeedlist", this.user.id)
   },
 }
 </script>

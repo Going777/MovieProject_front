@@ -34,6 +34,7 @@ export default new Vuex.Store({
     nickname: "로그인????",
 
     feedList: [],
+    relatedFeedList: [],
     tempUser: null,
     selectedFeed: null,
   },
@@ -125,16 +126,19 @@ export default new Vuex.Store({
     LOAD_FEED_LIST(state, response) {
       state.feedList = response
     },
+    // 나 포함, 팔로잉 유저 피드 받아오기
+    LOAD_RELATED_FEED_LIST(state, response) {
+      state.relatedFeedList = response
+    },
+    // 선택한 피드 가져오기
     LOAD_FEED(state, response) {
       state.selectedFeed = response
     },
     // 유저 가져오기
     GET_USER(state, response) {
-      console.log("get_user--------------------------", response)
       state.tempUser = response
     },
     GET_ME(state, response) {
-      console.log("get_user--------------------------", response)
       state.user = response
     },
   },
@@ -454,6 +458,21 @@ export default new Vuex.Store({
         context.commit("LOAD_FEED_LIST", response.data)
       })
     },
+
+    // 나 포함 팔로잉 피드 받아오기
+    loadRelatedFeedlist(context, user_id) {
+      axios({
+        method: "get",
+        url: `${DJ_URL}/community/feed/${user_id}`,
+      })
+        .then((response) => {
+          context.commit("LOAD_RELATED_FEED_LIST", response.data)
+        })
+        .catch((e) => {
+          console.log("에러발생", e)
+        })
+    },
+
     // 좋아요 클릭 -> DB에 저장
     clickLikeBtn(context, payload) {
       axios({
