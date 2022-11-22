@@ -23,11 +23,11 @@
             style="width: 24px; height: 16px; margin-right: 3px;">
         </span>
       </div>
-      <div class="sentence" style="display: flex; align-items:center;">
+      <div class="sentence" >
         <span v-for="(provider, idx) in movie.watch_providers" :key="idx" style="display:inline-block; vertical-align:middle;">
           <img
           :src="`https://image.tmdb.org/t/p/original${provider.logo_path}`" alt=""
-          style="width: 24px; height: 16px; margin-right: 3px;">
+          style="width: 16px; height: 16px; margin-right: 3px;">
           <span style="font-size:12px">{{ provider.name }}&nbsp;</span>
         </span>
         

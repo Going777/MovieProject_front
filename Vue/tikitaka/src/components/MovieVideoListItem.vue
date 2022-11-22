@@ -1,8 +1,8 @@
 <template>
   <div style="position: relative; width: 100%; height: auto">
-    <button id="info" class="btn btn-warning" @click="goDetail">
+    <!-- <button id="info" class="btn btn-warning" @click="goDetail">
       자세히 보기
-    </button>
+    </button> -->
     <iframe
       id="ytplayer, frame"
       type="text/html"

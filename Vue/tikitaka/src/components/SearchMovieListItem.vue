@@ -3,9 +3,9 @@
     <div class="col m-1">
       <div class="card" style="margin-bottom: 30px" @click="goDetail(movie.id)">
         <img :src="imgPath" class="card-img-top" />
-        <div class="card-body" style="font-weight: bold; font-size: 15px">
+        <h5 class="card-body" style="font-weight: bold">
           {{ movie.title }}
-        </div>
+        </h5>
       </div>
     </div>
   </div>

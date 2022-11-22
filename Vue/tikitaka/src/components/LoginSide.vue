@@ -1,7 +1,7 @@
 <template>
   <div id="box" style="margin-top: auto; margin-bottom: auto">
     <img
-      src="../assets/cinema-glasses-popcorn.jpg"
+      src="../assets/side_login.jpg"
       alt=""
       style="
         height: 100%;
@@ -39,6 +39,7 @@
               text-shadow: -2px 0 #fff, 0 2px #fff, 2px 0 #fff, 0 -2px #fff;
             "
           >
+            Let's <br/>
             TikiTaka
           </h1>
           <br />

@@ -92,7 +92,7 @@ export default {
 #mypage {
   display: grid;
   grid-template-columns: 25% 1fr;
-  grid-template-rows: 8% 1fr;
+  grid-template-rows: 0% 1fr;
   height: 100%;
   grid-template-areas:
     "profile iconArea"
@@ -102,16 +102,21 @@ export default {
 
 #icon-container {
   grid-area: iconArea;
-  padding-top: 20px;
+  /* padding-top: 20px; */
+  /* height: 0px; */
 }
 
 #content-container {
   grid-area: contentArea;
   /* margin-top: -20%; */
-  display: fixed;
-  overflow: auto;
+  /* display: fixed; */
+  /* overflow: auto; */
+  /* ======= */
+  /* margin-top: -10px; */
   padding: 50px;
   background-color: white;
   border-radius: 20px;
+  margin-bottom: 50px;
+  display: fixed;
 }
 </style>

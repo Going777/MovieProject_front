@@ -118,9 +118,7 @@ export default {
 <style>
 #profile-box {
   border-radius: 15px;
-  /* height: 80vh; */
   padding: 30px 10px;
-  /* background-color: rgb(238, 238, 238); */
   background-color: white;
   position: fixed;
   margin: auto;
@@ -138,7 +136,6 @@ export default {
 #profile-image {
   width: 200px;
   border-radius: 50%;
-  /* border: 5px solid black; */
   border: 10px solid white;
   display: block;
   margin: 0px auto;

@@ -100,46 +100,48 @@
     </v-main>
 
     <!-- 영화 검색 모달 -->
-    <b-modal
-      id="showSearchModal"
-      size="huge"
-      class="mainText"
-      title="Search Movies"
-      hide-footer
-    >
+    <b-modal id="showSearchModal" size="huge" hide-footer>
+      <template #modal-header>
+        <h2 class="logoText">SEARCH MOVIES</h2>
+      </template>
       <div style="display: flex">
         <!-- 검색 섹션 -->
-        <div
-          class="p-2"
-          style="background-color: lightgray; border-radius: 30px; width: 25%"
+        <v-sheet
+          class="p-3"
+          style="
+            /* background-color: rgb(230, 230, 230); */
+            border-radius: 30px;
+            width: 15%;
+            height: 45%;
+          "
+          elevation="5"
         >
           <!-- 검색 카테고리 (영화인 검색은 일단 생략) -->
           <!-- <v-select
-            class="mt-4"
-            v-model="selectedOption"
-            :items="searchOptions"
-            dense
-            outlined
-          ></v-select> -->
+          class="mt-4"
+          v-model="selectedOption"
+          :items="searchOptions"
+          dense
+          outlined
+        ></v-select> -->
 
           <!-- 입력폼 -->
           <v-text-field
             label="검색어를 입력해주세요"
-            class=""
+            class="mainText"
             filled
             prepend-inner-icon="mdi-magnify"
+            outlined
             dense
             solo
             flat
             v-model="keyword"
             @input="inputFunc"
-            style="margin-top: 40px; margin-bottom: 20px"
           ></v-text-field>
 
           <!-- 장르 선택 -->
-          <div>
+          <div class="mainText">
             <v-checkbox
-              style="margin-top: -10px"
               v-model="selectedGenres"
               label="모험"
               value="모험"
@@ -203,9 +205,11 @@
               @click="inputFunc"
             ></v-checkbox>
           </div>
+          <br />
+        </v-sheet>
 
-          <br /><br /><br />
-        </div>
+        <!-- <div>
+        </div> -->
 
         <!-- 결과 섹션 -->
         <div class="scroll" style="width: 100%; height: 65rem">
@@ -298,12 +302,20 @@ export default {
       this.$router.push({ name: "home" }).catch(() => {}) // Avoided redundant navigation 에러 해결
     },
     goCommunity() {
-      this.$router.push({ name: "community" }).catch(() => {})
+      if (this.isLogin) {
+        this.$router.push({ name: "community" }).catch(() => {})
+      } else {
+        this.$router.push({ name: "login" })
+      }
     },
     goMyPage() {
-      this.$router
-        .push({ name: "mypage", params: { username: this.username } })
-        .catch(() => {})
+      if (this.isLogin) {
+        this.$router
+          .push({ name: "mypage", params: { username: this.username } })
+          .catch(() => {})
+      } else {
+        this.$router.push({ name: "login" })
+      }
     },
 
     openSearchModal() {
@@ -347,6 +359,7 @@ export default {
   created() {
     this.$store.dispatch("loadAllMovieList")
     this.$store.dispatch("loadPopularMovieList")
+    this.$store.dispatch("loadTopratedMovieList")
     this.$store.dispatch("loadNowPlayingMovieList")
     this.$store.dispatch("loadNowPlayingMovieVideoList")
     // this.$store.dispatch("loadAllUserList")
