@@ -4,7 +4,7 @@
       <div>
         <!-- 프로필 이미지 -->
         <img
-          src="@/assets/tikitaka_hotdog.png"
+          :src="require(`@/assets/tikitaka_${profile_img}.png`)"
           id="profile-image"
           style="width: 100%; max-width: 200px"
         />
@@ -19,17 +19,17 @@
           <div id="profile-count-box">
             <!-- 게시물 수(포스트) -->
             <div style="margin-left: 10px; margin-right: 10px">
-              50+
+              {{ user.review_count }}
               <p style="color: gray; font-size: 14px">Posts</p>
             </div>
             <!-- 팔로워 수 -->
             <div style="margin-left: 10px; margin-right: 10px">
-              12k
+              {{ followingCnt }}
               <p style="color: gray; font-size: 14px">Followers</p>
             </div>
             <!-- 팔로잉 수 -->
             <div style="margin-left: 10px; margin-right: 10px">
-              {{ user.following.length }}
+              {{ followerCnt }}
               <p style="color: gray; font-size: 14px">Following</p>
             </div>
           </div>
@@ -135,6 +135,15 @@ export default {
     isFollowing() {
       return this.$store.state.user.following.includes(this.user.id)
     },
+    followingCnt() {
+      return this.$store.getters.followingCnt
+    },
+    followerCnt() {
+      return this.$store.getters.followerCnt
+    },
+    profile_img() {
+      return this.$store.state.tempUser.profile_img
+    }
   },
   methods: {
     follow() {

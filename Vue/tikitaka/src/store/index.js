@@ -42,6 +42,12 @@ export default new Vuex.Store({
     isLogin(state) {
       return state.token ? true : false
     },
+    followingCnt(state) {
+      return state.tempUser.follower_count
+    },
+    followerCnt(state) {
+      return state.tempUser.following.length
+    }
   },
   mutations: {
     // ***************************************************************
@@ -395,6 +401,7 @@ export default new Vuex.Store({
         .then((response) => {
           console.log(response.data)
           context.dispatch("getMe", context.state.user.username)
+          context.dispatch("getUser", context.state.tempUser.username)
         })
         .catch(() => {
           alert("팔로우 실패!!!")
