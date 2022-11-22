@@ -116,7 +116,6 @@ export default new Vuex.Store({
     },
     // 유저별 피드 리스트 받아오기
     LOAD_FEED_LIST(state, response) {
-      console.log("load_feed_list--------------------------", response)
       state.feedList = response
     },
     // 유저 가져오기
@@ -407,7 +406,6 @@ export default new Vuex.Store({
     },
     // 피드 작성
     addFeed(context, payload) {
-      console.log(payload)
       axios({
         method: "post",
         data: {
@@ -419,9 +417,7 @@ export default new Vuex.Store({
         url: `${DJ_URL}/community/${payload.movie_id}/create_review/`,
       })
         .then((response) => {
-          console.log("before", context.state.feedList)
           context.state.feedList.push(response.data)
-          console.log("after", context.state.feedList)
         })
         .catch(() => {
           alert("필수 항목이 빠졌어요!!")
@@ -434,6 +430,19 @@ export default new Vuex.Store({
         url: `${DJ_URL}/community/review/${username}`,
       }).then((response) => {
         context.commit("LOAD_FEED_LIST", response.data)
+      })
+    },
+    // 좋아요 클릭 -> DB에 저장
+    clickLikeBtn(context, payload) {
+      axios({
+        method: "post",
+        url: `${DJ_URL}/community/review/${payload.feed_id}/like/`,
+        data: {
+          id: payload.user_id,
+        },
+      }).then(() => {
+        // 저장 성공했으면 받아온 피드 정보 업데이트
+        context.dispatch("loadFeedList", payload.username)
       })
     },
   },

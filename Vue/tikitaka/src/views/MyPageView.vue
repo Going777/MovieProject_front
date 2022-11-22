@@ -81,13 +81,12 @@ export default {
     },
   },
   created() {
-    console.log(this.$route.params.username)
+    // console.log(this.$route.params.username)
     this.$store.dispatch("loadFeedList", this.$route.params.username)
     this.$store.dispatch("getUser", this.username)
   },
   updated() {
     this.feedList = this.$store.state.feedList
-    console.log(this.feedList)
   },
 }
 </script>

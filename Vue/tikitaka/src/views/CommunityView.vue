@@ -35,6 +35,7 @@ export default {
   },
   created() {
     this.$store.dispatch("getMe", this.username)
+    this.$store.dispatch("loadAllUserList")
   },
 }
 </script>
