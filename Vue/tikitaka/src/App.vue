@@ -13,54 +13,69 @@
       <!-- 메뉴 호출 아이콘 -->
       <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
 
-
-
       <!-- 메세지 영역 -->
       <v-toolbar-title class="logoText">TikiTaka</v-toolbar-title>
-      <img src="@/assets/tikitaka_logo_small.png" style="width: 50px" />
+      <img
+        src="@/assets/tikitaka_logo_small.png"
+        style="
+          width: 40px;
+          background-color: white;
+          border-radius: 50%;
+          margin-left: 10px;
+        "
+      />
 
       <v-spacer></v-spacer>
       <v-menu offset-y v-if="isLogin">
         <template v-slot:activator="{ on, attrs }">
-          <v-badge :content="messages" :value="messages" color="yellow" overlap dot="true">
-            <v-icon
-              v-bind="attrs"
-              v-on="on"
-              
-            > mdi-bell</v-icon>
+          <v-badge
+            :content="messages"
+            :value="messages"
+            color="yellow"
+            overlap
+            dot="true"
+          >
+            <v-icon v-bind="attrs" v-on="on"> mdi-bell</v-icon>
           </v-badge>
         </template>
         <v-card v-if="isLogin">
           <v-card-title>Message</v-card-title>
           <v-card-subtitle>안 읽은 메세지가 1통 있습니다.</v-card-subtitle>
-          <hr>
-          <div style="display: flex; margin:0px 15px 0px">
-            <div style="margin-right:10px;">
-              <div style="display: flex; justify-content:flex-start; align-items: center;"> 
+          <hr />
+          <div style="display: flex; margin: 0px 15px 0px">
+            <div style="margin-right: 10px">
+              <div
+                style="
+                  display: flex;
+                  justify-content: flex-start;
+                  align-items: center;
+                "
+              >
                 <!-- <img
                   style="width: 30px; height: 30px; border-radius: 50%; margin-right:5px"
                   src="@/assets/tikitaka_nacho.png"
                 /> -->
                 <div>
                   <b>나쵸 </b>
-                  <span style="font-size:5px; color: grey;"> 11/22/2022 20:35</span>
+                  <span style="font-size: 5px; color: grey">
+                    11/22/2022 20:35</span
+                  >
                 </div>
               </div>
-              <p style="font-size:14px; color: grey;">
+              <p style="font-size: 14px; color: grey">
                 이번 주말 해리포터 올나잇 잊지마
               </p>
             </div>
             <div>
               <img
-              style="width: 35px;"
-              src="@/assets/poster_example.jpg" alt="해리 포터와 마법사의 돌">
+                style="width: 35px"
+                src="@/assets/poster_example.jpg"
+                alt="해리 포터와 마법사의 돌"
+              />
             </div>
           </div>
         </v-card>
       </v-menu>
-      
-
-
 
       <v-btn
         v-if="!isLogin"
@@ -70,7 +85,13 @@
         SignUp
       </v-btn>
       <v-btn v-if="!isLogin" @click="goLogIn"> LogIn </v-btn>
-      <v-btn v-if="isLogin" @click="logOut" style="margin-right: 15px; margin-left: 15px"> LogOut </v-btn>
+      <v-btn
+        v-if="isLogin"
+        @click="logOut"
+        style="margin-right: 15px; margin-left: 15px"
+      >
+        LogOut
+      </v-btn>
       <!-- 참고 아이콘 -->
       <!-- <div>
         <v-btn icon>
