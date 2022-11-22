@@ -3,7 +3,7 @@
     <FullCalendar :options="calendarOptions" id="font-face" />
 
     <!-- 캘린더 포스터 등록 모달 -->
-    <b-modal hide-footer hide-header-close size="medi" id="createCalendarModal">
+    <b-modal hide-footer hide-header-close size="medi" id="calendarModal">
       <template #modal-header>
         <h2 class="logoText">CUSTOMIZE YOUR OWN CALENDAR</h2>
       </template>
@@ -41,12 +41,14 @@ export default {
     return {
       isCalendarRequest: true,
       movie_title: null,
+      movie_id: null,
+      backdrop_id: null,
       select_img: null,
       selectedInfo: null,
       calendarOptions: {
         plugins: [dayGridPlugin, interactionPlugin],
         initialView: "dayGridMonth",
-        editable: true,
+        editable: false,
         selectable: true,
         // selectMirror: true,
         dayMaxEvents: true,
@@ -57,56 +59,59 @@ export default {
         },
         select: this.handleDateSelect,
         eventClick: this.handleEventClick,
-        eventsSet: this.handleEvents,
+        // eventsSet: this.handleEvents,
         eventContent: this.eventContent,
-        eventColor: "black",
-        // weekends: true,
-        // dateClick: his.handleDateSelect,
+        // eventColor: "black",
         height: "900px",
         // expandRows: true,
-        events: [
-          {
-            title: "스타워즈4: 제국의 역사",
-            start: "2022-11-20",
-            image_url:
-              "https://image.tmdb.org/t/p/original/f0oDtB2JCMlPKjphBJ90GcfVzWg.jpg",
-          },
-          {
-            title: "블랙팬서 와칸다 포에버",
-            image_url:
-              "https://image.tmdb.org/t/p/original/f0oDtB2JCMlPKjphBJ90GcfVzWg.jpg",
-            start: "2022-11-07",
-          },
-          {
-            title: "help",
-            image_url:
-              "https://image.tmdb.org/t/p/original/f0oDtB2JCMlPKjphBJ90GcfVzWg.jpg",
-            start: "2022-11-01",
-          },
-        ],
+        events: this.$store.state.calendarItems,
       },
     }
+  },
+  computed: {
+    // 현재 로그인한 유저
+    user() {
+      return this.$store.state.user
+    },
+    tempUser() {
+      return this.$store.state.tempUser
+    },
+    // 현재 유저와 피드 작성 유저가 같은지 판단 -> 같을 때만 삭제,수정 가능
+    isUser() {
+      if (this.user.id === this.tempUser.id) {
+        return true
+      }
+      return false
+    },
   },
   methods: {
     // handleDateClick: function (arg) {
     //   alert("date click! " + arg.dateStr)
     // },
 
+    // 빈 날짜 클릭시 캘린더 추가 모달 오픈 (유저 본인만 가능)
     handleDateSelect(selectInfo) {
-      this.$bvModal.show("createCalendarModal")
-      this.selectedInfo = selectInfo
+      if (this.isUser) {
+        this.$bvModal.show("calendarModal")
+        this.selectedInfo = selectInfo
+      }
     },
-    // 선택된 이미지 변수에 저장
+
+    // 선택된 이미지 정보 저장
     selectImageForCalendar(payload) {
+      this.movie_id = payload.movie_id
+      this.backdrop_id = payload.backdrop_id
       this.select_img = payload.img_url
       this.movie_title = payload.title
     },
-    // 일정 생성
+
+    // 달력에 포스터 생성
     addCalendar() {
       console.log(this.selectedInfo)
       let image_url = this.select_img
       let calendarApi = this.selectedInfo.view.calendar
       calendarApi.unselect()
+
       if (image_url) {
         calendarApi.addEvent({
           title: this.movie_title,
@@ -114,18 +119,37 @@ export default {
           start: this.selectedInfo.startStr,
         })
       }
-      this.$bvModal.hide("createCalendarModal")
+
+      // DB에 추가하기 위한 함수 호출
+      const payload = {
+        movie_id: this.movie_id,
+        backdrop_id: this.backdrop_id,
+        start: this.selectedInfo.startStr,
+      }
+      this.$store.dispatch("addCalendar", payload)
+
+      // 모달 닫기
+      this.$bvModal.hide("calendarModal")
     },
 
-    // 이벤트 다시 누르면 일정 삭제
+    // 생성된 일정 다시 누르면 일정 삭제
     handleEventClick(clickInfo) {
-      if (confirm(`Are you sure you want to delete ${clickInfo.event.title}`)) {
-        clickInfo.event.remove()
+      console.log(clickInfo)
+      if (this.isUser) {
+        // 삭제 전 경고창 띄우기
+        if (
+          confirm(
+            `정말로 해당 날짜의 ${clickInfo.event.title} 포스터를 삭제하시겠습니까?`
+          )
+        ) {
+          clickInfo.event.remove()
+          this.$store.dispatch("deleteCalendar", clickInfo.event.startStr)
+        }
       }
     },
-    handleEvents(events) {
-      this.currentEvents = events
-    },
+    // handleEvents(events) {
+    //   this.currentEvents = events
+    // },
     // 일정 출력형식 (이미지 출력)
     eventContent(arg) {
       let arrayOfDomNodes = []
@@ -154,7 +178,6 @@ export default {
       }
       arg.borderColor = "white"
       arrayOfDomNodes = [imgEventWrap, titleEvent]
-      console.log("heeeeeeeeeeeer", arg)
       // arg
       //   .find("span.fc-event-title")
       //   .html(element.find("span.fc-event-title").text())
@@ -166,11 +189,37 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Pacifico&family=Titan+One&display=swap");
+
 #font-face {
   font-family: "S-CoreDream-3Light";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff")
     format("woff");
   font-weight: normal;
   font-style: normal;
+}
+
+/* 현재 날짜 */
+.fc-day-today {
+  background: white !important;
+  border: none !important;
+}
+
+/* 날짜 형식 */
+.fc .fc-daygrid-day-number {
+  color: black !important;
+  text-decoration: none;
+}
+
+/* 요일 형식 */
+.fc .fc-col-header-cell-cushion {
+  color: black !important;
+  text-decoration: none;
+  font-weight: bolder;
+}
+
+/* 달력 제목 형식 */
+.fc .fc-toolbar-title {
+  font-family: "Titan One", cursive;
 }
 </style>

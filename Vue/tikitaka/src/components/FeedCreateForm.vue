@@ -98,6 +98,8 @@ export default {
       // const selectedImgUrl =
       //   "https://image.tmdb.org/t/p/original" + this.selectedImgPath
       const payload = {
+        movie_id: this.feedMovieId,
+        backdrop_id: this.selectedImgId,
         img_url: "https://image.tmdb.org/t/p/original" + this.selectedImgPath,
         title: this.movie_title,
       }
@@ -122,6 +124,7 @@ export default {
   created() {
     console.log(this.feedMovieId)
     console.log(this.$store.state.movie)
+    console.log("어디보자", this.feedBackDropList)
   },
 }
 </script>

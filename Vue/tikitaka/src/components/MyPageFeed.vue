@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- 피드 작성 버튼 -->
     <v-btn
       icon
       color="black lighten-2"
@@ -54,8 +55,8 @@
       <!-- <feed-detail-modal /> -->
     </b-modal>
 
-    <!-- 게시글 작성 모달 -->
-    <b-modal hide-footer hide-header-close size="medi" id="openUpdateFeedModal">
+    <!-- 게시글 수정 모달 -->
+    <b-modal hide-footer hide-header-close size="medi" id="updateFeedModal">
       <template #modal-header>
         <h2 class="logoText">UPDATE THE POST</h2>
       </template>
@@ -82,6 +83,19 @@ export default {
       isFeedRequest: true,
       clickedFeed: null,
     }
+  },
+  computed: {
+    // 현재 로그인한 유저
+    user() {
+      return this.$store.state.user
+    },
+    // 현재 유저와 피드 작성 유저가 같은지 판단 -> 같을 때만 삭제,수정 가능
+    isUser() {
+      if (this.user.id === this.clickedFeed.user.id) {
+        return true
+      }
+      return false
+    },
   },
   methods: {
     openCreateFeedModal() {

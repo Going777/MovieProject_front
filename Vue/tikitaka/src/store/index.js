@@ -25,6 +25,7 @@ export default new Vuex.Store({
     // 캘린더 등록시 필요
     feedBackDropList: [],
     cal_movie_title: null, //캘린더에서 사용할 영화 제목
+    calendarItems: [],
 
     movie: null,
     token: null,
@@ -111,12 +112,26 @@ export default new Vuex.Store({
     // DB에 저장된 모든 영화 데이터 가져오기
     LOAD_ALL_MOVIE_LIST(state, response) {
       state.allMovieList = response
-      console.log(state.allMovieList)
     },
     // 피드 작성시 필요한 영화
     SEARCH_MOVIE(state, response) {
       state.feedMovie = response[0]
     },
+    // 달력에 아이템 업데이트
+    UPDATE_CALENDAR(state, response) {
+      state.calendarItems = response.map((element) => {
+        const newObject = {
+          cal_id: element.id,
+          title: element.movie.title,
+          start: element.start,
+          image_url:
+            "https://image.tmdb.org/t/p/original" + element.backdrop.path,
+        }
+        return newObject
+      })
+      console.log(response)
+    },
+
     GET_BACKDROP_LIST(state, payload) {
       state.cal_movie_title = payload.movie_title
       state.feedMovieId = payload.movie_id
@@ -401,22 +416,6 @@ export default new Vuex.Store({
         })
     },
     // 피드(리뷰)에서 영화 검색 -> 백드롭 이미지 5개 받아오기
-    // searchMovieByTitle(context, payload) {
-    //   axios({
-    //     method: "get",
-    //     params: {
-    //       search: payload.keyword,
-    //       genres: payload.genres,
-    //     },
-    //     url: `${DJ_URL}/movies/search_movie/`,
-    //   })
-    //     .then((response) => {
-    //       context.commit("SEARCH_MOVIE", response.data)
-    //     })
-    //     .catch((error) => {
-    //       console.log(error)
-    //     })
-    // },
     getBackDropList(context, movie_id) {
       axios({
         method: "get",
@@ -465,6 +464,38 @@ export default new Vuex.Store({
           alert("필수 항목이 빠졌어요!!")
         })
     },
+
+    // 달력에 아이템 추가
+    addCalendar(context, payload) {
+      axios({
+        method: "post",
+        data: {
+          movie: payload.movie_id,
+          backdrop: payload.backdrop_id,
+          user: context.state.user.id,
+          start: payload.start,
+        },
+        url: `${DJ_URL}/community/calendar/create/`,
+      }).then((response) => {
+        context.commit("UPDATE_CALENDAR", response.data)
+      })
+    },
+    // 달력에 아이템 삭제
+    deleteCalendar(context, start) {
+      console.log(start, context.state.user.id)
+      axios({
+        method: "post",
+        data: {
+          user: context.state.user.id,
+          start: start,
+        },
+        url: `${DJ_URL}/community/calendar/delete/`,
+      }).then((response) => {
+        console.log("삭제됨", response.data)
+        context.dispatch("UPDATE_CALENDAR", response.data)
+      })
+    },
+
     // 유저별 피드 받아오기
     loadFeedList(context, username) {
       axios({
@@ -491,19 +522,48 @@ export default new Vuex.Store({
 
     // 좋아요 클릭 -> DB에 저장
     clickLikeBtn(context, payload) {
+      console.log("heeeeer", payload)
+      console.log("heeeeer", payload.user_id)
       axios({
         method: "post",
         url: `${DJ_URL}/community/review/${payload.feed_id}/like/`,
         data: {
           id: payload.user_id,
         },
-      }).then(() => {
-        // 저장 성공했으면 받아온 피드 정보 업데이트
-        context.dispatch("loadFeedList", context.state.tempUser.username)
-        context.dispatch("loadFeed", payload.feed_id)
-        console.log("이거 하트 눌렀어욤!!")
       })
+        .then(() => {
+          // 저장 성공했으면 받아온 피드 정보 업데이트
+          context.dispatch("loadFeedList", context.state.tempUser.username)
+          context.dispatch("loadFeed", payload.feed_id)
+          console.log("이거 하트 눌렀어욤!!")
+        })
+        .catch((e) => {
+          console.log("에러가 발생", e)
+        })
     },
+
+    // 댓글 작성
+    createComment(context, payload) {
+      axios({
+        method: "post",
+        url: `${DJ_URL}/community/review/${payload.feed_id}/create_comment/`,
+        data: {
+          user: payload.user_id,
+          content: payload.content,
+        },
+      })
+        .then((response) => {
+          console.log(response)
+          // 저장 성공했으면 받아온 피드 정보 업데이트
+          // context.dispatch("loadFeedList", context.state.tempUser.username)
+          // context.dispatch("loadFeed", payload.feed_id)
+          // console.log("이거 하트 눌렀어욤!!")
+        })
+        .catch((e) => {
+          console.log("에러가 발생", e)
+        })
+    },
+
     // 피드 아이디로 피드 조회
     loadFeed(context, feed_id) {
       axios({

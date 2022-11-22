@@ -1,9 +1,6 @@
 <template>
   <div>
-    <my-page-feed-item
-      :feed="clickedFeed"
-      :requestFromDetail="requestFromDetail"
-    />
+    <feed-detail-item :feed="clickedFeed" />
     <div style="float: right" v-show="isUser">
       <v-btn dark class="mx-3" @click="deleteFeed">DELETE</v-btn>
       <v-btn dark>UPDATE</v-btn>
@@ -12,13 +9,16 @@
 </template>
 
 <script>
-import MyPageFeedItem from "./MyPageFeedItem.vue"
+import FeedDetailItem from "./FeedDetailItem.vue"
 export default {
-  components: { MyPageFeedItem },
+  components: { FeedDetailItem },
   name: "FeedDetailModal",
+  props: {
+    clickedFeed: Object,
+  },
   data() {
     return {
-      requestFromDetail: true,
+      // requestFromDetail: true,
     }
   },
 
@@ -35,9 +35,7 @@ export default {
       return false
     },
   },
-  props: {
-    clickedFeed: Object,
-  },
+
   // computed: {
   //   feed: {
   //     get() {
