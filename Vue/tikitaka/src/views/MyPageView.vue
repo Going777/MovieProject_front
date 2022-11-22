@@ -112,7 +112,11 @@ export default {
 
 #content-container {
   grid-area: contentArea;
-  margin-top: -10px;
+  /* margin-top: -20%; */
+  /* display: fixed; */
+  /* overflow: auto; */
+  /* ======= */
+  /* margin-top: -10px; */
   padding: 50px;
   background-color: white;
   border-radius: 20px;
