@@ -2,7 +2,7 @@
   <div class="mainText" id="mypage">
     <!-- 프로필 섹션(좌측) -->
     <div id="profile-container">
-      <community-profile :username="username" />
+      <community-profile :user="user" />
     </div>
 
     <!-- 메뉴 이동 섹션(아이콘 바)(우측 상단) -->
@@ -62,6 +62,9 @@ export default {
         return newValue
       },
     },
+    user() {
+      return this.$store.state.tempUser
+    },
   },
   methods: {
     showFeed(currentPage) {
@@ -80,6 +83,7 @@ export default {
   created() {
     // console.log(this.$route.params.username)
     this.$store.dispatch("loadFeedList", this.$route.params.username)
+    this.$store.dispatch("getUser", this.username)
   },
   updated() {
     this.feedList = this.$store.state.feedList
