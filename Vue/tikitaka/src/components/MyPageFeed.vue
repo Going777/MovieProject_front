@@ -11,7 +11,7 @@
       <img src="@/assets/add_btn.png" alt="" width="70px" />
     </v-btn>
     <!-- 게시글 작성 모달 -->
-    <b-modal hide-footer hide-header-close size="medi" id="openCreateFeedModal">
+    <b-modal hide-footer hide-header-close size="medi" id="createFeedModal">
       <template #modal-header>
         <h2 class="logoText">CREATE YOUR OWN POST</h2>
       </template>
@@ -45,9 +45,12 @@
       hide-footer
       hide-header-close
       size="medi"
-      id="openFeedModal"
+      id="feedDetailModal"
     >
-      <feed-detail-modal :clickedFeed="clickedFeed" />
+      <feed-detail-modal
+        :clickedFeed="clickedFeed"
+        @close-modal="closeFeedModal"
+      />
       <!-- <feed-detail-modal /> -->
     </b-modal>
 
@@ -82,14 +85,17 @@ export default {
   },
   methods: {
     openCreateFeedModal() {
-      this.$bvModal.show("openCreateFeedModal")
+      this.$bvModal.show("createFeedModal")
     },
     closeCreateFeedModal() {
-      this.$bvModal.hide("openCreateFeedModal")
+      this.$bvModal.hide("createFeedModal")
     },
     clickFeed(feed) {
       this.clickedFeed = feed
-      this.$bvModal.show("openFeedModal")
+      this.$bvModal.show("feedDetailModal")
+    },
+    closeFeedModal() {
+      this.$bvModal.hide("feedDetailModal")
     },
   },
 }
