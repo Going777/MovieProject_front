@@ -75,6 +75,13 @@
             <div id="feed-content">
               {{ feed.content }}
             </div>
+            <div>
+              <v-btn icon @click="createComment"
+                ><v-icon size="30" style="margin-left: 15px"
+                  >mdi-alpha-x-circle-outline</v-icon
+                ></v-btn
+              >
+            </div>
           </div>
           <br />
           <!-- 댓글 출력 -->
@@ -101,6 +108,11 @@
                   <h6 style="align-self: center; margin-left: 10px">
                     {{ comment.content }}
                   </h6>
+                  <v-btn icon @click="createComment"
+                    ><v-icon size="30" style="margin-left: 15px"
+                      >mdi-send</v-icon
+                    ></v-btn
+                  >
                 </div>
               </div>
 
