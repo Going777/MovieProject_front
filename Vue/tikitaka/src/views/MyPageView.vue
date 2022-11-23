@@ -13,7 +13,6 @@
         @show-heart-feed="showHeartFeed"
         @show-calendar="showCalendar"
       />
-      <!-- <font-awesome-icon class="fa-3x" icon="stopwatch" /> -->
     </div>
 
     <!-- 콘텐츠 섹션(우측 하단) -->

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-sheet id="sidebar-box" class="mainText" elevation="5">
+    <v-sheet id="sidebar-box" class="mainText" elevation="3">
       <!-- 유저 검색 -->
       <div style="margin: 20px 0">
         <v-toolbar flat dense>
@@ -145,11 +145,14 @@ export default {
   border-radius: 15px;
   height: 80vh;
   padding: 30px 10px;
-  background-color: rgb(238, 238, 238);
+  background-color: white;
   position: fixed;
   max-width: 17%;
+  width: 17%;
   float: right;
-  margin-right: 10px;
+  margin-left: auto;
+  margin-right: 0;
+  /* margin-right: 10px; */
   margin-top: 10px;
 }
 #user-box {

@@ -520,20 +520,16 @@ export default new Vuex.Store({
         url: `${DJ_URL}/community/feed/${user_id}`,
       })
         .then((response) => {
-          console.log("왜 못받아와?!!!!!!!!")
           context.commit("LOAD_RELATED_FEED_LIST", response.data)
           console.log(response.data)
         })
         .catch((e) => {
-          console.log("왜 못받아와?!!!!!!!!")
           console.log("에러발생", e)
         })
     },
 
     // 좋아요 클릭 -> DB에 저장
     clickLikeBtn(context, payload) {
-      console.log("heeeeer", payload)
-      console.log("heeeeer", payload.user_id)
       axios({
         method: "post",
         url: `${DJ_URL}/community/review/${payload.feed_id}/like/`,
