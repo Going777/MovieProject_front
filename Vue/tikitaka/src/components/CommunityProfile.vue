@@ -324,10 +324,11 @@ export default {
         profile_img: imgKeyword,
         description: this.description,
       }
-      return this.$store.dispatch("editProfile", payload)
+      this.$store.dispatch("editProfile", payload)
+      this.$bvModal.hide("profileEditModal")
     },
   },
-  created: {},
+  // created: {},
 }
 </script>
 
