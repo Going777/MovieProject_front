@@ -74,10 +74,13 @@ export default {
       return this.$store.state.user.id
     },
     isLike() {
-      if (this.feed.like_users.includes(this.user_id)) {
-        return true
-      }
-      return false
+      let pushLike = false
+      this.feed.like_users.forEach((element) => {
+        if (element.id === this.user_id) {
+          pushLike = true
+        }
+      })
+      return pushLike
     },
     likeCount() {
       return this.feed.like_users.length
