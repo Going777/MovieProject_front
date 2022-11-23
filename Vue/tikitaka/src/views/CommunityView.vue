@@ -31,14 +31,22 @@ export default {
     user() {
       return this.$store.state.user
     },
-    relatedFeedList() {
-      return this.$store.state.relatedFeedList
+    relatedFeedList: {
+      get() {
+        return this.$store.state.relatedFeedList
+      },
+      set(newValue) {
+        return newValue
+      },
     },
   },
   created() {
     this.$store.dispatch("getMe", this.user.username)
     // this.$store.dispatch("loadAllUserList")
     this.$store.dispatch("loadRelatedFeedlist", this.user.id)
+  },
+  updated() {
+    this.relatedFeedList = this.$store.state.relatedFeedList
   },
 }
 </script>

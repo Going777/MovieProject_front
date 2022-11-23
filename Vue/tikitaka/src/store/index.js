@@ -544,8 +544,8 @@ export default new Vuex.Store({
         .then(() => {
           // 저장 성공했으면 받아온 피드 정보 업데이트
           context.dispatch("loadFeedList", context.state.tempUser.username)
+          context.dispatch("loadRelatedFeedlist", context.state.user.id)
           context.dispatch("loadFeed", payload.feed_id)
-          console.log("이거 하트 눌렀어욤!!")
         })
         .catch((e) => {
           console.log("에러가 발생", e)
