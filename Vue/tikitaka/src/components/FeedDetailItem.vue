@@ -217,6 +217,7 @@ export default {
       this.$store.dispatch("deleteComment", payload)
     },
     clickUser(user) {
+      this.$store.dispatch("getUser", user)
       this.$router
         .push({ name: "mypage", params: { username: user } })
         .catch(() => {})

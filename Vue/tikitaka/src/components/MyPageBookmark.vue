@@ -67,9 +67,9 @@ export default {
     bookmarkDelete(bookmark_id) {
       this.$store.dispatch("clickBookmark", bookmark_id)
     },
-    // goDetail(id) {
-    //   this.$router.push({})
-    // },
+    goDetail() {
+      console.log("디테일로")
+    },
   },
   updated() {
     this.tempUser = this.$store.state.tempUser

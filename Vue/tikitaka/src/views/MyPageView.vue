@@ -2,12 +2,11 @@
   <div class="mainText" id="mypage">
     <!-- 프로필 섹션(좌측) -->
     <div id="profile-container" style="margin-top: 34px">
-      <community-profile :user="user" />
+      <community-profile :user="tempUser" />
     </div>
 
     <!-- 메뉴 이동 섹션(아이콘 바)(우측 상단) -->
     <div id="icon-container">
-      {{ username }}
       <my-page-icon-bar
         @show-feed="showFeed"
         @show-bookmark="showBookmark"
@@ -17,18 +16,21 @@
     </div>
 
     <!-- 콘텐츠 섹션(우측 하단) -->
-    <!-- <div > -->
     <v-sheet id="content-container" elevation="3">
       <my-page-feed v-if="activeTab === 'MyPageFeed'" :feedList="feedList" />
       <my-page-bookmark v-if="activeTab === 'MyPageBookmark'" />
       <my-page-heart-feed
         v-if="activeTab === 'MyPageHeartFeed'"
-        :user="user"
+        :user="tempUser"
         :feedList="feedList"
       />
       <my-page-calendar v-if="activeTab === 'MyPageCalendar'" />
+      현재 페이지 유저{{ tempUser.username }}
+      <hr />
+      라우터로 받은 유저{{ username }}
+      <hr />
+      로그인 유저{{ user.username }}
     </v-sheet>
-    <!-- </div> -->
   </div>
 </template>
 
@@ -55,6 +57,7 @@ export default {
     }
   },
   computed: {
+    // 화면의 유저 네임
     username: {
       get() {
         return this.$route.params.username
@@ -63,17 +66,22 @@ export default {
         return newValue
       },
     },
-    feedList: {
+    // 현재 로그인한 유저
+    user() {
+      return this.$store.state.user
+    },
+    // 화면에서 보여져야 할 유저
+    tempUser: {
       get() {
-        return this.$store.state.feedList
+        return this.$store.state.tempUser
       },
       set(newValue) {
         return newValue
       },
     },
-    user: {
+    feedList: {
       get() {
-        return this.$store.state.tempUser
+        return this.$store.state.feedList
       },
       set(newValue) {
         return newValue
@@ -95,19 +103,20 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("loadFeedList", this.$route.params.username)
+    this.$store.dispatch("loadFeedList", this.username)
     this.$store.dispatch("getUser", this.username)
-    this.$store.dispatch("loadUserCalendar", this.user.id)
+    this.$store.dispatch("loadUserCalendar", this.tempUser.id)
   },
   updated() {
     this.feedList = this.$store.state.feedList
-    this.$store.dispatch("loadUserCalendar", this.user.id)
+    // this.tempUser = this.$store.state.tempUser
+    // this.$store.dispatch("getUser", this.username)
+    this.$store.dispatch("loadUserCalendar", this.tempUser.id)
   },
   // beforeRouteUpdate(to, from, next) {
-  //   this.username = to.params.username
-  //   this.$store.dispatch("getUser", this.username)
-  //   console.log("그다음 여기", this.user)
-  //   this.user = this.$store.state.tempUser
+  //   // this.$store.dispatch("getUser", this.username)
+  //   // console.log("그다음 여기", this.user)
+  //   this.tempUser = this.$store.state.tempUser
   //   next()
   // },
 }
