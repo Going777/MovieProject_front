@@ -62,7 +62,7 @@ export default {
         // eventsSet: this.handleEvents,
         eventContent: this.eventContent,
         // eventColor: "black",
-        height: "1000px",
+        height: "1200px",
         // expandRows: true,
         events: this.$store.state.calendarItems,
       },
@@ -157,8 +157,8 @@ export default {
       let titleEvent = document.createElement("div")
       if (arg.event._def.title) {
         titleEvent.innerHTML = arg.event._def.title
-        titleEvent.width = "100%"
-        titleEvent.style.wordBreak = "break-all"
+        // titleEvent.width = "100%"
+        // titleEvent.style.wordBreak = "break-all"
         titleEvent.style.backgroundColor = "white"
         titleEvent.style.color = "black"
         titleEvent.style.fontSize = "11px"
@@ -217,5 +217,9 @@ export default {
 /* 달력 제목 형식 */
 .fc .fc-toolbar-title {
   font-family: "Titan One", cursive;
+}
+
+.fc-daygrid-event {
+  white-space: normal;
 }
 </style>
