@@ -33,6 +33,7 @@
                 :key="idx"
                 :feed="feed"
                 @click-feed="clickFeed"
+                @click-like="clickLike"
               />
             </div>
           </div>
@@ -81,7 +82,7 @@ export default {
   data() {
     return {
       isFeedRequest: true,
-      clickedFeed: null,
+      // clickedFeed: null,
     }
   },
   computed: {
@@ -95,6 +96,9 @@ export default {
         return true
       }
       return false
+    },
+    clickedFeed() {
+      return this.$store.state.selectedFeed
     },
   },
   methods: {
@@ -110,6 +114,9 @@ export default {
     },
     closeFeedModal() {
       this.$bvModal.hide("feedDetailModal")
+    },
+    clickLike(feed) {
+      this.clickedFeed = feed
     },
   },
 }

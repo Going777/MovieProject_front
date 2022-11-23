@@ -157,6 +157,7 @@ export default new Vuex.Store({
     // 선택한 피드 가져오기
     LOAD_FEED(state, response) {
       state.selectedFeed = response
+      console.log("로드된 피드", state.selectedFeed)
     },
     // 유저 가져오기
     GET_USER(state, response) {

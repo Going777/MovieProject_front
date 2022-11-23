@@ -82,10 +82,18 @@ export default {
     likeCount() {
       return this.feed.like_users.length
     },
+    clickedFeed: {
+      get() {
+        return this.$store.state.selectedFeed
+      },
+      set(newValue) {
+        return newValue
+      },
+    },
   },
   methods: {
     clickFeed() {
-      this.$emit("click-feed", this.feed)
+      this.$emit("click-feed", this.clickedFeed)
     },
     clickLikeBtn() {
       const payload = {
@@ -93,12 +101,16 @@ export default {
         user_id: this.$store.state.user.id,
       }
       this.$store.dispatch("clickLikeBtn", payload)
+      this.$emit("click-like", this.clickedFeed)
     },
   },
   created() {
     console.log("-----------------")
     console.log(this.feed)
     console.log("-----------------")
+  },
+  updated() {
+    this.clickedFeed = this.$store.state.selectedFeed
   },
 }
 </script>
