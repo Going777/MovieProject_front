@@ -12,10 +12,12 @@
         style="display: flex; margin-bottom: 10px; margin-left: 5px"
       >
         <img
+          @click="clickFeedUser"
           style="width: 45px; border-radius: 50%"
           :src="require(`@/assets/tikitaka_${feed.user.profile_img}.png`)"
         />
         <h4
+          @click="clickFeedUser"
           style="
             align-self: center;
             margin-left: 10px;
@@ -220,6 +222,12 @@ export default {
       this.$store.dispatch("getUser", user)
       this.$router
         .push({ name: "mypage", params: { username: user } })
+        .catch(() => {})
+      this.$emit("close-modal")
+    },
+    clickFeedUser() {
+      this.$router
+        .push({ name: "mypage", params: { username: this.feed.user.username } })
         .catch(() => {})
       this.$emit("close-modal")
     },
