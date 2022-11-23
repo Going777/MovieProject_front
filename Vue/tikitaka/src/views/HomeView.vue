@@ -91,6 +91,9 @@ export default {
     console.log("bbbbbbbbbbbbbbbbbb", this.$store.getters.isLogin)
     this.$store.dispatch("getMe", this.username)
   },
+  updated() {
+    this.$store.dispatch("getUser", this.username)
+  },
 }
 </script>
 

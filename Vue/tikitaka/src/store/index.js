@@ -49,6 +49,9 @@ export default new Vuex.Store({
     followerCnt(state) {
       return state.tempUser.following.length
     },
+    profile_img(state) {
+      return state.tempUser.profile_img
+    },
   },
   mutations: {
     // ***************************************************************

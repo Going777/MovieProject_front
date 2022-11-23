@@ -250,7 +250,7 @@ export default {
       return this.$store.getters.followerCnt
     },
     profile_img() {
-      return this.$store.state.tempUser.profile_img
+      return this.$store.getters.profile_img
     },
   },
   methods: {

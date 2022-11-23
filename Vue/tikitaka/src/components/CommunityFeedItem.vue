@@ -9,7 +9,7 @@
       <div style="display: flex; margin-bottom: 10px">
         <img
           style="width: 8%; min-width: 36px; border-radius: 50%"
-          src="@/assets/tikitaka_film.png"
+          :src="require(`@/assets/tikitaka_${feed.user.profile_img}.png`)"
         />
         <h5
           style="
