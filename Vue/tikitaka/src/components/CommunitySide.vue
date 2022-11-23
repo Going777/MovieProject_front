@@ -72,13 +72,10 @@ import CommunitySideItem from "./CommunitySideItem.vue"
 export default {
   components: { CommunityFeedUserListItem, CommunitySideItem },
   name: "CommunitySide",
-<<<<<<< HEAD
-  props: { allUserList: Array },
-=======
   props: {
     followList: Array,
+    allUserList: Array,
   },
->>>>>>> 3461b708af4fdd95b43844afcd9801b89f1ebc56
   data() {
     return {
       loading: false,

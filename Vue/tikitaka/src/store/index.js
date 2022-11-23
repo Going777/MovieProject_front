@@ -100,10 +100,6 @@ export default new Vuex.Store({
         method: "get",
         url: `${DJ_URL}/accounts/${data.user.pk}/user/`,
       }).then((res) => {
-<<<<<<< HEAD
-=======
-        console.log("로그인 유저", res.data)
->>>>>>> 3461b708af4fdd95b43844afcd9801b89f1ebc56
         state.user = res.data
       })
       router.push({ name: "home" })
