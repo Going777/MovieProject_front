@@ -93,12 +93,10 @@ export default new Vuex.Store({
     SAVE_TOKEN(state, data) {
       state.user = data.user
       state.token = data.access_token
-      // console.log(data.user)
       axios({
         method: "get",
         url: `${DJ_URL}/accounts/${data.user.pk}/user/`,
       }).then((res) => {
-        console.log(res.data)
         state.user = res.data
       })
       router.push({ name: "home" })
@@ -144,7 +142,6 @@ export default new Vuex.Store({
         }
         return newObject
       })
-      console.log("여길 봐주세요", response)
     },
 
     GET_BACKDROP_LIST(state, payload) {
@@ -163,7 +160,6 @@ export default new Vuex.Store({
     // 선택한 피드 가져오기
     LOAD_FEED(state, response) {
       state.selectedFeed = response
-      console.log("로드된 피드", state.selectedFeed)
     },
     // 유저 가져오기
     GET_USER(state, response) {
@@ -197,7 +193,6 @@ export default new Vuex.Store({
         url: `${DJ_URL}/movies/top_rated_movie/`,
       })
         .then((response) => {
-          console.log(response)
           context.commit("LOAD_TOPRATED_MOVIE_LIST", response.data)
         })
         .catch((error) => {
@@ -434,6 +429,7 @@ export default new Vuex.Store({
     },
     // 피드(리뷰)에서 영화 검색 -> 백드롭 이미지 5개 받아오기
     getBackDropList(context, movie_id) {
+      console.log("여기 들어와야 합", movie_id)
       axios({
         method: "get",
         params: {
@@ -468,6 +464,26 @@ export default new Vuex.Store({
           alert("필수 항목이 빠졌어요!!")
         })
     },
+    // 피드 수정
+    updateFeed(context, payload) {
+      axios({
+        method: "put",
+        data: {
+          title: payload.title,
+          content: payload.content,
+          backdrop: payload.img_id,
+          user: context.state.user.id,
+        },
+        url: `${DJ_URL}/community/review/${payload.feed_id}/`,
+      })
+        .then(() => {
+          context.dispatch("loadFeedList", context.state.user.username)
+        })
+        .catch(() => {
+          console.log("업데이트 실패")
+        })
+    },
+
     //피드 삭제
     deleteFeed(context, feed_id) {
       axios({
@@ -517,7 +533,6 @@ export default new Vuex.Store({
         },
         url: `${DJ_URL}/community/calendar/delete/`,
       }).then((response) => {
-        console.log("삭제됨", response.data)
         context.commit("UPDATE_CALENDAR", response.data)
       })
     },
@@ -528,6 +543,7 @@ export default new Vuex.Store({
         method: "get",
         url: `${DJ_URL}/community/review/${username}`,
       }).then((response) => {
+        console.log("받아오기 성공", response)
         context.commit("LOAD_FEED_LIST", response.data)
       })
     },

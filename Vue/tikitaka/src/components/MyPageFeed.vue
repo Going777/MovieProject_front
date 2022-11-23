@@ -48,6 +48,7 @@
       <feed-detail-modal
         :clickedFeed="clickedFeed"
         @close-modal="closeFeedModal"
+        @open-update-feed-modal="openUpdateFeedModal"
       />
       <!-- <feed-detail-modal /> -->
     </b-modal>
@@ -57,10 +58,14 @@
       <template #modal-header>
         <h2 class="logoText">UPDATE THE POST</h2>
       </template>
-      <feed-create-modal
+      <feed-update-modal
+        :clickedFeed="clickedFeed"
+        @close-modal="closeUpdateFeedModal"
+      />
+      <!-- <feed-create-form
         :isFeedRequest="isFeedRequest"
         @close-modal="closeCreateFeedModal"
-      />
+      /> -->
     </b-modal>
   </div>
 </template>
@@ -68,9 +73,15 @@
 <script>
 import FeedCreateModal from "./FeedCreateModal.vue"
 import FeedDetailModal from "./FeedDetailModal.vue"
+import FeedUpdateModal from "./FeedUpdateModal.vue"
 import MyPageFeedItem from "./MyPageFeedItem.vue"
 export default {
-  components: { FeedCreateModal, MyPageFeedItem, FeedDetailModal },
+  components: {
+    FeedCreateModal,
+    MyPageFeedItem,
+    FeedDetailModal,
+    FeedUpdateModal,
+  },
   name: "MyPageFeed",
   props: {
     feedList: Array,
@@ -100,6 +111,14 @@ export default {
         return newValue
       },
     },
+    feedBackDropList: {
+      get() {
+        return this.$store.state.feedBackDropList
+      },
+      set(newValue) {
+        return newValue
+      },
+    },
   },
   methods: {
     openCreateFeedModal() {
@@ -111,6 +130,8 @@ export default {
     clickFeed(feed) {
       this.clickedFeed = feed
       this.$bvModal.show("feedDetailModal")
+      console.log("선택된 영화", this.clickedFeed)
+      // this.$store.dispatch("getBackDropList", this.feed.movie.id)
     },
     closeFeedModal() {
       this.$bvModal.hide("feedDetailModal")
@@ -118,7 +139,14 @@ export default {
     clickLike(feed) {
       this.clickedFeed = feed
     },
+    openUpdateFeedModal() {
+      this.$bvModal.show("updateFeedModal")
+    },
+    closeUpdateFeedModal() {
+      this.$bvModal.hide("updateFeedModal")
+    },
   },
+  updated() {},
 }
 </script>
 

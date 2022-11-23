@@ -3,7 +3,7 @@
     <feed-detail-item :feed="clickedFeed" />
     <div style="float: right" v-show="isUser">
       <v-btn dark class="mx-3" @click="deleteFeed">DELETE</v-btn>
-      <v-btn dark>UPDATE</v-btn>
+      <v-btn dark @click="updateFeed">UPDATE</v-btn>
     </div>
   </div>
 </template>
@@ -35,28 +35,18 @@ export default {
       return false
     },
   },
-
-  // computed: {
-  //   feed: {
-  //     get() {
-  //       return this.clickedFeed
-  //     },
-  //     set(newValue) {
-  //       return newValue
-  //     },
-  //   },
-  // },
   methods: {
     // 피드 삭제
     deleteFeed() {
       this.$store.dispatch("deleteFeed", this.clickedFeed.id)
       this.$emit("close-modal")
     },
+    // 피드 업데이트
+    updateFeed() {
+      this.$emit("close-modal") //현재 피드 닫고
+      this.$emit("open-update-feed-modal") // 수정모달 띄우기
+    },
   },
-  // updated() {
-  //   this.feed = this.$store.state.selectedFeed
-  //   console.log("바꼈나요,.,,,,,,?", this.feed)
-  // },
 }
 </script>
 

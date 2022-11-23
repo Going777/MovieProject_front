@@ -87,8 +87,6 @@ export default {
     },
   },
   created() {
-    console.log("bbbbbbbbbbbbbbbbbb", this.isLogin)
-    console.log("bbbbbbbbbbbbbbbbbb", this.$store.getters.isLogin)
     this.$store.dispatch("getMe", this.username)
   },
   updated() {

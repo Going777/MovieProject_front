@@ -178,9 +178,9 @@ export default {
     },
   },
   created() {
-    console.log("-----------------")
-    console.log(this.feed)
-    console.log("-----------------")
+    // console.log("-----------------")
+    // console.log(this.feed)
+    // console.log("-----------------")
   },
 }
 </script>

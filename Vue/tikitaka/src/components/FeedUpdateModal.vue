@@ -21,7 +21,7 @@
     </div>
 
     <!-- 피드 작성 요청시 렌더링 될 영역 -->
-    <div v-show="isFeedRequest">
+    <div>
       <hr class="mt-5 mb-4" />
       <!-- (title, content 작성 영역) -->
       <h4>TITLE</h4>
@@ -45,8 +45,8 @@
       </v-textarea>
 
       <!-- 피드 작성 완료 버튼 -->
-      <v-btn dark height="45" @click="addFeed" style="float: right"
-        >CREATE</v-btn
+      <v-btn dark height="45" @click="updateFeed" style="float: right"
+        >UPDATE</v-btn
       >
     </div>
   </div>
@@ -54,24 +54,21 @@
 
 <script>
 export default {
-  name: "FeedCreateForm",
+  name: "FeedUpdateModal",
   props: {
-    isFeedRequest: Boolean,
-    isCalendarRequest: Boolean,
-    feedMovieId: Number,
-    feedBackDropList: Array,
+    clickedFeed: Object,
   },
   data() {
     return {
-      title: null,
-      content: null,
-      selectedImgId: this.feedBackDropList[0].id, // 선택한 이미지 백드롭 아이디
-      selectedImgPath: this.feedBackDropList[0].path, // 선택한 이미지 백드롭 키(path)
+      title: this.clickedFeed.title,
+      content: this.clickedFeed.content,
+      selectedImgId: this.clickedFeed.backdrop.id, // 선택한 이미지 백드롭 아이디
+      selectedImgPath: this.clickedFeed.backdrop.path, // 선택한 이미지 백드롭 키(path)
     }
   },
   computed: {
-    movie_title() {
-      return this.$store.state.cal_movie_title
+    feedBackDropList() {
+      return this.$store.state.feedBackDropList
     },
   },
   methods: {
@@ -84,36 +81,20 @@ export default {
     selectImage(backdrop) {
       this.selectedImgId = backdrop.id
       this.selectedImgPath = backdrop.path
-      // const selectedImgUrl =
-      //   "https://image.tmdb.org/t/p/original" + this.selectedImgPath
-      const payload = {
-        movie_id: this.feedMovieId,
-        backdrop_id: this.selectedImgId,
-        img_url: "https://image.tmdb.org/t/p/original" + this.selectedImgPath,
-        title: this.movie_title,
-      }
-      this.$emit("select-image-for-calendar", payload)
     },
-    addFeed() {
+    updateFeed() {
       const payload = {
-        movie_id: this.feedMovieId,
         img_id: this.selectedImgId,
         title: this.title,
         content: this.content,
+        feed_id: this.clickedFeed.id,
       }
-      this.$store.dispatch("addFeed", payload)
+      this.$store.dispatch("updateFeed", payload)
       this.$emit("close-modal")
-    },
-    addCalendar() {
-      const selectedImgUrl =
-        "https://image.tmdb.org/t/p/original" + this.selectedImgPath
-      this.$emit("add-calendar", selectedImgUrl)
     },
   },
   created() {
-    // console.log(this.feedMovieId)
-    // console.log(this.$store.state.movie)
-    // console.log("어디보자", this.feedBackDropList)
+    this.$store.dispatch("getBackDropList", this.clickedFeed.movie.id)
   },
 }
 </script>

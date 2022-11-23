@@ -62,7 +62,7 @@ export default {
         // eventsSet: this.handleEvents,
         eventContent: this.eventContent,
         // eventColor: "black",
-        height: "900px",
+        height: "1000px",
         // expandRows: true,
         events: this.$store.state.calendarItems,
       },
@@ -134,7 +134,6 @@ export default {
 
     // 생성된 일정 다시 누르면 일정 삭제
     handleEventClick(clickInfo) {
-      console.log(clickInfo)
       if (this.isUser) {
         // 삭제 전 경고창 띄우기
         if (
