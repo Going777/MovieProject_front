@@ -7,12 +7,13 @@
           <v-autocomplete
             clearable
             outlined
-            small-chips
+            auto-select-first
             :loading="loading"
-            :items="items"
             :search-input.sync="searchUser"
+            :items="items"
             v-model="select"
             label="Search Users..."
+            @change="selectUser"
           ></v-autocomplete>
         </v-toolbar>
       </div>
@@ -112,10 +113,11 @@ import CommunityFeedUserListItem from "./CommunityFeedUserListItem.vue"
 export default {
   components: { CommunityFeedUserListItem },
   name: "CommunitySide",
+  props: { allUserList: Array },
   data() {
     return {
       loading: false,
-      items: [],
+      items: this.allUserList,
       searchUser: null,
       select: null,
       users: this.$store.state.allUserList,
@@ -135,6 +137,9 @@ export default {
         })
         this.loading = false
       }, 500)
+    },
+    selectUser() {
+      this.$router.push({ name: "mypage", params: { username: this.select } })
     },
   },
 }

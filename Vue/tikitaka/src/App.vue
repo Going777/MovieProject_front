@@ -92,20 +92,6 @@
       >
         LogOut
       </v-btn>
-      <!-- 참고 아이콘 -->
-      <!-- <div>
-        <v-btn icon>
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
-  
-        <v-btn icon>
-          <v-icon>mdi-heart</v-icon>
-        </v-btn>
-  
-        <v-btn icon>
-          <v-icon>mdi-dots-vertical</v-icon>
-        </v-btn>
-      </div> -->
     </v-app-bar>
 
     <!-- 왼쪽 side nav bar -->
@@ -171,7 +157,7 @@
     </v-main>
 
     <!-- 영화 검색 모달 -->
-    <b-modal id="showSearchModal" size="huge" hide-footer>
+    <b-modal id="searchModal" size="huge" hide-footer>
       <template #modal-header>
         <h2 class="logoText">SEARCH MOVIES</h2>
       </template>
@@ -179,12 +165,7 @@
         <!-- 검색 섹션 -->
         <v-sheet
           class="p-3"
-          style="
-            /* background-color: rgb(230, 230, 230); */
-            border-radius: 30px;
-            width: 15%;
-            height: 45%;
-          "
+          style="border-radius: 30px; width: 15%; height: 45%"
           elevation="5"
         >
           <!-- 검색 카테고리 (영화인 검색은 일단 생략) -->
@@ -393,10 +374,10 @@ export default {
     },
 
     openSearchModal() {
-      this.$bvModal.show("showSearchModal")
+      this.$bvModal.show("searchModal")
     },
     closeSearchModal() {
-      this.$bvModal.hide("showSearchModal")
+      this.$bvModal.hide("searchModal")
     },
 
     inputFunc() {

@@ -7,7 +7,7 @@
       <community-feed :relatedFeedList="relatedFeedList" />
     </div>
     <div id="side-container">
-      <community-side />
+      <community-side :allUserList="allUserList" />
     </div>
   </div>
 </template>
@@ -25,9 +25,9 @@ export default {
     }
   },
   computed: {
-    // username() {
-    //   return this.$store.state.user.username
-    // },
+    allUserList() {
+      return this.$store.state.allUserList
+    },
     user() {
       return this.$store.state.user
     },
@@ -41,8 +41,8 @@ export default {
     },
   },
   created() {
+    this.$store.dispatch("loadAllUserList")
     this.$store.dispatch("getMe", this.user.username)
-    // this.$store.dispatch("loadAllUserList")
     this.$store.dispatch("loadRelatedFeedlist", this.user.id)
     this.$store.dispatch("getUser", this.user.username)
   },
