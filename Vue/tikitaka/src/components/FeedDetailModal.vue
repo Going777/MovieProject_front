@@ -1,6 +1,6 @@
 <template>
   <div>
-    <feed-detail-item :feed="clickedFeed" />
+    <feed-detail-item :feed="clickedFeed" @close-modal="closeModal" />
     <div style="float: right" v-show="isUser">
       <v-btn dark class="mx-3" @click="deleteFeed">DELETE</v-btn>
       <v-btn dark @click="updateFeed">UPDATE</v-btn>
@@ -45,6 +45,9 @@ export default {
     updateFeed() {
       this.$emit("close-modal") //현재 피드 닫고
       this.$emit("open-update-feed-modal") // 수정모달 띄우기
+    },
+    closeModal() {
+      this.$emit("close-modal")
     },
   },
 }

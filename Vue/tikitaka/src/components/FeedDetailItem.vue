@@ -92,6 +92,7 @@
                     "
                   /> -->
                   <h6
+                    @click="clickUser(comment.user.username)"
                     style="
                       align-self: center;
                       font-weight: bolder;
@@ -215,11 +216,12 @@ export default {
       }
       this.$store.dispatch("deleteComment", payload)
     },
-  },
-  created() {
-    // console.log("-----------------")
-    // console.log(this.feed)
-    // console.log("-----------------")
+    clickUser(user) {
+      this.$router
+        .push({ name: "mypage", params: { username: user } })
+        .catch(() => {})
+      this.$emit("close-modal")
+    },
   },
 }
 </script>

@@ -7,6 +7,7 @@
 
     <!-- 메뉴 이동 섹션(아이콘 바)(우측 상단) -->
     <div id="icon-container">
+      {{ username }}
       <my-page-icon-bar
         @show-feed="showFeed"
         @show-bookmark="showBookmark"
@@ -19,8 +20,12 @@
     <!-- <div > -->
     <v-sheet id="content-container" elevation="3">
       <my-page-feed v-if="activeTab === 'MyPageFeed'" :feedList="feedList" />
-      <my-page-bookmark v-if="activeTab === 'MyPageBookmark'" />
-      <my-page-heart-feed v-if="activeTab === 'MyPageHeartFeed'" />
+      <my-page-bookmark v-if="activeTab === 'MyPageBookmark'" :user="user" />
+      <my-page-heart-feed
+        v-if="activeTab === 'MyPageHeartFeed'"
+        :user="user"
+        :feedList="feedList"
+      />
       <my-page-calendar v-if="activeTab === 'MyPageCalendar'" />
     </v-sheet>
     <!-- </div> -->
@@ -88,6 +93,13 @@ export default {
     this.feedList = this.$store.state.feedList
     this.$store.dispatch("loadUserCalendar", this.user.id)
   },
+  // beforeRouteUpdate(to, from, next) {
+  //   this.username = to.params.username
+  //   this.$store.dispatch("getUser", this.username)
+  //   this.user = this.$store.state.tempUser
+  //   console.log(this.username)
+  //   next()
+  // },
 }
 </script>
 
@@ -106,17 +118,10 @@ export default {
 
 #icon-container {
   grid-area: iconArea;
-  /* padding-top: 20px; */
-  /* height: 0px; */
 }
 
 #content-container {
   grid-area: contentArea;
-  /* margin-top: -20%; */
-  /* display: fixed; */
-  /* overflow: auto; */
-  /* ======= */
-  /* margin-top: -10px; */
   padding: 50px;
   background-color: white;
   border-radius: 20px;

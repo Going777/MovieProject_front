@@ -101,7 +101,9 @@ export default {
       }, 500)
     },
     selectUser() {
-      this.$router.push({ name: "mypage", params: { username: this.select } })
+      this.$router
+        .push({ name: "mypage", params: { username: this.select } })
+        .catch(() => {})
     },
   },
 }
