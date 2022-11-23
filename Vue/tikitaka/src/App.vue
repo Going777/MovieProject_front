@@ -287,7 +287,7 @@
           <v-card flat width="100%">
             <div class="m-3">
               <div>
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
                   <search-movie-list-item
                     v-for="(movie, idx) in searchMovieList"
                     :key="idx"
