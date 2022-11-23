@@ -20,7 +20,7 @@
     <!-- <div > -->
     <v-sheet id="content-container" elevation="3">
       <my-page-feed v-if="activeTab === 'MyPageFeed'" :feedList="feedList" />
-      <my-page-bookmark v-if="activeTab === 'MyPageBookmark'" :user="user" />
+      <my-page-bookmark v-if="activeTab === 'MyPageBookmark'" />
       <my-page-heart-feed
         v-if="activeTab === 'MyPageHeartFeed'"
         :user="user"
@@ -55,8 +55,13 @@ export default {
     }
   },
   computed: {
-    username() {
-      return this.$route.params.username
+    username: {
+      get() {
+        return this.$route.params.username
+      },
+      set(newValue) {
+        return newValue
+      },
     },
     feedList: {
       get() {
@@ -66,8 +71,13 @@ export default {
         return newValue
       },
     },
-    user() {
-      return this.$store.state.tempUser
+    user: {
+      get() {
+        return this.$store.state.tempUser
+      },
+      set(newValue) {
+        return newValue
+      },
     },
   },
   methods: {
@@ -96,8 +106,8 @@ export default {
   // beforeRouteUpdate(to, from, next) {
   //   this.username = to.params.username
   //   this.$store.dispatch("getUser", this.username)
+  //   console.log("그다음 여기", this.user)
   //   this.user = this.$store.state.tempUser
-  //   console.log(this.username)
   //   next()
   // },
 }

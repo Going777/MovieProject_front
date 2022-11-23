@@ -655,6 +655,7 @@ export default new Vuex.Store({
         .then((response) => {
           console.log("북마크 완료!!", response)
           context.dispatch("getMe", context.state.user.username)
+          context.dispatch("getUser", context.state.user.username)
         })
         .catch((e) => {
           console.log("북마크 실패", e)
