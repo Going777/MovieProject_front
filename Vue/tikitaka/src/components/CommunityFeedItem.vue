@@ -1,11 +1,11 @@
 <template>
   <div id="feed-item" class="mainText" style="margin-bottom: 30px">
-    <!-- {{ feed }} -->
     <!-- 유저프로필 & 유저 닉네임 -->
     <v-sheet
       elevation="3"
       style="padding: 20px; background-color: white; border-radius: 20px"
     >
+      <!-- 유저 프로필 닉네임 -->
       <div style="display: flex; margin-bottom: 10px">
         <img
           style="width: 8%; min-width: 36px; border-radius: 50%"
@@ -72,7 +72,7 @@
 
 <script>
 export default {
-  name: "CommunityFeed",
+  name: "CommunityFeedItem",
   props: {
     feed: Object,
   },
@@ -92,10 +92,19 @@ export default {
     likeCount() {
       return this.feed.like_users.length
     },
+    clickedFeed: {
+      get() {
+        return this.$store.state.selectedFeed
+      },
+      set(newValue) {
+        return newValue
+      },
+    },
   },
   methods: {
     clickFeed() {
-      this.$emit("click-feed", this.feed)
+      this.$store.dispatch("loadFeed", this.feed.id)
+      this.$emit("click-feed", this.clickedFeed)
     },
     clickLikeBtn() {
       const payload = {
@@ -103,7 +112,11 @@ export default {
         user_id: this.$store.state.user.id,
       }
       this.$store.dispatch("clickLikeBtn", payload)
+      this.$emit("click-like", this.clickedFeed)
     },
+  },
+  updated() {
+    this.clickedFeed = this.$store.state.selectedFeed
   },
 }
 </script>

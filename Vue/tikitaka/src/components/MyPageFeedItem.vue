@@ -25,10 +25,10 @@
               "
             >
               <div>
-                <h4 style="margin-top: -1px; margin-bottom: -0.5px">
+                <h5 style="margin-top: -1px; margin-bottom: -0.5px">
                   {{ feed.title }}
-                </h4>
-                <p style="font-size: 14px; color: rgb(93, 93, 93)">
+                </h5>
+                <p style="font-size: 13px; color: rgb(93, 93, 93)">
                   {{ feed.movie.title }} - {{ feed.movie.original_title }}
                 </p>
                 <p style="font-size: 12px; color: gray; margin-bottom: -5px">
@@ -93,6 +93,7 @@ export default {
   },
   methods: {
     clickFeed() {
+      this.$store.dispatch("loadFeed", this.feed.id)
       this.$emit("click-feed", this.clickedFeed)
     },
     clickLikeBtn() {
@@ -103,11 +104,6 @@ export default {
       this.$store.dispatch("clickLikeBtn", payload)
       this.$emit("click-like", this.clickedFeed)
     },
-  },
-  created() {
-    console.log("-----------------")
-    console.log(this.feed)
-    console.log("-----------------")
   },
   updated() {
     this.clickedFeed = this.$store.state.selectedFeed

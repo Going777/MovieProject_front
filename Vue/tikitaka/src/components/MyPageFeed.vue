@@ -25,18 +25,14 @@
     <!-- 작성 게시글 출력 영역 -->
     <div style="width: 100%">
       <v-card flat width="100%">
-        <div>
-          <div>
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
-              <my-page-feed-item
-                v-for="(feed, idx) in feedList"
-                :key="idx"
-                :feed="feed"
-                @click-feed="clickFeed"
-                @click-like="clickLike"
-              />
-            </div>
-          </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+          <my-page-feed-item
+            v-for="(feed, idx) in feedList"
+            :key="idx"
+            :feed="feed"
+            @click-feed="clickFeed"
+            @click-like="clickLike"
+          />
         </div>
       </v-card>
     </div>
@@ -82,7 +78,6 @@ export default {
   data() {
     return {
       isFeedRequest: true,
-      // clickedFeed: null,
     }
   },
   computed: {
@@ -97,8 +92,13 @@ export default {
       }
       return false
     },
-    clickedFeed() {
-      return this.$store.state.selectedFeed
+    clickedFeed: {
+      get() {
+        return this.$store.state.selectedFeed
+      },
+      set(newValue) {
+        return newValue
+      },
     },
   },
   methods: {
