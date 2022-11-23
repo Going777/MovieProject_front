@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="clickUser">
     <div style="display: flex">
       <img
         style="width: 40px; border-radius: 50%; margin-left: 20px"
@@ -25,6 +25,13 @@ export default {
   name: "CommunitySideItem",
   props: {
     follow: Object,
+  },
+  methods: {
+    clickUser() {
+      this.$router
+        .push({ name: "mypage", params: { username: this.follow.username } })
+        .catch(() => {})
+    },
   },
 }
 </script>

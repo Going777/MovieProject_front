@@ -219,6 +219,7 @@ export default {
   font-family: "Titan One", cursive;
 }
 
+/* 글자 짤리는 문제 해결 */
 .fc-daygrid-event {
   white-space: normal;
 }

@@ -46,7 +46,7 @@
 
       <!-- 피드 작성 완료 버튼 -->
       <v-btn dark height="45" @click="updateFeed" style="float: right"
-        >UPDATE</v-btn
+        >SAVE</v-btn
       >
     </div>
   </div>
