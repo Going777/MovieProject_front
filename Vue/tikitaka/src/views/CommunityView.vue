@@ -39,6 +39,7 @@ export default {
     this.$store.dispatch("getMe", this.user.username)
     // this.$store.dispatch("loadAllUserList")
     this.$store.dispatch("loadRelatedFeedlist", this.user.id)
+    this.$store.dispatch("getUser", this.user.username)
   },
 }
 </script>
