@@ -598,6 +598,25 @@ export default new Vuex.Store({
         context.commit("LOAD_FEED", response.data)
       })
     },
+
+    // 프로필 수정
+    editProfile(context, payload) {
+      axios({
+        method: "post",
+        url: `${DJ_URL}/accounts/edit_profile/`,
+        data: {
+          id: context.state.user.id,
+          profile_img: payload.profile_img,
+          description: payload.description,
+        },
+      })
+        .then((response) => {
+          console.log("프로필 변경 완료!!", response)
+        })
+        .catch((e) => {
+          console.log("프로필 변경 실패", e)
+        })
+    },
   },
   modules: {},
 })
