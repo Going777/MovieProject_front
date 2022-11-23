@@ -68,7 +68,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: -70px;
+  margin-top: -50px;
 }
 
 .v-line {
