@@ -25,6 +25,7 @@
         :feedList="feedList"
       />
       <my-page-calendar v-if="activeTab === 'MyPageCalendar'" />
+      <br /><br />
       현재 페이지 유저{{ tempUser.username }}
       <hr />
       라우터로 받은 유저{{ username }}
