@@ -103,16 +103,23 @@ export default {
       this.activeTab = currentPage
     },
   },
+  watch: {
+    username() {
+      this.$store.dispatch("getUser", this.username)
+      this.$store.dispatch("loadFeedList", this.username)
+      this.$store.dispatch("loadUserCalendar", this.tempUser.id)
+    },
+  },
   created() {
     this.$store.dispatch("loadFeedList", this.username)
     this.$store.dispatch("getUser", this.username)
     this.$store.dispatch("loadUserCalendar", this.tempUser.id)
   },
   updated() {
-    this.feedList = this.$store.state.feedList
+    // this.feedList = this.$store.state.feedList
     // this.tempUser = this.$store.state.tempUser
     // this.$store.dispatch("getUser", this.username)
-    this.$store.dispatch("loadUserCalendar", this.tempUser.id)
+    // this.$store.dispatch("loadUserCalendar", this.tempUser.id)
   },
   // beforeRouteUpdate(to, from, next) {
   //   // this.$store.dispatch("getUser", this.username)

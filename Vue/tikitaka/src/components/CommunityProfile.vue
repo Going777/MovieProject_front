@@ -315,8 +315,8 @@ export default {
     // },
     isMyPage() {
       return (
-        this.$store.state.user.username == this.$route.params.username ||
-        this.$route.params.username == null
+        this.$store.state.user.username === this.$route.params.username ||
+        this.$route.params.username === null
       )
     },
     isFollowing() {
