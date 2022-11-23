@@ -55,11 +55,13 @@ export default {
 <style>
 #community {
   display: grid;
-  grid-template-columns: 25% 1fr 25%;
+  grid-template-columns: 17% 1fr 25%;
   grid-template-rows: 100%;
   height: 100%;
   grid-template-areas: "profile feed side";
-  grid-gap: 10px;
+  grid-gap: 35px;
+
+  margin: 34px 5% 0;
 }
 
 #feed-container {

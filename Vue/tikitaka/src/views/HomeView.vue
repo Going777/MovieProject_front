@@ -100,17 +100,20 @@ export default {
 <style>
 #home {
   display: grid;
-  grid-template-columns: 25% 75%;
+  grid-template-columns: 17% 75%;
   grid-template-rows: 100%;
   height: 100%;
   grid-template-areas: "profile movie";
-  grid-gap: 15px;
+  grid-gap: 35px;
+  margin: 0 5% 0;
 }
 
 #profile-container {
   grid-area: profile;
-  margin-left: 10px;
-  margin-top: 10px;
+  width: 230px;
+  margin-left: auto;
+  /* margin-left: 10px;
+  margin-top: 10px; */
 }
 #profile-container2 {
   grid-area: profile;

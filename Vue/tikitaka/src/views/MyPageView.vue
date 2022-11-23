@@ -1,7 +1,7 @@
 <template>
   <div class="mainText" id="mypage">
     <!-- 프로필 섹션(좌측) -->
-    <div id="profile-container">
+    <div id="profile-container" style="margin-top: 34px">
       <community-profile :user="user" />
     </div>
 
@@ -93,13 +93,14 @@ export default {
 <style>
 #mypage {
   display: grid;
-  grid-template-columns: 25% 1fr;
+  grid-template-columns: 17% 1fr;
   grid-template-rows: 0% 1fr;
   height: 100%;
   grid-template-areas:
     "profile iconArea"
     "profile contentArea";
-  grid-gap: 20px;
+  grid-gap: 35px;
+  margin: 0 5% 0;
 }
 
 #icon-container {

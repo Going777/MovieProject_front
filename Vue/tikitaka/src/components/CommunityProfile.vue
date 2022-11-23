@@ -1,6 +1,11 @@
 <template>
-  <div>
-    <v-sheet id="profile-box" class="mainText" elevation="3">
+  <div style="width: 100%">
+    <v-sheet
+      id="profile-box"
+      class="mainText"
+      elevation="3"
+      style="width: 230px"
+    >
       <div>
         <!-- 프로필 이미지 -->
         <img
@@ -276,11 +281,12 @@ export default {
 <style>
 #profile-box {
   border-radius: 15px;
-  padding: 30px 10px;
+  /* padding: 30px 10px; */
   background-color: white;
   position: fixed;
-  margin: auto;
-  max-width: 17%;
+  /* margin: auto; */
+  /* max-width: 17%; */
+  width: 100%;
 }
 
 #profile-content-box {

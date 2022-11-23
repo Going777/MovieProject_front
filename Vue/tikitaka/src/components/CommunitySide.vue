@@ -148,12 +148,12 @@ export default {
   background-color: white;
   position: fixed;
   max-width: 17%;
-  width: 17%;
+  width: 100%;
   float: right;
   margin-left: auto;
   margin-right: 0;
   /* margin-right: 10px; */
-  margin-top: 10px;
+  margin-top: 0px;
 }
 #user-box {
   background-color: white;
