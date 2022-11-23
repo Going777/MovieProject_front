@@ -164,8 +164,6 @@ export default {
         titleEvent.style.color = "black"
         titleEvent.style.fontSize = "11px"
         titleEvent.style.fontWeight = "bold"
-        // titleEvent.style.height = "79px"
-        // titleEvent.classList = "fc-event-title fc-sticky"
       }
       // image event
       let imgEventWrap = document.createElement("div")
@@ -180,9 +178,6 @@ export default {
       }
       arg.borderColor = "white"
       arrayOfDomNodes = [imgEventWrap, titleEvent]
-      // arg
-      //   .find("span.fc-event-title")
-      //   .html(element.find("span.fc-event-title").text())
 
       return { domNodes: arrayOfDomNodes }
     },

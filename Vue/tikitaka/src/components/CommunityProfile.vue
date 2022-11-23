@@ -58,30 +58,70 @@
 
           <hr />
           <!-- 좋아하는 장르 태그 -->
-          <h6 class="logoText">FAVORITE GERENS</h6>
+          <h6 class="logoText">FAVORITE GENRES</h6>
           <div id="profile-tag-box">
-            <v-chip color="indigo" text-color="white" style="margin: 3px 3px">
+            <v-chip
+              color="indigo"
+              text-color="white"
+              style="margin: 5px 3px"
+              small
+            >
               액션
             </v-chip>
-            <v-chip color="orange" text-color="white" style="margin: 3px 3px">
+            <v-chip
+              color="orange"
+              text-color="white"
+              style="margin: 5px 3px"
+              small
+            >
               모험
             </v-chip>
-            <v-chip color="primary" text-color="white" style="margin: 3px 3px">
+            <v-chip
+              color="primary"
+              text-color="white"
+              style="margin: 5px 3px"
+              small
+            >
               판타지
             </v-chip>
-            <v-chip color="green" text-color="white" style="margin: 3px 3px">
+            <v-chip
+              color="green"
+              text-color="white"
+              style="margin: 5px 3px"
+              small
+            >
               미스테리
             </v-chip>
-            <v-chip color="red" text-color="white" style="margin: 3px 3px">
+            <v-chip
+              color="red"
+              text-color="white"
+              style="margin: 5px 3px"
+              small
+            >
               음악
             </v-chip>
-            <v-chip color="red" text-color="white" style="margin: 3px 3px">
+            <v-chip
+              color="red"
+              text-color="white"
+              style="margin: 5px 3px"
+              small
+            >
               스릴러
             </v-chip>
-            <v-chip color="red" text-color="white" style="margin: 3px 3px">
+            <v-chip
+              color="red"
+              text-color="white"
+              style="margin: 5px 3px"
+              small
+            >
               애니메이션
             </v-chip>
-            <v-chip color="red" text-color="white" style="margin: 3px 3px">
+            <v-chip
+              color="red"
+              text-color="white"
+              style="margin: 5px 3px"
+              small
+            >
               로맨스
             </v-chip>
           </div>
@@ -259,10 +299,11 @@ export default {
         profile_img: imgKeyword,
         description: this.description,
       }
-      return this.$store.dispatch("editProfile", payload)
+      this.$store.dispatch("editProfile", payload)
+      this.$bvModal.hide("profileEditModal")
     },
   },
-  created: {},
+  // created: {},
 }
 </script>
 

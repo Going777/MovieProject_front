@@ -12,10 +12,10 @@
         style="display: flex; margin-bottom: 10px; margin-left: 5px"
       >
         <img
-          style="width: 4%; border-radius: 50%"
+          style="width: 45px; border-radius: 50%"
           :src="require(`@/assets/tikitaka_${feed.user.profile_img}.png`)"
         />
-        <h5
+        <h4
           style="
             align-self: center;
             margin-left: 10px;
@@ -24,7 +24,7 @@
           "
         >
           {{ feed.user.username }}
-        </h5>
+        </h4>
       </div>
       <!-- 콘텐츠 영역 -->
       <div
@@ -81,97 +81,29 @@
           <div>
             <h5 style="font-weight: bold; margin-bottom: 15px">댓글</h5>
             <div>
-              <div style="display: flex" class="my-3">
-                <img
-                  style="width: 40px; border-radius: 50%; align-self: center"
-                  src="@/assets/tikitaka_film.png"
-                />
-                <h6
-                  style="
-                    align-self: center;
-                    margin-left: 10px;
-                    font-weight: bolder;
-                  "
-                >
-                  User1
-                </h6>
-                <h6 style="align-self: center; margin-left: 10px">
-                  너무너무 재미있어요오오오오오오
-                </h6>
+              <div v-for="comment in feed.comment_set" :key="comment.id">
+                <div style="display: flex" class="my-3">
+                  <img
+                    style="width: 30px; border-radius: 50%; align-self: center"
+                    :src="
+                      require(`@/assets/tikitaka_${comment.user.profile_img}.png`)
+                    "
+                  />
+                  <h6
+                    style="
+                      align-self: center;
+                      margin-left: 10px;
+                      font-weight: bolder;
+                    "
+                  >
+                    {{ comment.user.username }}
+                  </h6>
+                  <h6 style="align-self: center; margin-left: 10px">
+                    {{ comment.content }}
+                  </h6>
+                </div>
               </div>
-              <div style="display: flex" class="my-3">
-                <img
-                  style="width: 40px; border-radius: 50%; align-self: center"
-                  src="@/assets/tikitaka_film.png"
-                />
-                <h6
-                  style="
-                    align-self: center;
-                    margin-left: 10px;
-                    font-weight: bolder;
-                  "
-                >
-                  Usedsfsdfsfsdr1
-                </h6>
-                <h6 style="align-self: center; margin-left: 10px">
-                  너무너무
-                  재미있어요오오오오오오ㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜㅜ
-                </h6>
-              </div>
-              <div style="display: flex" class="my-3">
-                <img
-                  style="width: 40px; border-radius: 50%; align-self: center"
-                  src="@/assets/tikitaka_film.png"
-                />
-                <h6
-                  style="
-                    align-self: center;
-                    margin-left: 10px;
-                    font-weight: bolder;
-                  "
-                >
-                  User1
-                </h6>
-                <h6 style="align-self: center; margin-left: 10px">
-                  너무너무 재미있어요오오오오오오
-                </h6>
-              </div>
-              <div style="display: flex" class="my-3">
-                <img
-                  style="width: 40px; border-radius: 50%; align-self: center"
-                  src="@/assets/tikitaka_film.png"
-                />
-                <h6
-                  style="
-                    align-self: center;
-                    margin-left: 10px;
-                    font-weight: bolder;
-                  "
-                >
-                  User1
-                </h6>
-                <h6 style="align-self: center; margin-left: 10px">
-                  너무너무 재미있어요오오오오오오
-                </h6>
-              </div>
-              <div style="display: flex" class="my-3">
-                <img
-                  style="width: 40px; border-radius: 50%; align-self: center"
-                  src="@/assets/tikitaka_film.png"
-                />
-                <h6
-                  style="
-                    align-self: center;
-                    margin-left: 10px;
-                    font-weight: bolder;
-                  "
-                >
-                  User1
-                </h6>
-                <h6 style="align-self: center; margin-left: 10px">
-                  너무너무 재미있어요오오오오오오
-                </h6>
-              </div>
+
               <!-- 댓글 작성 -->
               <div style="display: flex">
                 <v-text-field
@@ -184,7 +116,7 @@
                   v-model="comment"
                 ></v-text-field>
                 <v-btn icon @click="createComment"
-                  ><v-icon size="30" style="margin-left: 10px"
+                  ><v-icon size="30" style="margin-left: 15px"
                     >mdi-send</v-icon
                   ></v-btn
                 >
@@ -242,6 +174,7 @@ export default {
         user_id: this.$store.state.user.id,
       }
       this.$store.dispatch("createComment", payload)
+      this.comment = ""
     },
   },
   created() {

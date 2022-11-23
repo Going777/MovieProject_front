@@ -83,9 +83,13 @@ export default {
     // console.log(this.$route.params.username)
     this.$store.dispatch("loadFeedList", this.$route.params.username)
     this.$store.dispatch("getUser", this.username)
+    console.log("f")
+    console.log("현재 페이지 유저", this.user)
+    this.$store.dispatch("loadUserCalendar", this.user.id)
   },
   updated() {
     this.feedList = this.$store.state.feedList
+    this.$store.dispatch("loadUserCalendar", this.user.id)
   },
 }
 </script>

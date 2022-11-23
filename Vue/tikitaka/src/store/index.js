@@ -126,6 +126,12 @@ export default new Vuex.Store({
     SEARCH_MOVIE(state, response) {
       state.feedMovie = response[0]
     },
+
+    // 페이지 접근 시 유저 달력 불러오기
+    // LOAD_USER_CALENDAR(state, response) {
+    //   state.calendarItems =
+    // },
+
     // 달력에 아이템 업데이트
     UPDATE_CALENDAR(state, response) {
       state.calendarItems = response.map((element) => {
@@ -138,7 +144,7 @@ export default new Vuex.Store({
         }
         return newObject
       })
-      console.log(response)
+      console.log("여길 봐주세요", response)
     },
 
     GET_BACKDROP_LIST(state, payload) {
@@ -476,6 +482,15 @@ export default new Vuex.Store({
         })
     },
 
+    // 유저 달력 불러오기
+    loadUserCalendar(context, user_id) {
+      axios({
+        method: "get",
+        url: `${DJ_URL}/community/calendar/list/${user_id}/`,
+      }).then((response) => {
+        context.commit("UPDATE_CALENDAR", response.data)
+      })
+    },
     // 달력에 아이템 추가
     addCalendar(context, payload) {
       axios({
@@ -562,8 +577,8 @@ export default new Vuex.Store({
           content: payload.content,
         },
       })
-        .then((response) => {
-          console.log(response)
+        .then(() => {
+          context.dispatch("loadFeed", payload.feed_id)
           // 저장 성공했으면 받아온 피드 정보 업데이트
           // context.dispatch("loadFeedList", context.state.tempUser.username)
           // context.dispatch("loadFeed", payload.feed_id)
