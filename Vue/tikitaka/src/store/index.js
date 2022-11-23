@@ -597,6 +597,7 @@ export default new Vuex.Store({
       })
         .then((response) => {
           console.log("프로필 변경 완료!!", response)
+          context.dispatch("getMe", context.state.user.username)
         })
         .catch((e) => {
           console.log("프로필 변경 실패", e)

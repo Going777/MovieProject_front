@@ -55,32 +55,7 @@
           <p>
             {{ user.description }}
           </p>
-          <!-- <div id="profile-tag-box">
-            <v-chip color="indigo" text-color="white" style="margin: 3px 3px">
-              감성적인
-            </v-chip>
-            <v-chip color="orange" text-color="white" style="margin: 3px 3px">
-              ABCD
-            </v-chip>
-            <v-chip color="primary" text-color="white" style="margin: 3px 3px">
-              고양이
-            </v-chip>
-            <v-chip color="green" text-color="white" style="margin: 3px 3px">
-              여행
-            </v-chip>
-            <v-chip color="red" text-color="white" style="margin: 3px 3px">
-              1888
-            </v-chip>
-            <v-chip color="red" text-color="white" style="margin: 3px 3px">
-              1888
-            </v-chip>
-            <v-chip color="red" text-color="white" style="margin: 3px 3px">
-              1888
-            </v-chip>
-            <v-chip color="red" text-color="white" style="margin: 3px 3px">
-              1888
-            </v-chip>
-          </div> -->
+
           <hr />
           <!-- 좋아하는 장르 태그 -->
           <h6 class="logoText">FAVORITE GERENS</h6>
