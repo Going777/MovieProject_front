@@ -146,7 +146,7 @@
       </form> -->
       <br /><br />
       <!-- 선택가능 프로필 이미지 -->
-      <h5><strong>You Can Change Your Profile Image</strong></h5>
+      <h5><strong>원하는 프로필 이미지로 변경 가능해요!</strong></h5>
       <div>
         <input type="radio" id="img1" style="display: none" name="radio" />
         <label for="img1">
@@ -224,11 +224,14 @@
       </div> -->
 
       <!-- 본인 소개글 -->
-      <h5><strong>Please Introduce Yourself</strong></h5>
+      <h5><strong>나를 한마디로 말하자면?!</strong></h5>
       <v-text-field outlined v-model="description"></v-text-field>
 
       <!-- 좋아하는 장르 -->
-      <h5><strong>What's Your Favorite Movie Genres?</strong></h5>
+      <h5><strong>선호하는 장르를 모두 선택해주세요!</strong></h5>
+      <v-col cols="12">
+        <v-combobox v-model="select" :items="items" multiple chips></v-combobox>
+      </v-col>
 
       <v-btn dark height="45" style="float: right" @click="editProfile"
         >SAVE</v-btn
@@ -238,6 +241,48 @@
 </template>
 
 <script>
+function matchGenreId(name) {
+  switch (name) {
+    case "모험":
+      return 12
+    case "판타지":
+      return 14
+    case "애니메이션":
+      return 16
+    case "드라마":
+      return 18
+    case "공포":
+      return 27
+    case "액션":
+      return 28
+    case "코미디":
+      return 35
+    case "역사":
+      return 36
+    case "서부":
+      return 37
+    case "스릴러":
+      return 53
+    case "범죄":
+      return 80
+    case "다큐멘터리":
+      return 99
+    case "SF":
+      return 878
+    case "미스터리":
+      return 9648
+    case "음악":
+      return 10402
+    case "로맨스":
+      return 10749
+    case "가족":
+      return 10751
+    case "전쟁":
+      return 10752
+    case "TV 영화":
+      return 10770
+  }
+}
 export default {
   name: "CommunityProfile",
   props: {
@@ -249,6 +294,27 @@ export default {
       isSelected: false,
       description: "",
       selectImgUrl: null,
+      select: this.user.favorite_genres,
+      items: [
+        "모험",
+        "판타지",
+        "애니메이션",
+        "공포",
+        "액션",
+        "코미디",
+        "역사",
+        "서부",
+        "스릴러",
+        "범죄",
+        "다큐멘터리",
+        "SF",
+        "미스터리",
+        "음악",
+        "로맨스",
+        "가족",
+        "전쟁",
+        "TV 영화",
+      ],
     }
   },
   computed: {
@@ -300,13 +366,19 @@ export default {
       imgKeyword = imgKeyword.slice(i + 1)
       i = imgKeyword.indexOf(".")
       imgKeyword = imgKeyword.slice(0, i)
-      const payload = {
-        profile_img: imgKeyword,
-        description: this.description,
-      }
-      this.$store.dispatch("editProfile", payload)
-      this.$bvModal.hide("profileEditModal")
-      this.selectImgUrl = this.profileImgUrl
+      const selectedGenreIds = []
+      this.select.forEach((element) => {
+        const id = matchGenreId(element)
+        selectedGenreIds.push(id)
+      })
+      console.log(selectedGenreIds)
+      // const payload = {
+      //   profile_img: imgKeyword,
+      //   description: this.description,
+      // }
+      // this.$store.dispatch("editProfile", payload)
+      // this.$bvModal.hide("profileEditModal")
+      // this.selectImgUrl = this.profileImgUrl
     },
   },
   // created: {},
