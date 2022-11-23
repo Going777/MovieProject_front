@@ -54,8 +54,6 @@
           <h6 class="logoText">ABOUT ME</h6>
           <p>
             {{ user.description }}
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora,
-            repellendus. Quidem placeat dignissimos eum eaque delectus.
           </p>
           <!-- <div id="profile-tag-box">
             <v-chip color="indigo" text-color="white" style="margin: 3px 3px">
@@ -212,12 +210,14 @@
 
       <!-- 본인 소개글 -->
       <h5><strong>Please Introduce Yourself</strong></h5>
-      <v-text-field outlined></v-text-field>
+      <v-text-field outlined v-model="description"></v-text-field>
 
       <!-- 좋아하는 장르 -->
       <h5><strong>What's Your Favorite Movie Genres?</strong></h5>
 
-      <v-btn dark height="45" style="float: right">SAVE</v-btn>
+      <v-btn dark height="45" style="float: right" @click="editProfile"
+        >SAVE</v-btn
+      >
     </b-modal>
   </div>
 </template>
@@ -233,6 +233,7 @@ export default {
       profileImgUrl: require(`@/assets/tikitaka_${this.$store.state.tempUser.profile_img}.png`),
       selectImgUrl: null,
       isSelected: false,
+      description: "",
     }
   },
   computed: {
@@ -272,6 +273,18 @@ export default {
     },
     selectImage(event) {
       this.selectImgUrl = event.target.src
+    },
+    editProfile() {
+      let imgKeyword = this.selectImgUrl
+      let i = imgKeyword.indexOf("_")
+      imgKeyword = imgKeyword.slice(i + 1)
+      i = imgKeyword.indexOf(".")
+      imgKeyword = imgKeyword.slice(0, i)
+      const payload = {
+        profile_img: imgKeyword,
+        description: this.description,
+      }
+      return this.$store.dispatch("editProfile", payload)
     },
   },
   created: {},
