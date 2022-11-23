@@ -7,7 +7,11 @@
       <community-feed :relatedFeedList="relatedFeedList" />
     </div>
     <div id="side-container">
+<<<<<<< HEAD
       <community-side :allUserList="allUserList" />
+=======
+      <community-side :followList="followList" />
+>>>>>>> 3461b708af4fdd95b43844afcd9801b89f1ebc56
     </div>
   </div>
 </template>
@@ -38,6 +42,9 @@ export default {
       set(newValue) {
         return newValue
       },
+    },
+    followList() {
+      return this.$store.getters.followList
     },
   },
   created() {

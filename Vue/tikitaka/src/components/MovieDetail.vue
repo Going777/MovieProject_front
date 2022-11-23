@@ -3,18 +3,30 @@
     <!-- 영화 포스터 및 버튼 영역 -->
     <div style="max-width: 220px; margin-right: 30px">
       <img :src="posterURL" alt="" style="width: 100%" />
-      <v-btn style="width: 100%; margin-top: 30px">
-        <v-icon left>
-          mdi-star
-        </v-icon>
+      <v-btn
+        v-if="isBookmark"
+        @click="clickBookmark"
+        style="width: 100%; margin-top: 30px"
+      >
+        <v-icon left> mdi-star </v-icon>
+        Bookmark
+      </v-btn>
+      <v-btn
+        v-if="!isBookmark"
+        @click="clickBookmark"
+        style="width: 100%; margin-top: 30px"
+      >
+        <v-icon left> mdi-star-outline </v-icon>
         Bookmark
       </v-btn>
       <v-btn style="width: 100%; margin-top: 30px">
-        <v-icon left>
-          mdi-pencil
-        </v-icon>
-        Review
+        <v-icon left> mdi-message </v-icon>
+        Message
       </v-btn>
+      <!-- <v-btn style="width: 100%; margin-top: 30px">
+        <v-icon left> mdi-pencil </v-icon>
+        Review
+      </v-btn> -->
     </div>
 
     <!-- 영화 정보 -->
@@ -40,7 +52,7 @@
         </div>
         <!-- 커뮤니티 영역 -->
         <div style="width: 30%">
-          <h3>Feed</h3>
+          <h3>Trailer</h3>
           <MovieDetailCommunity :movie="movie" />
         </div>
       </div>
@@ -74,6 +86,16 @@ export default {
       const path = this.movie.poster_path
 
       return `https://image.tmdb.org/t/p/original${path}`
+    },
+    isBookmark() {
+      return this.$store.state.user.bookmarks.find(
+        (b) => b.id === this.movie.id
+      )
+    },
+  },
+  methods: {
+    clickBookmark() {
+      return this.$store.dispatch("clickBookmark", this.movie.id)
     },
   },
 }

@@ -40,6 +40,9 @@ export default new Vuex.Store({
     selectedFeed: null,
   },
   getters: {
+    followList(state) {
+      return state.user.following
+    },
     isLogin(state) {
       return state.token ? true : false
     },
@@ -97,6 +100,10 @@ export default new Vuex.Store({
         method: "get",
         url: `${DJ_URL}/accounts/${data.user.pk}/user/`,
       }).then((res) => {
+<<<<<<< HEAD
+=======
+        console.log("로그인 유저", res.data)
+>>>>>>> 3461b708af4fdd95b43844afcd9801b89f1ebc56
         state.user = res.data
       })
       router.push({ name: "home" })
@@ -634,6 +641,23 @@ export default new Vuex.Store({
           console.log("프로필 변경 실패", e)
         })
     },
+    clickBookmark(context, id) {
+      axios({
+        method: "post",
+        url: `${DJ_URL}/community/${id}/bookmark/`,
+        data: {
+          user: context.state.user.id,
+        },
+      })
+        .then((response) => {
+          console.log("북마크 완료!!", response)
+          context.dispatch("getMe", context.state.user.username)
+        })
+        .catch((e) => {
+          console.log("북마크 실패", e)
+        })
+    },
   },
+
   modules: {},
 })

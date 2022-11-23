@@ -7,12 +7,6 @@
       :src="videoPath"
       frameborder="0"
     />
-    <v-btn style="width: 100%">
-      <v-icon left>
-          mdi-message
-        </v-icon>
-      Message
-    </v-btn>
   </div>
 </template>
 
@@ -32,8 +26,8 @@ export default {
   created: {
     getvideoPath() {
       this.videoPath()
-    }
-  }
+    },
+  },
 }
 </script>
 
