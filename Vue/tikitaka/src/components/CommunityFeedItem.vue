@@ -2,6 +2,7 @@
   <div id="feed-item" class="mainText" style="margin-bottom: 30px">
     <!-- 유저프로필 & 유저 닉네임 -->
     <v-sheet
+      @click="clickFeed"
       elevation="3"
       style="padding: 20px; background-color: white; border-radius: 20px"
     >

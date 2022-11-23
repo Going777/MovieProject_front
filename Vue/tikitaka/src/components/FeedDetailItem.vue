@@ -13,7 +13,7 @@
       >
         <img
           style="width: 4%; border-radius: 50%"
-          src="@/assets/tikitaka_film.png"
+          :src="require(`@/assets/tikitaka_${feed.user.profile_img}.png`)"
         />
         <h5
           style="
@@ -76,7 +76,7 @@
               {{ feed.content }}
             </div>
           </div>
-
+          <br />
           <!-- 댓글 출력 -->
           <div>
             <h5 style="font-weight: bold; margin-bottom: 15px">댓글</h5>
