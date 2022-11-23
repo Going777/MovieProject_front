@@ -7,7 +7,7 @@
       <community-feed :relatedFeedList="relatedFeedList" />
     </div>
     <div id="side-container">
-      <community-side />
+      <community-side :followList="followList" />
     </div>
   </div>
 </template>
@@ -38,6 +38,9 @@ export default {
       set(newValue) {
         return newValue
       },
+    },
+    followList() {
+      return this.$store.getters.followList
     },
   },
   created() {

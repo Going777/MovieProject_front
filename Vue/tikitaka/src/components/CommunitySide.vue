@@ -54,53 +54,11 @@
       <div style="margin-top: 30px">
         <h4>Mutual Friends</h4>
         <div id="user-box">
-          <div style="display: flex">
-            <img
-              style="width: 50px; border-radius: 50%; margin-left: 20px"
-              src="@/assets/tikitaka_film.png"
-            />
-            <h6 style="align-self: center; margin-left: 10px">Follow1</h6>
-          </div>
-          <hr />
-          <div style="display: flex">
-            <img
-              style="width: 50px; border-radius: 50%; margin-left: 20px"
-              src="@/assets/tikitaka_film.png"
-            />
-            <h6 style="align-self: center; margin-left: 10px">Follow1</h6>
-          </div>
-          <hr />
-          <div style="display: flex">
-            <img
-              style="width: 50px; border-radius: 50%; margin-left: 20px"
-              src="@/assets/tikitaka_film.png"
-            />
-            <h6 style="align-self: center; margin-left: 10px">Follow1</h6>
-          </div>
-          <hr />
-          <div style="display: flex">
-            <img
-              style="width: 50px; border-radius: 50%; margin-left: 20px"
-              src="@/assets/tikitaka_film.png"
-            />
-            <h6 style="align-self: center; margin-left: 10px">Follow1</h6>
-          </div>
-          <hr />
-          <div style="display: flex">
-            <img
-              style="width: 50px; border-radius: 50%; margin-left: 20px"
-              src="@/assets/tikitaka_film.png"
-            />
-            <h6 style="align-self: center; margin-left: 10px">Follow1</h6>
-          </div>
-          <hr />
-          <div style="display: flex">
-            <img
-              style="width: 50px; border-radius: 50%; margin-left: 20px"
-              src="@/assets/tikitaka_film.png"
-            />
-            <h6 style="align-self: center; margin-left: 10px">Follow1</h6>
-          </div>
+          <CommunitySideItem
+            v-for="(follow, idx) in followList"
+            :key="idx"
+            :follow="follow"
+          />
         </div>
       </div>
     </v-sheet>
@@ -109,9 +67,13 @@
 
 <script>
 import CommunityFeedUserListItem from "./CommunityFeedUserListItem.vue"
+import CommunitySideItem from "./CommunitySideItem.vue"
 export default {
-  components: { CommunityFeedUserListItem },
+  components: { CommunityFeedUserListItem, CommunitySideItem },
   name: "CommunitySide",
+  props: {
+    followList: Array,
+  },
   data() {
     return {
       loading: false,

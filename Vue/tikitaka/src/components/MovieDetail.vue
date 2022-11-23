@@ -19,7 +19,7 @@
         <v-icon left> mdi-star-outline </v-icon>
         Bookmark
       </v-btn>
-      <v-btn style="width: 100%">
+      <v-btn style="width: 100%; margin-top: 30px">
         <v-icon left> mdi-message </v-icon>
         Message
       </v-btn>
@@ -52,7 +52,7 @@
         </div>
         <!-- 커뮤니티 영역 -->
         <div style="width: 30%">
-          <h3>Feed</h3>
+          <h3>Trailer</h3>
           <MovieDetailCommunity :movie="movie" />
         </div>
       </div>

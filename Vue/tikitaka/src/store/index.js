@@ -40,6 +40,9 @@ export default new Vuex.Store({
     selectedFeed: null,
   },
   getters: {
+    followList(state) {
+      return state.user.following
+    },
     isLogin(state) {
       return state.token ? true : false
     },
