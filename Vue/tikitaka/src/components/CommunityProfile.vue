@@ -245,10 +245,10 @@ export default {
   },
   data() {
     return {
-      profileImgUrl: require(`@/assets/tikitaka_${this.$store.state.tempUser.profile_img}.png`),
-      selectImgUrl: null,
+      // profileImgUrl: require(`@/assets/tikitaka_${this.$store.state.tempUser.profile_img}.png`),
       isSelected: false,
       description: "",
+      selectImgUrl: null,
     }
   },
   computed: {
@@ -273,6 +273,9 @@ export default {
     profile_img() {
       return this.$store.getters.profile_img
     },
+    profileImgUrl() {
+      return require(`@/assets/tikitaka_${this.$store.state.tempUser.profile_img}.png`)
+    },
   },
   methods: {
     follow() {
@@ -283,8 +286,10 @@ export default {
       return this.$store.dispatch("follow", payload)
     },
     openEditProfile() {
-      this.$bvModal.show("profileEditModal")
+      console.log("select이미지유알엘", this.selectImgUrl)
+      console.log("profile이미지유알엘", this.profileImgUrl)
       this.selectImgUrl = this.profileImgUrl
+      this.$bvModal.show("profileEditModal")
     },
     selectImage(event) {
       this.selectImgUrl = event.target.src
@@ -301,6 +306,7 @@ export default {
       }
       this.$store.dispatch("editProfile", payload)
       this.$bvModal.hide("profileEditModal")
+      this.selectImgUrl = this.profileImgUrl
     },
   },
   // created: {},
