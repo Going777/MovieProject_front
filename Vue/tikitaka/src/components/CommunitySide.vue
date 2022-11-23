@@ -106,6 +106,9 @@ export default {
         .catch(() => {})
     },
   },
+  created() {
+    this.items = this.allUserList
+  },
 }
 </script>
 

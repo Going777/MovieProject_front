@@ -136,14 +136,6 @@
       </template>
       <!-- 프로필 이미지 -->
       <img :src="selectImgUrl" class="modal-profile-main-image" />
-      <!-- 닉네임 -->
-      <!-- <form>
-        <h5><strong>Nick Name</strong></h5>
-        <div style="margin: 10px">
-          <input type="text" v-model="modalNickName" />
-          <input type="submit" value="Check Availability" />
-        </div>
-      </form> -->
       <br /><br />
       <!-- 선택가능 프로필 이미지 -->
       <h5><strong>원하는 프로필 이미지로 변경 가능해요!</strong></h5>

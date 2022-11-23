@@ -19,7 +19,7 @@
         <v-icon left> mdi-star-outline </v-icon>
         Bookmark
       </v-btn>
-      <v-btn style="width: 100%; margin-top: 30px">
+      <v-btn style="width: 100%; margin-top: 30px" @click="openMessageModal">
         <v-icon left> mdi-message </v-icon>
         Message
       </v-btn>
@@ -63,6 +63,31 @@
         <p style="line-height: 200%">{{ movie.overview }}</p>
       </div>
     </div>
+
+    <!-- 메시지 보내기 모달 -->
+    <b-modal hide-footer hide-header-close id="sendMessageModal">
+      <template #modal-header>
+        <h3 class="logoText">RECOMMEND TO YOUR FRIEND</h3>
+      </template>
+      <div class="logoText">
+        <h5>To</h5>
+        <v-toolbar flat dense>
+          <v-autocomplete
+            clearable
+            outlined
+            auto-select-first
+            :loading="loading"
+            :search-input.sync="searchUser"
+            :items="items"
+            v-model="select"
+            label="Search Users..."
+          ></v-autocomplete>
+        </v-toolbar>
+        <h5>Message</h5>
+        <v-text-field clearable outlined v-model="message"></v-text-field>
+        <v-btn dark style="float: right" @click="sendMessage">SEND</v-btn>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -81,6 +106,19 @@ export default {
   props: {
     movie: Object,
   },
+  data() {
+    return {
+      loading: false,
+      searchUser: null,
+      select: null,
+      message: null,
+    }
+  },
+  watch: {
+    searchUser(val) {
+      val && val !== this.select && this.querySelections(val)
+    },
+  },
   computed: {
     posterURL() {
       const path = this.movie.poster_path
@@ -92,10 +130,54 @@ export default {
         (b) => b.id === this.movie.id
       )
     },
+    user() {
+      return this.$store.state.user
+    },
+    users() {
+      const following = []
+      this.user.following.forEach((element) => {
+        const name = element.username
+        following.push(name)
+      })
+      return following
+    },
+    items: {
+      get() {
+        const following = []
+        this.user.following.forEach((element) => {
+          const name = element.username
+          following.push(name)
+        })
+        return following
+      },
+      set(newValue) {
+        return newValue
+      },
+    },
   },
   methods: {
+    querySelections(v) {
+      this.loading = true
+      setTimeout(() => {
+        this.items = this.users.filter((e) => {
+          return (e || "").toLowerCase().indexOf((v || "").toLowerCase()) > -1
+        })
+        this.loading = false
+      }, 500)
+    },
     clickBookmark() {
       return this.$store.dispatch("clickBookmark", this.movie.id)
+    },
+    openMessageModal() {
+      this.$bvModal.show("sendMessageModal")
+    },
+    sendMessage() {
+      console.log("메시지 보낼 때 필요한 것!")
+      console.log(this.message)
+      console.log(this.select)
+      console.log(this.movie)
+      console.log(this.user)
+      console.log("------------------------------------")
     },
   },
 }
