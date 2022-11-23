@@ -75,44 +75,52 @@
             <div id="feed-content">
               {{ feed.content }}
             </div>
-            <div>
-              <v-btn icon @click="createComment"
-                ><v-icon size="30" style="margin-left: 15px"
-                  >mdi-alpha-x-circle-outline</v-icon
-                ></v-btn
-              >
-            </div>
           </div>
           <br />
           <!-- 댓글 출력 -->
           <div>
+            <hr />
             <h5 style="font-weight: bold; margin-bottom: 15px">댓글</h5>
             <div>
               <div v-for="comment in feed.comment_set" :key="comment.id">
                 <div style="display: flex" class="my-3">
-                  <img
+                  <!-- 프로필 이미지 -->
+                  <!-- <img
                     style="width: 30px; border-radius: 50%; align-self: center"
                     :src="
                       require(`@/assets/tikitaka_${comment.user.profile_img}.png`)
                     "
-                  />
+                  /> -->
                   <h6
                     style="
                       align-self: center;
-                      margin-left: 10px;
                       font-weight: bolder;
+                      margin-top: auto;
+                      margin-bottom: auto;
+                      /* margin-left: 10px; */
                     "
                   >
                     {{ comment.user.username }}
                   </h6>
-                  <h6 style="align-self: center; margin-left: 10px">
+                  <h6
+                    style="
+                      align-self: center;
+                      margin-left: 10px;
+                      margin-top: auto;
+                      margin-bottom: auto;
+                    "
+                  >
                     {{ comment.content }}
                   </h6>
-                  <v-btn icon @click="createComment"
-                    ><v-icon size="30" style="margin-left: 15px"
-                      >mdi-send</v-icon
-                    ></v-btn
-                  >
+                  <div v-show="isWriteUser(comment)" style="margin-left: 10px">
+                    <v-btn icon @click="deleteComment(comment)">
+                      <v-icon
+                        size="20"
+                        style="margin-top: auto; margin-bottom: auto"
+                        >mdi-alpha-x-box-outline</v-icon
+                      >
+                    </v-btn>
+                  </div>
                 </div>
               </div>
 
@@ -127,11 +135,11 @@
                   hide-details
                   v-model="comment"
                 ></v-text-field>
-                <v-btn icon @click="createComment"
-                  ><v-icon size="30" style="margin-left: 15px"
-                    >mdi-send</v-icon
-                  ></v-btn
-                >
+                <div style="margin-left: 15px">
+                  <v-btn icon @click="createComment"
+                    ><v-icon size="30">mdi-send</v-icon></v-btn
+                  >
+                </div>
               </div>
             </div>
           </div>
@@ -158,6 +166,15 @@ export default {
     },
     user_id() {
       return this.$store.state.user.id
+    },
+    isWriteUser() {
+      return (comment) => {
+        if (this.user_id === comment.user.id) {
+          return true
+        } else {
+          return false
+        }
+      }
     },
     isLike() {
       let pushLike = false
@@ -190,6 +207,13 @@ export default {
       }
       this.$store.dispatch("createComment", payload)
       this.comment = ""
+    },
+    deleteComment(comment) {
+      const payload = {
+        feed_id: this.feed.id,
+        comment_id: comment.id,
+      }
+      this.$store.dispatch("deleteComment", payload)
     },
   },
   created() {

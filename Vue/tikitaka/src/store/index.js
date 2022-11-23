@@ -597,15 +597,22 @@ export default new Vuex.Store({
         },
       })
         .then(() => {
-          context.dispatch("loadFeed", payload.feed_id)
           // 저장 성공했으면 받아온 피드 정보 업데이트
-          // context.dispatch("loadFeedList", context.state.tempUser.username)
-          // context.dispatch("loadFeed", payload.feed_id)
-          // console.log("이거 하트 눌렀어욤!!")
+          context.dispatch("loadFeed", payload.feed_id)
         })
         .catch((e) => {
           console.log("에러가 발생", e)
         })
+    },
+    // 댓글 삭제
+    deleteComment(context, payload) {
+      axios({
+        method: "delete",
+        url: `${DJ_URL}/community/comment/${payload.comment_id}/`,
+      }).then((response) => {
+        console.log(response)
+        context.dispatch("loadFeed", payload.feed_id)
+      })
     },
 
     // 피드 아이디로 피드 조회
