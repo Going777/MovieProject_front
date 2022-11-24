@@ -4,7 +4,7 @@
       <community-profile :user="user" />
     </div>
     <div id="feed-container">
-      <community-feed :relatedFeedList="relatedFeedList" />
+      <community-feed :relatedFeedList="relatedFeedList"/>
     </div>
     <div id="side-container">
       <community-side :allUserList="allUserList" />
@@ -43,15 +43,29 @@ export default {
     followList() {
       return this.$store.getters.followList
     },
+    username() {
+      if (this.user) {
+        return this.user.username
+      } return null
+    },
   },
   watch: {
-    username() {
+    // username() {
+    //   this.$store.dispatch("getUser", this.user.username)
+    //   // this.$store.dispatch("loadFeedList", this.username)
+    //   // this.$store.dispatch("loadUserCalendar", this.tempUser.id)
+    //   this.relatedFeedList = this.$store.state.relatedFeedList
+    //   this.$store.dispatch("getMe", this.user.username)
+    // },
+    user() {
       this.$store.dispatch("getUser", this.user.username)
-      // this.$store.dispatch("loadFeedList", this.username)
-      // this.$store.dispatch("loadUserCalendar", this.tempUser.id)
-      this.relatedFeedList = this.$store.state.relatedFeedList
+      this.$store.dispatch("loadFeedList", this.username)
+      this.$store.dispatch("loadRelatedFeedList", this.user.id)
+      this.$store.dispatch("loadUserCalendar", this.tempUser.id)
       this.$store.dispatch("getMe", this.user.username)
-    },
+      this.relatedFeedList = this.$store.state.relatedFeedList
+      
+    }
   },
 
   created() {

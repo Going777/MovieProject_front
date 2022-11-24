@@ -2,7 +2,7 @@
   <div>
     <!-- 피드 -->
     <div>
-      <!-- {{ relatedFeedList }} -->
+      {{ relatedFeedList }}
       <community-feed-item
         v-for="(feed, idx) in relatedFeedList"
         :key="idx"
@@ -38,10 +38,15 @@ export default {
     relatedFeedList: Array,
   },
   computed: {
-    // // 현재 로그인한 유저
-    // user() {
-    //   return this.$store.state.user
+    // relatedFeedList() {
+    //   // get() {
+    //     return this.$store.state.relatedFeedList
+    //   // },
+    //   // set(newValue) {
+    //   //   return newValue
+    //   // },
     // },
+    // // 현재 로그인한 유저
     // // 현재 유저와 피드 작성 유저가 같은지 판단 -> 같을 때만 삭제,수정 가능
     // isUser() {
     //   if (this.user.id === this.clickedFeed.user.id) {
@@ -70,6 +75,13 @@ export default {
       this.clickedFeed = feed
     },
   },
+  // watch: {
+  //   user() {
+  //     this.$store.dispatch("loadRelatedFeedList", this.user.id)
+  //   }
+
+  // }
+
 }
 </script>
 

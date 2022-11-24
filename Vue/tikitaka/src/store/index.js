@@ -44,6 +44,10 @@ export default new Vuex.Store({
     unreadMessage: null,
   },
   getters: {
+    RELATEDFEEDLIST(state) {
+      return state.relatedFeedList
+
+    },
     followList(state) {
       return state.user.following
     },
