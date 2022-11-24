@@ -53,10 +53,6 @@ export default {
         return newValue
       },
     },
-    // sendAt() {
-    //   const sendTime = new Date().toLocaleString()
-    //   console.log(sendTime)
-    // },
   },
   methods: {
     checkRead(message_id) {

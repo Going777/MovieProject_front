@@ -40,38 +40,50 @@
         </template>
         <v-card v-if="isLogin">
           <v-card-title>Message</v-card-title>
-          <v-card-subtitle>안 읽은 메세지가 1통 있습니다.</v-card-subtitle>
+          <v-card-subtitle
+            >안 읽은 메세지가 {{ unreadMessage.length }}통
+            있습니다.</v-card-subtitle
+          >
           <hr />
-          <div style="display: flex; margin: 0px 15px 0px">
-            <div style="margin-right: 10px">
-              <div
-                style="
-                  display: flex;
-                  justify-content: flex-start;
-                  align-items: center;
-                "
-              >
-                <!-- <img
-                  style="width: 30px; height: 30px; border-radius: 50%; margin-right:5px"
-                  src="@/assets/tikitaka_nacho.png"
-                /> -->
-                <div>
-                  <b>나쵸 </b>
-                  <span style="font-size: 5px; color: grey">
-                    11/22/2022 20:35</span
-                  >
+          <div v-for="message in unreadMessage" :key="message.id">
+            <div
+              @click="checkRead(message.id)"
+              style="
+                display: flex;
+                margin: 0px 15px 0px;
+                justify-content: space-between;
+              "
+            >
+              <div style="margin-right: 10px">
+                <div
+                  style="
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                  "
+                >
+                  <div>
+                    <b>{{ message.from_user.username }} </b>
+                    <span style="font-size: 5px; color: grey">
+                      {{ message.send_at }}</span
+                    >
+                  </div>
                 </div>
+                <p style="font-size: 14px; color: grey">
+                  {{ message.content }}
+                </p>
               </div>
-              <p style="font-size: 14px; color: grey">
-                이번 주말 해리포터 올나잇 잊지마
-              </p>
-            </div>
-            <div>
-              <img
-                style="width: 35px"
-                src="@/assets/poster_example.jpg"
-                alt="해리 포터와 마법사의 돌"
-              />
+              <div>
+                <img
+                  style="width: 35px"
+                  :src="`https://image.tmdb.org/t/p/original/${message.movie.poster_path}`"
+                />
+              </div>
+              <!-- <div style="margin-top: auto; margin-bottom: auto">
+                <v-btn icon>
+                  <v-icon>mdi-check-circle-outline</v-icon>
+                </v-btn>
+              </div> -->
             </div>
           </div>
         </v-card>
@@ -318,7 +330,6 @@ export default {
   name: "App",
   data() {
     return {
-      messages: 1,
       keyword: "",
       // selectedOption: "영화 제목",
       // searchOptions: ["영화 제목", "영화 배우/감독"],
@@ -337,6 +348,17 @@ export default {
     }
   },
   computed: {
+    unreadMessage: {
+      get() {
+        return this.$store.state.unreadMessage
+      },
+      set(newValue) {
+        return newValue
+      },
+    },
+    messages() {
+      return this.unreadMessage.length
+    },
     searchMovieList() {
       return this.$store.state.searchMovieList
     },
@@ -346,10 +368,21 @@ export default {
     isLogin() {
       return this.$store.getters.isLogin
     },
+    user: {
+      get() {
+        return this.$store.state.user
+      },
+      set(newValue) {
+        return newValue
+      },
+    },
   },
   watch: {
     search(val) {
       val && val !== this.select && this.querySelections(val)
+    },
+    user() {
+      this.$store.dispatch("loadUnreadMessageList", this.user.id)
     },
   },
   methods: {
@@ -410,6 +443,10 @@ export default {
     logOut() {
       this.$store.dispatch("logOut")
     },
+    checkRead(message_id) {
+      // console.log("이거 읽었음!", message_id)
+      this.$store.dispatch("checkReed", message_id)
+    },
   },
   created() {
     this.$store.dispatch("loadAllMovieList")
@@ -417,6 +454,9 @@ export default {
     this.$store.dispatch("loadTopratedMovieList")
     this.$store.dispatch("loadNowPlayingMovieList")
     this.$store.dispatch("loadNowPlayingMovieVideoList")
+    if (this.user) {
+      this.$store.dispatch("loadUnreadMessageList", this.user.id)
+    }
   },
 }
 </script>

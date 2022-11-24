@@ -18,12 +18,12 @@
             <font-awesome-icon icon="fa-solid fa-bookmark" size="2x" spin-pulse />
         </span> -->
 
-    <div class="v-line"></div>
+    <!-- <div class="v-line"></div> -->
 
     <!-- 좋아요한 피드 아이콘 -->
-    <v-btn fab large plain @click="showHeartFeed('MyPageHeartFeed')"
+    <!-- <v-btn fab large plain @click="showHeartFeed('MyPageHeartFeed')"
       ><v-icon large>mdi-heart</v-icon></v-btn
-    >
+    > -->
     <!-- <span class="mx-5">
             <font-awesome-icon icon="fa-solid fa-heart" size="2x" />
         </span> -->
@@ -74,9 +74,9 @@ export default {
     showBookmark(currentPage) {
       this.$emit("show-bookmark", currentPage)
     },
-    showHeartFeed(currentPage) {
-      this.$emit("show-heart-feed", currentPage)
-    },
+    // showHeartFeed(currentPage) {
+    //   this.$emit("show-heart-feed", currentPage)
+    // },
     showCalendar(currentPage) {
       this.$emit("show-calendar", currentPage)
     },

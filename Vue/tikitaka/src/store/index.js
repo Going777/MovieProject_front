@@ -40,6 +40,7 @@ export default new Vuex.Store({
     tempUser: null,
     selectedFeed: null,
     allMessage: null,
+    unreadMessage: null,
   },
   getters: {
     followList(state) {
@@ -194,6 +195,10 @@ export default new Vuex.Store({
     // 전체 받은 메시지 반환
     LOAD_ALL_MESSAGE(state, response) {
       state.allMessage = response
+    },
+    // 안 읽은 메시지 반환
+    LOAD_UNREAD_MESSAGE(state, response) {
+      state.unreadMessage = response
     },
   },
   actions: {
@@ -762,8 +767,18 @@ export default new Vuex.Store({
         context.commit("LOAD_ALL_MESSAGE", response.data)
       })
     },
+    // 안읽은 메시지 목록 받아오기
+    loadUnreadMessageList(context, user_id) {
+      axios({
+        method: "get",
+        url: `${DJ_URL}/community/message/new/${user_id}/`,
+      }).then((response) => {
+        context.commit("LOAD_UNREAD_MESSAGE", response.data)
+      })
+    },
     // 메시지 읽음 표시
     checkReed(context, message_id) {
+      console.log("메시지 읽음", message_id)
       axios({
         method: "post",
         data: {
@@ -772,6 +787,7 @@ export default new Vuex.Store({
         url: `${DJ_URL}/community/message/check/${context.state.user.id}/`,
       }).then(() => {
         context.dispatch("loadAllMessageList", context.state.user.id)
+        context.dispatch("loadUnreadMessageList", context.state.user.id)
       })
     },
   },

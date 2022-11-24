@@ -10,7 +10,6 @@
       <my-page-icon-bar
         @show-feed="showFeed"
         @show-bookmark="showBookmark"
-        @show-heart-feed="showHeartFeed"
         @show-calendar="showCalendar"
         @show-message="showMessage"
       />
@@ -20,23 +19,16 @@
     <v-sheet id="content-container" elevation="3">
       <my-page-feed v-if="activeTab === 'MyPageFeed'" :feedList="feedList" />
       <my-page-bookmark v-if="activeTab === 'MyPageBookmark'" />
-      <my-page-heart-feed
+      <!-- <my-page-heart-feed
         v-if="activeTab === 'MyPageHeartFeed'"
         :user="tempUser"
         :feedList="feedList"
-      />
+      /> -->
       <my-page-calendar
         v-if="activeTab === 'MyPageCalendar'"
         :calendarItems="calendarItems"
       />
       <my-page-message v-if="activeTab === 'MyPageMessage'" />
-      <br /><br />
-      현재 페이지 유저{{ tempUser.username }}
-      <hr />
-      라우터로 받은 유저{{ username }}
-      <hr />
-      로그인 유저{{ user.username }}
-      <hr />
     </v-sheet>
   </div>
 </template>
@@ -47,7 +39,7 @@ import CommunityProfile from "../components/CommunityProfile.vue"
 import MyPageBookmark from "../components/MyPageBookmark.vue"
 import MyPageCalendar from "../components/MyPageCalendar.vue"
 import MyPageFeed from "../components/MyPageFeed.vue"
-import MyPageHeartFeed from "../components/MyPageHeartFeed.vue"
+// import MyPageHeartFeed from "../components/MyPageHeartFeed.vue"
 import MyPageIconBar from "../components/MyPageIconBar.vue"
 export default {
   components: {
@@ -55,7 +47,7 @@ export default {
     MyPageIconBar,
     MyPageFeed,
     MyPageBookmark,
-    MyPageHeartFeed,
+    // MyPageHeartFeed,
     MyPageCalendar,
     MyPageMessage,
   },
@@ -119,9 +111,9 @@ export default {
     showBookmark(currentPage) {
       this.activeTab = currentPage
     },
-    showHeartFeed(currentPage) {
-      this.activeTab = currentPage
-    },
+    // showHeartFeed(currentPage) {
+    //   this.activeTab = currentPage
+    // },
     showCalendar(currentPage) {
       this.activeTab = currentPage
     },
