@@ -29,8 +29,13 @@ export default {
     allUserList() {
       return this.$store.state.allUserList
     },
-    user() {
-      return this.$store.state.user
+    user: {
+      get() {
+        return this.$store.state.user
+      },
+      set(newValue) {
+        return newValue
+      },
     },
     relatedFeedList: {
       get() {

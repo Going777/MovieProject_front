@@ -19,7 +19,7 @@
       </div>
 
       <!-- 추천 유저(with 프로필) -->
-      <div style="margin-top: 30px">
+      <!-- <div style="margin-top: 30px">
         <h4>Perhaps you may like</h4>
         <v-sheet style="background-color: transparent">
           <v-slide-group active-class="success" show-arrows>
@@ -49,11 +49,11 @@
             </v-slide-item>
           </v-slide-group>
         </v-sheet>
-      </div>
+      </div> -->
 
       <!-- 서로 맞팔한 유저 -->
       <div style="margin-top: 30px">
-        <h4>Mutual Friends</h4>
+        <h5 class="logoText">Mutual Friends</h5>
         <div id="user-box">
           <CommunitySideItem
             v-for="(follow, idx) in followList"
@@ -67,10 +67,13 @@
 </template>
 
 <script>
-import CommunityFeedUserListItem from "./CommunityFeedUserListItem.vue"
+// import CommunityFeedUserListItem from "./CommunityFeedUserListItem.vue"
 import CommunitySideItem from "./CommunitySideItem.vue"
 export default {
-  components: { CommunityFeedUserListItem, CommunitySideItem },
+  components: {
+    // CommunityFeedUserListItem,
+    CommunitySideItem,
+  },
   name: "CommunitySide",
   props: {
     followList: Array,

@@ -2,7 +2,6 @@
   <div>
     <!-- 피드 -->
     <div>
-      <!-- {{ relatedFeedList }} -->
       <community-feed-item
         v-for="(feed, idx) in relatedFeedList"
         :key="idx"
