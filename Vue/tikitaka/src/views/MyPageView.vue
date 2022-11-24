@@ -121,12 +121,6 @@ export default {
     // this.$store.dispatch("getUser", this.username)
     // this.$store.dispatch("loadUserCalendar", this.tempUser.id)
   },
-  // beforeRouteUpdate(to, from, next) {
-  //   // this.$store.dispatch("getUser", this.username)
-  //   // console.log("그다음 여기", this.user)
-  //   this.tempUser = this.$store.state.tempUser
-  //   next()
-  // },
 }
 </script>
 

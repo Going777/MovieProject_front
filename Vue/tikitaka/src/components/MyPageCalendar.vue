@@ -134,6 +134,7 @@ export default {
 
     // 생성된 일정 다시 누르면 일정 삭제
     handleEventClick(clickInfo) {
+      // 본인만 삭제 가능
       if (this.isUser) {
         // 삭제 전 경고창 띄우기
         if (
@@ -146,6 +147,10 @@ export default {
         } else {
           console.log(clickInfo)
         }
+      }
+      // 본인이 아니라면 영화 상세페이지로 이동
+      else {
+        this.$store.dispatch("getMovieById", this.movie_id)
       }
     },
     // handleEvents(events) {

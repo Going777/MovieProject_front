@@ -45,7 +45,6 @@ export default {
   data() {
     return {
       keyword: "",
-
       loading: false,
       items: [],
       searchMovie: null,
