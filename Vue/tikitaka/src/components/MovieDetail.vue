@@ -1,5 +1,5 @@
 <template>
-  <div style="margin: 0px 10% 200px">
+  <div style="margin: 0px 15% 200px">
     <div style="display: flex" class="mainText">
       <!-- 영화 포스터 및 버튼 영역 -->
       <div style="max-width: 220px; margin-right: 30px">
@@ -8,7 +8,7 @@
           <v-btn
             v-if="isBookmark"
             @click="clickBookmark"
-            style="width: 100%; margin-top: 30px"
+            style="width: 100%; margin-top: 20px"
           >
             <v-icon left> mdi-star </v-icon>
             Bookmark
@@ -16,13 +16,13 @@
           <v-btn
             v-if="!isBookmark"
             @click="clickBookmark"
-            style="width: 100%; margin-top: 30px"
+            style="width: 100%; margin-top: 20px"
           >
             <v-icon left> mdi-star-outline </v-icon>
             Bookmark
           </v-btn>
           <v-btn
-            style="width: 100%; margin-top: 30px"
+            style="width: 100%; margin-top: 20px"
             @click="openMessageModal"
           >
             <v-icon left> mdi-message </v-icon>
@@ -149,6 +149,9 @@ export default {
   watch: {
     searchUser(val) {
       val && val !== this.select && this.querySelections(val)
+    },
+    movie() {
+      this.$store.dispatch("loadRecommendMoviesAtDetail", this.movie.id)
     },
   },
   computed: {
