@@ -1,5 +1,7 @@
 <template>
   <div>
+    <h5 v-show="isNoneFeedList">작성된 피드가 없습니다</h5>
+
     <!-- 피드 작성 버튼 -->
     <v-btn
       v-show="isEqualUser"
@@ -122,6 +124,13 @@ export default {
     },
     isEqualUser() {
       if (this.user.id === this.$store.state.tempUser.id) {
+        return true
+      } else {
+        return false
+      }
+    },
+    isNoneFeedList() {
+      if (this.feedList.length === 0) {
         return true
       } else {
         return false

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h5 v-show="isNoneBookmark">북마크된 영화가 없습니다</h5>
     <v-card flat width="100%">
       <div class="m-3">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
@@ -57,6 +58,13 @@ export default {
         return true
       }
       return false
+    },
+    isNoneBookmark() {
+      if (this.tempUser.bookmarks.length === 0) {
+        return true
+      } else {
+        return false
+      }
     },
   },
   methods: {
