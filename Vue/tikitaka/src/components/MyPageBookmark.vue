@@ -39,9 +39,6 @@
 <script>
 export default {
   name: "MyPageBookmark",
-  // props: {
-  //   user: Object,
-  // },
   computed: {
     // 현재 로그인한 유저
     user() {

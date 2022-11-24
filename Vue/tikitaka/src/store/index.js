@@ -135,6 +135,8 @@ export default new Vuex.Store({
 
     // 달력에 아이템 업데이트
     UPDATE_CALENDAR(state, response) {
+      console.log("달력 업데이트!!!!")
+      console.log("달력", response)
       state.calendarItems = response.map((element) => {
         const newObject = {
           cal_id: element.id,
@@ -154,6 +156,7 @@ export default new Vuex.Store({
     },
     // 유저별 피드 리스트 받아오기
     LOAD_FEED_LIST(state, response) {
+      console.log("현재 페이지 피드리스트 변경")
       state.feedList = response
     },
     // 나 포함, 팔로잉 유저 피드 받아오기
@@ -166,6 +169,7 @@ export default new Vuex.Store({
     },
     // 유저 가져오기
     GET_USER(state, response) {
+      console.log("현재 페이지 유저 변경")
       state.tempUser = response
     },
     GET_ME(state, response) {

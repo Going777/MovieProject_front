@@ -24,7 +24,10 @@
         :user="tempUser"
         :feedList="feedList"
       />
-      <my-page-calendar v-if="activeTab === 'MyPageCalendar'" />
+      <my-page-calendar
+        v-if="activeTab === 'MyPageCalendar'"
+        :calendarItems="calendarItems"
+      />
       <br /><br />
       현재 페이지 유저{{ tempUser.username }}
       <hr />
@@ -88,6 +91,14 @@ export default {
         return newValue
       },
     },
+    calendarItems: {
+      get() {
+        return this.$store.state.calendarItems
+      },
+      set(newValue) {
+        return newValue
+      },
+    },
   },
   methods: {
     showFeed(currentPage) {
@@ -107,6 +118,8 @@ export default {
     username() {
       this.$store.dispatch("getUser", this.username)
       this.$store.dispatch("loadFeedList", this.username)
+    },
+    tempUser() {
       this.$store.dispatch("loadUserCalendar", this.tempUser.id)
     },
   },
@@ -116,6 +129,7 @@ export default {
     this.$store.dispatch("loadUserCalendar", this.tempUser.id)
   },
   updated() {
+    // this.$store.dispatch("loadUserCalendar", this.tempUser.id)
     // this.feedList = this.$store.state.feedList
     // this.tempUser = this.$store.state.tempUser
     // this.$store.dispatch("getUser", this.username)
