@@ -150,6 +150,7 @@ export default {
       }
       // 본인이 아니라면 영화 상세페이지로 이동
       else {
+        console.log("남의 달력", this.movie_id)
         this.$store.dispatch("getMovieById", this.movie_id)
       }
     },
