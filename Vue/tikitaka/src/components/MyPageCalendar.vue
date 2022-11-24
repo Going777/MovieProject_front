@@ -158,7 +158,9 @@ export default {
       }
       // 본인이 아니라면 영화 상세페이지로 이동
       else {
-        console.log("남의 달력", clickInfo)
+        console.log("가고자하는 영화 제목", clickInfo.event.title)
+        this.$store.dispatch("getMovieIdByTitle", clickInfo.event.title)
+        // console.log("남의 달력", movie_id_for_detail)
         // this.$store.dispatch("getMovieById", this.movie_id)
       }
     },

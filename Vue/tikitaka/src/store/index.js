@@ -253,6 +253,22 @@ export default new Vuex.Store({
           console.log(error)
         })
     },
+    getMovieIdByTitle(context, movie_title) {
+      axios({
+        method: "get",
+        params: {
+          title: movie_title,
+        },
+        url: `${DJ_URL}/movies/movie_id/`,
+      })
+        .then((response) => {
+          context.dispatch("getMovieById", response.data.id)
+          // router.push({ name: "detail", params: { id: response.data.id } }).catch(() => {})
+        })
+        .catch(() => {
+          alert("영화아이디 못 받아옴")
+        })
+    },
     // 영화 검색 키워드 서버 통신 (영화감독,배우로 / 당장은 구현X)
     // searchMovieListByPerson(context, payload) {
     //   axios({
