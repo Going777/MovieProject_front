@@ -17,12 +17,7 @@
       <v-toolbar-title class="logoText">TikiTaka</v-toolbar-title>
       <img
         src="@/assets/tikitaka_logo_small.png"
-        style="
-          width: 60px;
-          /* background-color: white; */
-          border-radius: 50%;
-          /* margin-left: 5px; */
-        "
+        style="width: 60px; border-radius: 50%"
       />
 
       <v-spacer></v-spacer>
@@ -46,44 +41,47 @@
           >
           <hr />
           <div v-for="message in unreadMessage" :key="message.id">
-            <div
-              @click="checkRead(message.id)"
-              style="
-                display: flex;
-                margin: 0px 15px 0px;
-                justify-content: space-between;
-              "
-            >
-              <div style="margin-right: 10px">
-                <div
-                  style="
-                    display: flex;
-                    justify-content: flex-start;
-                    align-items: center;
-                  "
-                >
-                  <div>
-                    <b>{{ message.from_user.username }} </b>
-                    <span style="font-size: 5px; color: grey">
-                      {{ message.send_at }}</span
-                    >
+            <div @click="checkRead(message.id)">
+              <div
+                class="mx-3"
+                style="display: flex; justify-content: space-between"
+              >
+                <div>
+                  <div
+                    style="
+                      display: flex;
+                      justify-content: flex-start;
+                      align-items: center;
+                    "
+                  >
+                    <div>
+                      <b>{{ message.from_user.username }} </b>
+                    </div>
                   </div>
+                  <p style="font-size: 14px; color: grey">
+                    {{ message.content }}
+                  </p>
                 </div>
-                <p style="font-size: 14px; color: grey">
-                  {{ message.content }}
-                </p>
+
+                <div>
+                  <img
+                    style="width: 35px"
+                    :src="`https://image.tmdb.org/t/p/original/${message.movie.poster_path}`"
+                  />
+                </div>
               </div>
-              <div>
-                <img
-                  style="width: 35px"
-                  :src="`https://image.tmdb.org/t/p/original/${message.movie.poster_path}`"
-                />
-              </div>
-              <!-- <div style="margin-top: auto; margin-bottom: auto">
-                <v-btn icon>
-                  <v-icon>mdi-check-circle-outline</v-icon>
-                </v-btn>
-              </div> -->
+              <p
+                class="mx-3"
+                style="
+                  font-size: 5px;
+                  color: grey;
+                  float: right;
+                  margin-bottom: 10px;
+                "
+              >
+                {{ new Date(message.send_at).toLocaleString() }}
+              </p>
+              <hr style="width: 80%; margin-left: auto; margin-right: auto" />
             </div>
           </div>
         </v-card>
@@ -449,6 +447,7 @@ export default {
     },
   },
   created() {
+    this.$router.push({ name: "home" })
     this.$store.dispatch("loadAllMovieList")
     this.$store.dispatch("loadPopularMovieList")
     this.$store.dispatch("loadTopratedMovieList")
