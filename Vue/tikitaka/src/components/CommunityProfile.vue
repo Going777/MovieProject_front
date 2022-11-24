@@ -321,6 +321,7 @@ export default {
         selectedGenreIds: selectedGenreIds,
       }
       this.$store.dispatch("editProfile", payload)
+      this.$store.dispatch("getUser", this.tempUser.username)
       this.$bvModal.hide("profileEditModal")
       this.selectImgUrl = this.profileImgUrl
       this.select = []
