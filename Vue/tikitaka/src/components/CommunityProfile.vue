@@ -231,7 +231,8 @@ export default {
       isSelected: false,
       description: "",
       selectImgUrl: null,
-      select: this.user.favorite_genres,
+      // select: this.user.favorite_genres,
+      select: [],
       items: [
         "모험",
         "판타지",
@@ -318,6 +319,7 @@ export default {
       this.$store.dispatch("editProfile", payload)
       this.$bvModal.hide("profileEditModal")
       this.selectImgUrl = this.profileImgUrl
+      this.select = []
     },
   },
 }
