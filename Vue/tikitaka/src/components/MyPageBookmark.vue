@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h5 v-show="isNoneBookmark">북마크된 영화가 없습니다</h5>
+    <h5 v-show="isNoneBookmark">관심있는 영화를 저장해주세요!</h5>
     <v-card flat width="100%">
       <div class="m-3">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
@@ -17,7 +17,9 @@
                 <b-card-text>
                   <div>
                     <h4>{{ bookmark.title }}</h4>
-                    <p style="font-size: 14px">{{ bookmark.original_title }}</p>
+                    <p style="font-size: 14px; color: gray">
+                      {{ bookmark.original_title }}
+                    </p>
                     <v-btn
                       v-show="isUser"
                       dark

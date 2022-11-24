@@ -90,8 +90,8 @@
         <template #modal-header>
           <h3 class="logoText">RECOMMEND TO YOUR FRIEND</h3>
         </template>
-        <div class="logoText">
-          <h5>To</h5>
+        <div class="mainText">
+          <h5 class="logoText">To</h5>
           <v-toolbar flat dense style="margin-top: 30px; margin-left: -15px">
             <v-autocomplete
               clearable
@@ -105,7 +105,7 @@
             ></v-autocomplete>
           </v-toolbar>
           <br />
-          <h5>Message</h5>
+          <h5 class="logoText">Message</h5>
           <v-text-field clearable outlined v-model="message"></v-text-field>
           <v-btn dark style="float: right" @click="sendMessage">SEND</v-btn>
         </div>
