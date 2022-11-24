@@ -80,7 +80,7 @@
       <img :src="selectImgUrl" class="modal-profile-main-image" />
       <br /><br />
       <!-- 선택가능 프로필 이미지 -->
-      <h5><strong>원하는 프로필 이미지로 변경 가능해요!</strong></h5>
+      <h5><strong>프로필 변경 이미지 선택</strong></h5>
       <div>
         <input type="radio" id="img1" style="display: none" name="radio" />
         <label for="img1">
@@ -158,13 +158,20 @@
       </div> -->
 
       <!-- 본인 소개글 -->
-      <h5><strong>나를 한마디로 말하자면?!</strong></h5>
+      <h5><strong>본인 소개</strong></h5>
       <v-text-field outlined v-model="description"></v-text-field>
 
       <!-- 좋아하는 장르 -->
-      <h5><strong>선호하는 장르를 모두 선택해주세요!</strong></h5>
+      <h5><strong>선호하는 장르</strong></h5>
       <v-col cols="12">
-        <v-combobox v-model="select" :items="items" multiple chips></v-combobox>
+        <v-combobox
+          outlined
+          v-model="select"
+          :items="items"
+          multiple
+          chips
+          style="margin-left: -17px"
+        ></v-combobox>
       </v-col>
 
       <v-btn dark height="45" style="float: right" @click="editProfile"
@@ -291,8 +298,6 @@ export default {
       return this.$store.dispatch("follow", payload)
     },
     openEditProfile() {
-      console.log("select이미지유알엘", this.selectImgUrl)
-      console.log("profile이미지유알엘", this.profileImgUrl)
       this.selectImgUrl = this.profileImgUrl
       this.$bvModal.show("profileEditModal")
     },
@@ -310,7 +315,6 @@ export default {
         const id = matchGenreId(element)
         selectedGenreIds.push(id)
       })
-      console.log(selectedGenreIds)
       const payload = {
         profile_img: imgKeyword,
         description: this.description,
