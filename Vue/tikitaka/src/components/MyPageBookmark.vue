@@ -12,7 +12,7 @@
                 img-left
                 style="height: 15rem; margin-bottom: 25px"
                 class="shadow p-3 mb-5 bg-white rounded zoom"
-                @click="goDetail"
+                @click="goDetail(bookmark.id)"
               >
                 <b-card-text>
                   <div>
@@ -61,11 +61,12 @@ export default {
     },
   },
   methods: {
-    bookmarkDelete(bookmark_id) {
-      this.$store.dispatch("clickBookmark", bookmark_id)
+    bookmarkDelete(movie_id) {
+      this.$store.dispatch("clickBookmark", movie_id)
     },
-    goDetail() {
+    goDetail(movie_id) {
       console.log("디테일로")
+      this.$store.dispatch("getMovieById", movie_id)
     },
   },
   updated() {
