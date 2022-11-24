@@ -375,7 +375,6 @@ export default {
       set(newValue) {
         return newValue
       },
-
     },
   },
   watch: {
@@ -457,6 +456,7 @@ export default {
     this.$store.dispatch("loadNowPlayingMovieVideoList")
     if (this.user) {
       this.$store.dispatch("loadUnreadMessageList", this.user.id)
+    }
     if (this.isLogin) {
       this.$store.dispatch("loadRecommendMovieList", this.user.id)
     }
