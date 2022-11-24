@@ -1,6 +1,11 @@
 <template>
-  <div>
-    <v-sheet id="profile-box" class="mainText" elevation="3">
+  <div style="width: 100%">
+    <v-sheet
+      id="profile-box"
+      class="mainText"
+      elevation="3"
+      style="width: 230px"
+    >
       <div>
         <img
           src="@/assets/tikitaka_logo_r.png"

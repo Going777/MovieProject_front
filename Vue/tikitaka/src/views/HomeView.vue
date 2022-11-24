@@ -92,6 +92,13 @@ export default {
   updated() {
     this.$store.dispatch("getUser", this.username)
   },
+  watch: {
+    user() {
+      this.$store.dispatch("getUser", this.username)
+      // this.$store.dispatch("loadFeedList", this.username)
+      // this.$store.dispatch("loadUserCalendar", this.tempUser.id)
+    },
+  },
 }
 </script>
 
@@ -114,9 +121,9 @@ export default {
   margin-top: 10px; */
 }
 #profile-container2 {
-  grid-area: profile;
-  margin-left: 10px;
-  margin-top: 10px;
+  /* grid-area: profile; */
+  width: 230px;
+  margin-left: auto;
 }
 
 #movie-container {
