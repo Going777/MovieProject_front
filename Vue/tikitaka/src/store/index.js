@@ -19,6 +19,7 @@ export default new Vuex.Store({
     popularMovieList: { title: "POPULAR MOVIE", movies: [] },
     topratedMovieList: { title: "TOP CLASSIC MOVIE", movies: [] },
     nowPlayingMovieVideoList: { title: "상영중 영화 비디오", movies: [] },
+    recommendMovieListAtDetail: null, // 영화 디테일 페이지에서 추천 영화
     searchMovieList: [],
     feedMovieId: null, // 안 필요할 수도 있음
 
@@ -55,6 +56,16 @@ export default new Vuex.Store({
     profile_img(state) {
       return state.tempUser.profile_img
     },
+    isFollowing(state) {
+      let pushFollow = false
+      state.user.following.forEach((element) => {
+        if (element.id === state.tempUser.id) {
+          pushFollow = true
+        }
+      })
+      return pushFollow
+      // return state.user.following.includes(state.tempUser.id)
+    },
   },
   mutations: {
     // ***************************************************************
@@ -65,6 +76,7 @@ export default new Vuex.Store({
       state.popularMovieList.movies = response
       // console.log(state.popularMovieList.movies)
     },
+    // 평점순 영화
     LOAD_TOPRATED_MOVIE_LIST(state, response) {
       state.topratedMovieList.movies = response
       console.log(state.topratedMovieList.movies)
@@ -76,6 +88,9 @@ export default new Vuex.Store({
     // 현재 상영중 영화(예고편)
     LOAD_NOW_PLAYING_MOVIE_VIDEO_LIST(state, response) {
       state.nowPlayingMovieVideoList.movies = response
+    },
+    LOAD_RECOMMEND_MOVIES_AT_DETAIL(state, response) {
+      state.recommendMovieListAtDetail = response
     },
     // 키워드 검색 영화
     SEARCH_MOVIE_LIST(state, response) {
@@ -228,6 +243,22 @@ export default new Vuex.Store({
         .then((response) => {
           // console.log(response)
           context.commit("LOAD_NOW_PLAYING_MOVIE_VIDEO_LIST", response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    // 디테일 페이지 추천 영화 서버 통신
+    loadRecommendMoviesAtDetail(context, movie_id) {
+      axios({
+        method: "get",
+        params: {
+          id: context.state.user.id,
+        },
+        url: `${DJ_URL}/movies/${movie_id}/recommend/`,
+      })
+        .then((response) => {
+          context.commit("LOAD_RECOMMEND_MOVIES_AT_DETAIL", response.data)
         })
         .catch((error) => {
           console.log(error)
@@ -653,9 +684,11 @@ export default new Vuex.Store({
           id: context.state.user.id,
           profile_img: payload.profile_img,
           description: payload.description,
+          genre_id_list: payload.selectedGenreIds,
         },
       })
         .then((response) => {
+          console.log(payload)
           console.log("프로필 변경 완료!!", response)
           context.dispatch("getMe", context.state.user.username)
         })

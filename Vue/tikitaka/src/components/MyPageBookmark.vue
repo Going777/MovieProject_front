@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ tempUser }}
     <v-card flat width="100%">
       <div class="m-3">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
