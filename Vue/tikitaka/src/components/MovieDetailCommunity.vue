@@ -1,7 +1,6 @@
 <template>
   <div>
     <iframe
-      v-if="movie.video_key"
       id="ytplayer, frame"
       type="text/html"
       width="100%"

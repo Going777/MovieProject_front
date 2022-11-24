@@ -44,14 +44,21 @@ export default {
       return this.$store.getters.followList
     },
   },
+  watch: {
+    username() {
+      this.$store.dispatch("getUser", this.user.username)
+      // this.$store.dispatch("loadFeedList", this.username)
+      // this.$store.dispatch("loadUserCalendar", this.tempUser.id)
+      this.relatedFeedList = this.$store.state.relatedFeedList
+      this.$store.dispatch("getMe", this.user.username)
+    },
+  },
+
   created() {
     this.$store.dispatch("loadAllUserList")
     this.$store.dispatch("getMe", this.user.username)
     this.$store.dispatch("loadRelatedFeedlist", this.user.id)
     this.$store.dispatch("getUser", this.user.username)
-  },
-  updated() {
-    this.relatedFeedList = this.$store.state.relatedFeedList
   },
 }
 </script>

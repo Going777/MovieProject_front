@@ -108,6 +108,7 @@ export default {
       this.$store.dispatch("getUser", this.username)
       this.$store.dispatch("loadFeedList", this.username)
       this.$store.dispatch("loadUserCalendar", this.tempUser.id)
+      this.$store.dispatch("getMe", this.user.username)
     },
   },
   created() {

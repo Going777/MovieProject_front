@@ -60,69 +60,14 @@
           <!-- 좋아하는 장르 태그 -->
           <h6 class="logoText">FAVORITE GENRES</h6>
           <div id="profile-tag-box">
+            {{ user.favorite_genres }}
             <v-chip
-              color="indigo"
-              text-color="white"
+              color="yellow"
+              text-color="black"
               style="margin: 5px 3px"
               small
             >
               액션
-            </v-chip>
-            <v-chip
-              color="orange"
-              text-color="white"
-              style="margin: 5px 3px"
-              small
-            >
-              모험
-            </v-chip>
-            <v-chip
-              color="primary"
-              text-color="white"
-              style="margin: 5px 3px"
-              small
-            >
-              판타지
-            </v-chip>
-            <v-chip
-              color="green"
-              text-color="white"
-              style="margin: 5px 3px"
-              small
-            >
-              미스테리
-            </v-chip>
-            <v-chip
-              color="red"
-              text-color="white"
-              style="margin: 5px 3px"
-              small
-            >
-              음악
-            </v-chip>
-            <v-chip
-              color="red"
-              text-color="white"
-              style="margin: 5px 3px"
-              small
-            >
-              스릴러
-            </v-chip>
-            <v-chip
-              color="red"
-              text-color="white"
-              style="margin: 5px 3px"
-              small
-            >
-              애니메이션
-            </v-chip>
-            <v-chip
-              color="red"
-              text-color="white"
-              style="margin: 5px 3px"
-              small
-            >
-              로맨스
             </v-chip>
           </div>
         </div>
@@ -314,14 +259,16 @@ export default {
     //   return this.$route.params.username
     // },
     isMyPage() {
-      return (
-        this.$store.state.user.username === this.$route.params.username ||
-        this.$route.params.username === null
-      )
+      if (this.$route.params.username) {
+        return this.$store.state.user.username === this.$route.params.username
+      } else {
+        return true
+      }
     },
     isFollowing() {
-      return this.$store.state.user.following.includes(this.user.id)
+      return this.$store.getters.isFollowing
     },
+
     followingCnt() {
       return this.$store.getters.followingCnt
     },
@@ -364,13 +311,14 @@ export default {
         selectedGenreIds.push(id)
       })
       console.log(selectedGenreIds)
-      // const payload = {
-      //   profile_img: imgKeyword,
-      //   description: this.description,
-      // }
-      // this.$store.dispatch("editProfile", payload)
-      // this.$bvModal.hide("profileEditModal")
-      // this.selectImgUrl = this.profileImgUrl
+      const payload = {
+        profile_img: imgKeyword,
+        description: this.description,
+        selectedGenreIds: selectedGenreIds,
+      }
+      this.$store.dispatch("editProfile", payload)
+      this.$bvModal.hide("profileEditModal")
+      this.selectImgUrl = this.profileImgUrl
     },
   },
   // created: {},

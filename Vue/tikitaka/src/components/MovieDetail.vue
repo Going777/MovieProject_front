@@ -3,26 +3,28 @@
     <!-- 영화 포스터 및 버튼 영역 -->
     <div style="max-width: 220px; margin-right: 30px">
       <img :src="posterURL" alt="" style="width: 100%" />
-      <v-btn
-        v-if="isBookmark"
-        @click="clickBookmark"
-        style="width: 100%; margin-top: 30px"
-      >
-        <v-icon left> mdi-star </v-icon>
-        Bookmark
-      </v-btn>
-      <v-btn
-        v-if="!isBookmark"
-        @click="clickBookmark"
-        style="width: 100%; margin-top: 30px"
-      >
-        <v-icon left> mdi-star-outline </v-icon>
-        Bookmark
-      </v-btn>
-      <v-btn style="width: 100%; margin-top: 30px" @click="openMessageModal">
-        <v-icon left> mdi-message </v-icon>
-        Message
-      </v-btn>
+      <div>
+        <v-btn
+          v-if="isBookmark"
+          @click="clickBookmark"
+          style="width: 100%; margin-top: 30px"
+        >
+          <v-icon left> mdi-star </v-icon>
+          Bookmark
+        </v-btn>
+        <v-btn
+          v-if="!isBookmark"
+          @click="clickBookmark"
+          style="width: 100%; margin-top: 30px"
+        >
+          <v-icon left> mdi-star-outline </v-icon>
+          Bookmark
+        </v-btn>
+        <v-btn style="width: 100%; margin-top: 30px" @click="openMessageModal">
+          <v-icon left> mdi-message </v-icon>
+          Message
+        </v-btn>
+      </div>
       <!-- <v-btn style="width: 100%; margin-top: 30px">
         <v-icon left> mdi-pencil </v-icon>
         Review
@@ -126,28 +128,36 @@ export default {
       return `https://image.tmdb.org/t/p/original${path}`
     },
     isBookmark() {
-      return this.$store.state.user.bookmarks.find(
-        (b) => b.id === this.movie.id
-      )
+      if (this.$store.state.user) {
+        return this.$store.state.user.bookmarks.find(
+          (b) => b.id === this.movie.id
+        )
+      } else {
+        return false
+      }
     },
     user() {
       return this.$store.state.user
     },
     users() {
       const following = []
-      this.user.following.forEach((element) => {
-        const name = element.username
-        following.push(name)
-      })
+      if (this.$store.state.user) {
+        this.user.following.forEach((element) => {
+          const name = element.username
+          following.push(name)
+        })
+      }
       return following
     },
     items: {
       get() {
         const following = []
-        this.user.following.forEach((element) => {
-          const name = element.username
-          following.push(name)
-        })
+        if (this.$store.state.user) {
+          this.user.following.forEach((element) => {
+            const name = element.username
+            following.push(name)
+          })
+        }
         return following
       },
       set(newValue) {
@@ -159,17 +169,27 @@ export default {
     querySelections(v) {
       this.loading = true
       setTimeout(() => {
-        this.items = this.users.filter((e) => {
-          return (e || "").toLowerCase().indexOf((v || "").toLowerCase()) > -1
-        })
-        this.loading = false
+        if (this.$store.state.user) {
+          this.items = this.users.filter((e) => {
+            return (e || "").toLowerCase().indexOf((v || "").toLowerCase()) > -1
+          })
+          this.loading = false
+        }
       }, 500)
     },
     clickBookmark() {
-      return this.$store.dispatch("clickBookmark", this.movie.id)
+      if (this.$store.state.user) {
+        return this.$store.dispatch("clickBookmark", this.movie.id)
+      } else {
+        alert("로그인이 필요한 서비스입니다.")
+      }
     },
     openMessageModal() {
-      this.$bvModal.show("sendMessageModal")
+      if (this.$store.state.user) {
+        this.$bvModal.show("sendMessageModal")
+      } else {
+        alert("로그인이 필요한 서비스입니다.")
+      }
     },
     sendMessage() {
       console.log("메시지 보낼 때 필요한 것!")

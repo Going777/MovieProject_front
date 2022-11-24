@@ -55,6 +55,16 @@ export default new Vuex.Store({
     profile_img(state) {
       return state.tempUser.profile_img
     },
+    isFollowing(state) {
+      let pushFollow = false
+      state.user.following.forEach((element) => {
+        if (element.id === state.tempUser.id) {
+          pushFollow = true
+        }
+      })
+      return pushFollow
+      // return state.user.following.includes(state.tempUser.id)
+    },
   },
   mutations: {
     // ***************************************************************
@@ -634,6 +644,7 @@ export default new Vuex.Store({
           id: context.state.user.id,
           profile_img: payload.profile_img,
           description: payload.description,
+          genre_id_list: payload.selectedGenreIds,
         },
       })
         .then((response) => {
