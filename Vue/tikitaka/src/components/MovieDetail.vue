@@ -51,7 +51,7 @@
           <MovieDetailCastBoard :movie="movie" />
         </div>
         <!-- 커뮤니티 영역 -->
-        <div style="width: 30%">
+        <div style="width: 30%" v-show="movie.video_key">
           <h3>Trailer</h3>
           <MovieDetailCommunity :movie="movie" />
         </div>
