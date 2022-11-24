@@ -120,7 +120,7 @@
                       <v-icon
                         size="20"
                         style="margin-top: auto; margin-bottom: auto"
-                        >mdi-alpha-x-box-outline</v-icon
+                        >mdi-close-circle-outline</v-icon
                       >
                     </v-btn>
                   </div>

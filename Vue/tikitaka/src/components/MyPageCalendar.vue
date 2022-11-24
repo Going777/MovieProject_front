@@ -115,18 +115,18 @@ export default {
 
     // 달력에 포스터 생성
     addCalendar() {
-      console.log(this.selectedInfo)
-      let image_url = this.select_img
-      let calendarApi = this.selectedInfo.view.calendar
-      calendarApi.unselect()
+      // console.log(this.selectedInfo)
+      // let image_url = this.select_img
+      // let calendarApi = this.selectedInfo.view.calendar
+      // calendarApi.unselect()
 
-      if (image_url) {
-        calendarApi.addEvent({
-          title: this.movie_title,
-          image_url: image_url,
-          start: this.selectedInfo.startStr,
-        })
-      }
+      // if (image_url) {
+      //   calendarApi.addEvent({
+      //     title: this.movie_title,
+      //     image_url: image_url,
+      //     start: this.selectedInfo.startStr,
+      //   })
+      // }
 
       // DB에 추가하기 위한 함수 호출
       const payload = {

@@ -39,6 +39,7 @@ export default new Vuex.Store({
     relatedFeedList: [],
     tempUser: null,
     selectedFeed: null,
+    allMessage: null,
   },
   getters: {
     followList(state) {
@@ -189,6 +190,11 @@ export default new Vuex.Store({
     },
     GET_ME(state, response) {
       state.user = response
+    },
+    // 전체 받은 메시지 반환
+    LOAD_ALL_MESSAGE(state, response) {
+      console.log(response)
+      // state.allMessage =
     },
   },
   actions: {
@@ -740,6 +746,7 @@ export default new Vuex.Store({
         url: `${DJ_URL}/community/${payload.movie_id}/send_message/`,
       })
         .then((response) => {
+          // 메시지 보내기 성공했으면
           console.log("메시지 보내기 성공")
           console.log(response)
         })
