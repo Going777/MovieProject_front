@@ -263,7 +263,6 @@ export default new Vuex.Store({
       })
         .then((response) => {
           context.dispatch("getMovieById", response.data.id)
-          // router.push({ name: "detail", params: { id: response.data.id } }).catch(() => {})
         })
         .catch(() => {
           alert("영화아이디 못 받아옴")
