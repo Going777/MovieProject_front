@@ -2,10 +2,6 @@
   <div>
     <!-- 피드 -->
     <div>
-<<<<<<< HEAD
-=======
-      {{ relatedFeedList }}
->>>>>>> 199915cddecf584d110991aeac26f92ac83a6166
       <community-feed-item
         v-for="(feed, idx) in relatedFeedList"
         :key="idx"
@@ -84,7 +80,6 @@ export default {
   //   }
 
   // }
-
 }
 </script>
 

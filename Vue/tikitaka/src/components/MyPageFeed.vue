@@ -2,6 +2,7 @@
   <div>
     <!-- 피드 작성 버튼 -->
     <v-btn
+      v-show="isUser"
       icon
       color="black lighten-2"
       height="70pxs"
