@@ -16,7 +16,11 @@
     </div>
 
     <!-- 콘텐츠 섹션(우측 하단) -->
-    <v-sheet id="content-container" elevation="3">
+    <v-sheet
+      id="content-container"
+      elevation="3"
+      style="font-family: 'ONE-Mobile-Regular'; font-weight: bold"
+    >
       <my-page-feed v-if="activeTab === 'MyPageFeed'" :feedList="feedList" />
       <my-page-bookmark v-if="activeTab === 'MyPageBookmark'" />
       <!-- <my-page-heart-feed

@@ -21,7 +21,13 @@
         />
       </div>
       <div id="container-box">
-        <br /><br /><br />
+        <br /><br />
+        <!-- 당신을 위한 영화 -->
+        <movie-list
+          v-if="bookmarkPop"
+          :movieList="recommendMovieList.movies"
+          :titleText="recommendMovieList.title"
+        /><br /><br />
         <movie-list
           :movieList="popularMovieList.movies"
           :titleText="popularMovieList.title"
@@ -63,11 +69,17 @@ export default {
     isLogin() {
       return this.$store.getters.isLogin
     },
+    bookmarkPop() {
+      return this.$store.state.recommendMovieList.movies.length !== 0
+    },
     popularMovieList() {
       return this.$store.state.popularMovieList
     },
     topratedMovieList() {
       return this.$store.state.topratedMovieList
+    },
+    recommendMovieList() {
+      return this.$store.state.recommendMovieList
     },
     nowPlayingMovieList() {
       return this.$store.state.nowPlayingMovieList
@@ -97,6 +109,9 @@ export default {
       this.$store.dispatch("getUser", this.username)
       // this.$store.dispatch("loadFeedList", this.username)
       // this.$store.dispatch("loadUserCalendar", this.tempUser.id)
+      if (this.isLogin) {
+        this.$store.dispatch("loadRecommendMovieList", this.user.id)
+      }
     },
   },
 }

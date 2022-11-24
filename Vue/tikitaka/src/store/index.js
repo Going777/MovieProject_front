@@ -18,6 +18,7 @@ export default new Vuex.Store({
     nowPlayingMovieList: { title: "현재 상영작", movies: [] },
     popularMovieList: { title: "박스 오피스", movies: [] },
     topratedMovieList: { title: "스테디 셀러", movies: [] },
+    recommendMovieList: { title: "당신을 위한 영화", movies: [] },
     nowPlayingMovieVideoList: { title: "상영중 영화 비디오", movies: [] },
     recommendMovieListAtDetail: null, // 영화 디테일 페이지에서 추천 영화
     searchMovieList: [],
@@ -82,6 +83,11 @@ export default new Vuex.Store({
     LOAD_TOPRATED_MOVIE_LIST(state, response) {
       state.topratedMovieList.movies = response
       console.log(state.topratedMovieList.movies)
+    },
+    // 추천 영화
+    LOAD_RECOMMEND_MOVIE_LIST(state, response) {
+      state.recommendMovieList.movies = response
+      console.log(state.recommendMovieList.movies)
     },
     // 현재 상영중 영화
     LOAD_NOW_PLAYING_MOVIE_LIST(state, response) {
@@ -226,6 +232,21 @@ export default new Vuex.Store({
       })
         .then((response) => {
           context.commit("LOAD_TOPRATED_MOVIE_LIST", response.data)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    // 추천 영화 서버 통신
+    loadRecommendMovieList(context, user_id) {
+      axios({
+        method: "get",
+        url: `${DJ_URL}/accounts/${user_id}/recommend/`,
+      })
+        .then((response) => {
+          console.log("되어주세여")
+          console.log(response.data)
+          context.commit("LOAD_RECOMMEND_MOVIE_LIST", response.data)
         })
         .catch((error) => {
           console.log(error)
@@ -457,19 +478,21 @@ export default new Vuex.Store({
     },
     // 닉네임으로 유저 반환
     getUser(context, username) {
-      axios({
-        method: "get",
-        params: {
-          name: username,
-        },
-        url: `${DJ_URL}/accounts/get_user/`,
-      })
-        .then((response) => {
-          context.commit("GET_USER", response.data)
+      if (username) {
+        axios({
+          method: "get",
+          params: {
+            name: username,
+          },
+          url: `${DJ_URL}/accounts/get_user/`,
         })
-        .catch((error) => {
-          console.log(error)
-        })
+          .then((response) => {
+            context.commit("GET_USER", response.data)
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+      }
     },
     // 나 반환
     getMe(context, username) {

@@ -35,6 +35,8 @@
           border-radius: 20px;
           margin-bottom: 25px;
           box-shadow: 4px 4px 4px rgb(200, 200, 200);
+          font-family: 'ONE-Mobile-Regular';
+          font-weight: bold;
         "
       >
         <img :src="imgPath" id="feed-image" />
@@ -50,7 +52,14 @@
               "
             >
               <div>
-                <h4 style="margin-top: -1px; margin-bottom: -0.5px">
+                <h4
+                  style="
+                    margin-top: -1px;
+                    margin-bottom: -0.5px;
+                    font-family: 'ONE-Mobile-Regular';
+                    font-weight: bold;
+                  "
+                >
                   {{ feed.title }}
                 </h4>
                 <p style="font-size: 14px; color: rgb(93, 93, 93)">
