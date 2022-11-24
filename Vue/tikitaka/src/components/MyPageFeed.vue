@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>야호!!!!!!!!!!!!!!!!</h1>
     <!-- 피드 작성 버튼 -->
     <v-btn
       v-show="isUser"
@@ -99,8 +100,11 @@ export default {
     },
     // 현재 유저와 피드 작성 유저가 같은지 판단 -> 같을 때만 삭제,수정 가능
     isUser() {
-      if (this.user.id === this.clickedFeed.user.id) {
-        return true
+      if (this.user) {
+
+        if (this.user.id === this.clickedFeed.user.id) {
+          return true
+        }
       }
       return false
     },

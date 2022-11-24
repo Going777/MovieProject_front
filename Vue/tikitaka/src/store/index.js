@@ -742,7 +742,7 @@ export default new Vuex.Store({
           console.log(payload)
           console.log("프로필 변경 완료!!", response)
           context.dispatch("getMe", context.state.user.username)
-          context.dispatch("getUser", context.state.user.username)
+          // context.dispatch("getUser", context.state.user.username)
         })
         .catch((e) => {
           console.log("프로필 변경 실패", e)
