@@ -1,5 +1,5 @@
 <template>
-  <div style="margin: 0px 10% 200px">
+  <div style="margin: 0px 15% 200px">
     <div style="display: flex" class="mainText">
       <!-- 영화 포스터 및 버튼 영역 -->
       <div style="max-width: 220px; margin-right: 30px">
