@@ -40,7 +40,7 @@
         <!-- 제목 영역 -->
         <div style="display: flex; align-items: flex-end">
           <h1 style="font-weight: bold">{{ movie.title }}</h1>
-          <p>{{ movie.original_title }}</p>
+          <p style="margin-bottom: 11px">{{ movie.original_title }}</p>
         </div>
 
         <!-- 영화 정보 영역 -->
@@ -54,7 +54,14 @@
           <!-- 영화 캐스팅 -->
           <div style="width: 35%">
             <h2>Cast</h2>
-            <MovieDetailCastBoard :movie="movie" />
+            <MovieDetailCastBoard
+              :movie="movie"
+              style="
+                font-family: 'ONE-Mobile-Regular';
+                font-weight: bold;
+                font-size: 15px;
+              "
+            />
           </div>
           <!-- 커뮤니티 영역 -->
           <div style="width: 30%" v-show="movie.video_key">
@@ -66,7 +73,15 @@
         <!-- 영화 줄거리 -->
         <div>
           <h2>Overview</h2>
-          <p style="line-height: 200%">{{ movie.overview }}</p>
+          <p
+            style="
+              line-height: 200%;
+              font-family: 'ONE-Mobile-Regular';
+              font-weight: bold;
+            "
+          >
+            {{ movie.overview }}
+          </p>
         </div>
       </div>
 
@@ -96,7 +111,7 @@
       </b-modal>
     </div>
     <div style="margin-top: 30px">
-      <h2>관련 영화 추천</h2>
+      <b><h2 class="mainText">관련 영화 추천</h2></b>
       <v-sheet style="background-color: transparent">
         <v-slide-group active-class="success" show-arrows class="pa-5">
           <v-slide-item

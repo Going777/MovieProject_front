@@ -346,6 +346,9 @@ export default {
     isLogin() {
       return this.$store.getters.isLogin
     },
+    user() {
+      return this.$store.state.user
+    },
   },
   watch: {
     search(val) {
@@ -417,6 +420,9 @@ export default {
     this.$store.dispatch("loadTopratedMovieList")
     this.$store.dispatch("loadNowPlayingMovieList")
     this.$store.dispatch("loadNowPlayingMovieVideoList")
+    if (this.isLogin) {
+      this.$store.dispatch("loadRecommendMovieList", this.user.id)
+    }
   },
 }
 </script>
@@ -439,6 +445,28 @@ export default {
 .modal .modal-huge {
   max-width: 75%;
   width: 75%;
+}
+/* 
+#font-face {
+  font-family: "S-CoreDream-3Light";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+} */
+@font-face {
+  font-family: "ChosunGu";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGu.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "ONE-Mobile-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-Regular.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
 
 .modal .modal-medi {

@@ -37,13 +37,35 @@
               "
             >
               <div>
-                <h4 style="margin-top: -1px; margin-bottom: -0.5px">
+                <h4
+                  style="
+                    margin-top: -1px;
+                    margin-bottom: -0.5px;
+                    font-family: 'ONE-Mobile-Regular';
+                    font-weight: bold;
+                  "
+                >
                   {{ feed.title }}
                 </h4>
-                <p style="font-size: 14px; color: rgb(93, 93, 93)">
+                <p
+                  style="
+                    font-size: 14px;
+                    color: rgb(93, 93, 93);
+                    font-family: 'ONE-Mobile-Regular';
+                    font-weight: bold;
+                  "
+                >
                   {{ feed.movie.title }} - {{ feed.movie.original_title }}
                 </p>
-                <p style="font-size: 12px; color: gray; margin-bottom: -5px">
+                <p
+                  style="
+                    font-size: 12px;
+                    color: gray;
+                    margin-bottom: -5px;
+                    font-family: 'ONE-Mobile-Regular';
+                    font-weight: bold;
+                  "
+                >
                   좋아요 {{ likeCount }}개
                 </p>
               </div>
@@ -61,7 +83,10 @@
               </v-btn>
             </div>
             <hr />
-            <div id="feed-content">
+            <div
+              id="feed-content"
+              style="font-family: 'ONE-Mobile-Regular'; font-weight: bold"
+            >
               {{ feed.content }}
             </div>
           </div>

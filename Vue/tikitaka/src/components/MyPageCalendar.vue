@@ -1,6 +1,9 @@
 <template>
   <div style="margin-right: 20px">
-    <FullCalendar :options="calendarOptions" id="font-face" />
+    <FullCalendar
+      :options="calendarOptions"
+      style="font-family: 'ONE-Mobile-Regular'"
+    />
 
     <!-- 캘린더 포스터 등록 모달 -->
     <b-modal hide-footer hide-header-close size="medi" id="calendarModal">
@@ -177,7 +180,7 @@ export default {
         // titleEvent.style.wordBreak = "break-all"
         titleEvent.style.backgroundColor = "white"
         titleEvent.style.color = "black"
-        titleEvent.style.fontSize = "11px"
+        titleEvent.style.fontSize = "16px"
         titleEvent.style.fontWeight = "bold"
       }
       // image event
@@ -203,13 +206,13 @@ export default {
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Pacifico&family=Titan+One&display=swap");
 
-#font-face {
+/* #font-face {
   font-family: "S-CoreDream-3Light";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff")
     format("woff");
   font-weight: normal;
   font-style: normal;
-}
+} */
 
 /* 현재 날짜 */
 .fc-day-today {

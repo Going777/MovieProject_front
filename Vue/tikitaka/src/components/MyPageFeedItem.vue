@@ -25,7 +25,14 @@
               "
             >
               <div>
-                <h5 style="margin-top: -1px; margin-bottom: -0.5px">
+                <h5
+                  style="
+                    margin-top: -1px;
+                    margin-bottom: -0.5px;
+                    font-family: 'ONE-Mobile-Regular';
+                    font-weight: bold;
+                  "
+                >
                   {{ feed.title }}
                 </h5>
                 <p style="font-size: 13px; color: rgb(93, 93, 93)">
