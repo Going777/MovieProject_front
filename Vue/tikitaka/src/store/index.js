@@ -15,9 +15,9 @@ export default new Vuex.Store({
   state: {
     allMovieList: [],
     allUserList: [],
-    nowPlayingMovieList: { title: "NOW PLAYING MOVIE", movies: [] },
-    popularMovieList: { title: "POPULAR MOVIE", movies: [] },
-    topratedMovieList: { title: "TOP CLASSIC MOVIE", movies: [] },
+    nowPlayingMovieList: { title: "현재 상영작", movies: [] },
+    popularMovieList: { title: "박스 오피스", movies: [] },
+    topratedMovieList: { title: "스테디 셀러", movies: [] },
     nowPlayingMovieVideoList: { title: "상영중 영화 비디오", movies: [] },
     recommendMovieListAtDetail: null, // 영화 디테일 페이지에서 추천 영화
     searchMovieList: [],
