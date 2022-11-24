@@ -8,7 +8,7 @@
           <v-btn
             v-if="isBookmark"
             @click="clickBookmark"
-            style="width: 100%; margin-top: 30px"
+            style="width: 100%; margin-top: 20px"
           >
             <v-icon left> mdi-star </v-icon>
             Bookmark
@@ -16,13 +16,13 @@
           <v-btn
             v-if="!isBookmark"
             @click="clickBookmark"
-            style="width: 100%; margin-top: 30px"
+            style="width: 100%; margin-top: 20px"
           >
             <v-icon left> mdi-star-outline </v-icon>
             Bookmark
           </v-btn>
           <v-btn
-            style="width: 100%; margin-top: 30px"
+            style="width: 100%; margin-top: 20px"
             @click="openMessageModal"
           >
             <v-icon left> mdi-message </v-icon>
