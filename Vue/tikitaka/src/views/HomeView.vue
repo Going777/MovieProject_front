@@ -70,7 +70,11 @@ export default {
       return this.$store.getters.isLogin
     },
     bookmarkPop() {
-      return this.$store.state.recommendMovieList.movies.length !== 0
+      if (this.isLogin) {
+        return this.$store.state.recommendMovieList.movies.length !== 0
+      } else {
+        return false
+      }
     },
     popularMovieList() {
       return this.$store.state.popularMovieList
@@ -107,6 +111,7 @@ export default {
   watch: {
     user() {
       this.$store.dispatch("getUser", this.username)
+      // this.$store.dispatch("getMe", this.username)
       // this.$store.dispatch("loadFeedList", this.username)
       // this.$store.dispatch("loadUserCalendar", this.tempUser.id)
       if (this.isLogin) {

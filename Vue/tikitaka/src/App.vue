@@ -460,6 +460,7 @@ export default {
     if (this.isLogin) {
       this.$store.dispatch("loadRecommendMovieList", this.user.id)
     }
+    this.$router.push({ name: "home" })
   },
 }
 </script>
