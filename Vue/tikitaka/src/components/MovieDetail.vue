@@ -150,6 +150,9 @@ export default {
     searchUser(val) {
       val && val !== this.select && this.querySelections(val)
     },
+    movie() {
+      this.$store.dispatch("loadRecommendMoviesAtDetail", this.movie.id)
+    },
   },
   computed: {
     recommendMovieListAtDetail() {

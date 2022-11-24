@@ -250,19 +250,33 @@ export default new Vuex.Store({
     },
     // 디테일 페이지 추천 영화 서버 통신
     loadRecommendMoviesAtDetail(context, movie_id) {
-      axios({
-        method: "get",
-        params: {
-          id: context.state.user.id,
-        },
-        url: `${DJ_URL}/movies/${movie_id}/recommend/`,
-      })
-        .then((response) => {
-          context.commit("LOAD_RECOMMEND_MOVIES_AT_DETAIL", response.data)
+      if (context.state.user) {
+        axios({
+          method: "get",
+          params: {
+            id: context.state.user.id,
+          },
+          url: `${DJ_URL}/movies/${movie_id}/recommend/`,
         })
-        .catch((error) => {
-          console.log(error)
+          .then((response) => {
+            context.commit("LOAD_RECOMMEND_MOVIES_AT_DETAIL", response.data)
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+      } else {
+        axios({
+          method: "get",
+
+          url: `${DJ_URL}/movies/${movie_id}/recommend/`,
         })
+          .then((response) => {
+            context.commit("LOAD_RECOMMEND_MOVIES_AT_DETAIL", response.data)
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+      }
     },
     // detail 영화 서버 통신
     getMovieById(context, movie_id) {
