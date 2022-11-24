@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h3 v-show="isNoneMessage">메시지함이 비었습니다</h3>
     <v-card flat width="100%">
       <div class="m-3">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
@@ -52,6 +53,13 @@ export default {
       set(newValue) {
         return newValue
       },
+    },
+    isNoneMessage() {
+      if (this.allMessage.length === 0) {
+        return true
+      } else {
+        return false
+      }
     },
   },
   methods: {
