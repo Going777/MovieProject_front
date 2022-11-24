@@ -52,8 +52,8 @@
       </div> -->
 
       <!-- 서로 맞팔한 유저 -->
-      <div style="margin-top: 30px">
-        <h5 class="logoText">Mutual Friends</h5>
+      <div style="margin-top: 50px">
+        <h5 class="logoText" style="margin-left: 10px">Mutual Friends</h5>
         <div id="user-box">
           <CommunitySideItem
             v-for="(follow, idx) in followList"
