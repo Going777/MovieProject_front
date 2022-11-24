@@ -60,15 +60,12 @@
           <!-- 좋아하는 장르 태그 -->
           <h6 class="logoText">FAVORITE GENRES</h6>
           <div id="profile-tag-box">
-            {{ user.favorite_genres }}
-            <v-chip
-              color="yellow"
-              text-color="black"
-              style="margin: 5px 3px"
-              small
+            <community-profile-genre
+              v-for="(genre, idx) in user.favorite_genres"
+              :key="idx"
+              :genre="genre"
+              >여기요!!!!!!!!{{ genre }}</community-profile-genre
             >
-              액션
-            </v-chip>
           </div>
         </div>
       </div>
@@ -220,7 +217,10 @@ function matchGenreId(name) {
       return 10770
   }
 }
+import CommunityProfileGenre from "@/components/CommunityProfileGenre.vue"
+
 export default {
+  components: { CommunityProfileGenre },
   name: "CommunityProfile",
   props: {
     user: Object,
@@ -268,7 +268,6 @@ export default {
     isFollowing() {
       return this.$store.getters.isFollowing
     },
-
     followingCnt() {
       return this.$store.getters.followingCnt
     },
@@ -321,7 +320,6 @@ export default {
       this.selectImgUrl = this.profileImgUrl
     },
   },
-  // created: {},
 }
 </script>
 
