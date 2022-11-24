@@ -92,7 +92,7 @@
         </template>
         <div class="logoText">
           <h5>To</h5>
-          <v-toolbar flat dense>
+          <v-toolbar flat dense style="margin-top: 30px; margin-left: -15px">
             <v-autocomplete
               clearable
               outlined
@@ -104,6 +104,7 @@
               label="Search Users..."
             ></v-autocomplete>
           </v-toolbar>
+          <br />
           <h5>Message</h5>
           <v-text-field clearable outlined v-model="message"></v-text-field>
           <v-btn dark style="float: right" @click="sendMessage">SEND</v-btn>
@@ -256,6 +257,10 @@ export default {
         movie_id: this.movie.id,
       }
       this.$store.dispatch("sendMessage", payload)
+      this.$bvModal.hide("sendMessageModal")
+      alert("메시지가 정상적으로 전송되었습니다!")
+      this.message = null
+      this.select = null
     },
     goDetail(id) {
       this.$store.dispatch("getMovieById", id)
