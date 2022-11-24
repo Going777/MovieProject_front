@@ -1,95 +1,125 @@
 <template>
-  <div style="margin: 0px 10% 200px; display: flex" class="mainText">
-    <!-- 영화 포스터 및 버튼 영역 -->
-    <div style="max-width: 220px; margin-right: 30px">
-      <img :src="posterURL" alt="" style="width: 100%" />
+  <div style="margin: 0px 10% 200px">
+    <div style="display: flex" class="mainText">
+      <!-- 영화 포스터 및 버튼 영역 -->
+      <div style="max-width: 220px; margin-right: 30px">
+        <img :src="posterURL" alt="" style="width: 100%" />
+        <div>
+          <v-btn
+            v-if="isBookmark"
+            @click="clickBookmark"
+            style="width: 100%; margin-top: 30px"
+          >
+            <v-icon left> mdi-star </v-icon>
+            Bookmark
+          </v-btn>
+          <v-btn
+            v-if="!isBookmark"
+            @click="clickBookmark"
+            style="width: 100%; margin-top: 30px"
+          >
+            <v-icon left> mdi-star-outline </v-icon>
+            Bookmark
+          </v-btn>
+          <v-btn
+            style="width: 100%; margin-top: 30px"
+            @click="openMessageModal"
+          >
+            <v-icon left> mdi-message </v-icon>
+            Message
+          </v-btn>
+        </div>
+        <!-- <v-btn style="width: 100%; margin-top: 30px">
+          <v-icon left> mdi-pencil </v-icon>
+          Review
+        </v-btn> -->
+      </div>
+
+      <!-- 영화 정보 -->
       <div>
-        <v-btn
-          v-if="isBookmark"
-          @click="clickBookmark"
-          style="width: 100%; margin-top: 30px"
-        >
-          <v-icon left> mdi-star </v-icon>
-          Bookmark
-        </v-btn>
-        <v-btn
-          v-if="!isBookmark"
-          @click="clickBookmark"
-          style="width: 100%; margin-top: 30px"
-        >
-          <v-icon left> mdi-star-outline </v-icon>
-          Bookmark
-        </v-btn>
-        <v-btn style="width: 100%; margin-top: 30px" @click="openMessageModal">
-          <v-icon left> mdi-message </v-icon>
-          Message
-        </v-btn>
+        <!-- 제목 영역 -->
+        <div style="display: flex; align-items: flex-end">
+          <h1 style="font-weight: bold">{{ movie.title }}</h1>
+          <p>{{ movie.original_title }}</p>
+        </div>
+
+        <!-- 영화 정보 영역 -->
+        <div style="display: flex; margin: 10px 0px 30px">
+          <!-- 영화 상세 정보 -->
+          <div style="width: 35%">
+            <h2>Info</h2>
+            <MovieDetailBasic :movie="movie" />
+          </div>
+
+          <!-- 영화 캐스팅 -->
+          <div style="width: 35%">
+            <h2>Cast</h2>
+            <MovieDetailCastBoard :movie="movie" />
+          </div>
+          <!-- 커뮤니티 영역 -->
+          <div style="width: 30%" v-show="movie.video_key">
+            <h3>Trailer</h3>
+            <MovieDetailCommunity :movie="movie" />
+          </div>
+        </div>
+
+        <!-- 영화 줄거리 -->
+        <div>
+          <h2>Overview</h2>
+          <p style="line-height: 200%">{{ movie.overview }}</p>
+        </div>
       </div>
-      <!-- <v-btn style="width: 100%; margin-top: 30px">
-        <v-icon left> mdi-pencil </v-icon>
-        Review
-      </v-btn> -->
+
+      <!-- 메시지 보내기 모달 -->
+      <b-modal hide-footer hide-header-close id="sendMessageModal">
+        <template #modal-header>
+          <h3 class="logoText">RECOMMEND TO YOUR FRIEND</h3>
+        </template>
+        <div class="logoText">
+          <h5>To</h5>
+          <v-toolbar flat dense>
+            <v-autocomplete
+              clearable
+              outlined
+              auto-select-first
+              :loading="loading"
+              :search-input.sync="searchUser"
+              :items="items"
+              v-model="select"
+              label="Search Users..."
+            ></v-autocomplete>
+          </v-toolbar>
+          <h5>Message</h5>
+          <v-text-field clearable outlined v-model="message"></v-text-field>
+          <v-btn dark style="float: right" @click="sendMessage">SEND</v-btn>
+        </div>
+      </b-modal>
     </div>
-
-    <!-- 영화 정보 -->
-    <div>
-      <!-- 제목 영역 -->
-      <div style="display: flex; align-items: flex-end">
-        <h1 style="font-weight: bold">{{ movie.title }}</h1>
-        <p>{{ movie.original_title }}</p>
-      </div>
-
-      <!-- 영화 정보 영역 -->
-      <div style="display: flex; margin: 10px 0px 30px">
-        <!-- 영화 상세 정보 -->
-        <div style="width: 35%">
-          <h2>Info</h2>
-          <MovieDetailBasic :movie="movie" />
-        </div>
-
-        <!-- 영화 캐스팅 -->
-        <div style="width: 35%">
-          <h2>Cast</h2>
-          <MovieDetailCastBoard :movie="movie" />
-        </div>
-        <!-- 커뮤니티 영역 -->
-        <div style="width: 30%" v-show="movie.video_key">
-          <h3>Trailer</h3>
-          <MovieDetailCommunity :movie="movie" />
-        </div>
-      </div>
-
-      <!-- 영화 줄거리 -->
-      <div>
-        <h2>Overview</h2>
-        <p style="line-height: 200%">{{ movie.overview }}</p>
-      </div>
+    <div style="margin-top: 30px">
+      <h2>관련 영화 추천</h2>
+      <v-sheet style="background-color: transparent">
+        <v-slide-group active-class="success" show-arrows class="pa-5">
+          <v-slide-item
+            v-for="movie in recommendMovieListAtDetail"
+            :key="movie.id"
+          >
+            <div class="m-3">
+              <v-card
+                class="zoom"
+                width="150px"
+                height="220px"
+                @click="goDetail(movie.id)"
+              >
+                <v-img
+                  :src="`https://image.tmdb.org/t/p/original${movie.poster_path}`"
+                  height="220px"
+                ></v-img>
+              </v-card>
+            </div>
+          </v-slide-item>
+        </v-slide-group>
+      </v-sheet>
     </div>
-
-    <!-- 메시지 보내기 모달 -->
-    <b-modal hide-footer hide-header-close id="sendMessageModal">
-      <template #modal-header>
-        <h3 class="logoText">RECOMMEND TO YOUR FRIEND</h3>
-      </template>
-      <div class="logoText">
-        <h5>To</h5>
-        <v-toolbar flat dense>
-          <v-autocomplete
-            clearable
-            outlined
-            auto-select-first
-            :loading="loading"
-            :search-input.sync="searchUser"
-            :items="items"
-            v-model="select"
-            label="Search Users..."
-          ></v-autocomplete>
-        </v-toolbar>
-        <h5>Message</h5>
-        <v-text-field clearable outlined v-model="message"></v-text-field>
-        <v-btn dark style="float: right" @click="sendMessage">SEND</v-btn>
-      </div>
-    </b-modal>
   </div>
 </template>
 
@@ -122,6 +152,9 @@ export default {
     },
   },
   computed: {
+    recommendMovieListAtDetail() {
+      return this.$store.state.recommendMovieListAtDetail
+    },
     posterURL() {
       const path = this.movie.poster_path
 
@@ -199,6 +232,12 @@ export default {
       console.log(this.user)
       console.log("------------------------------------")
     },
+    goDetail(id) {
+      this.$store.dispatch("getMovieById", id)
+    },
+  },
+  created() {
+    this.$store.dispatch("loadRecommendMoviesAtDetail", this.movie.id)
   },
 }
 </script>

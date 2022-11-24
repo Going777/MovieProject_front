@@ -3,7 +3,7 @@
     <div id="backImg">
       <div></div>
     </div>
-    <MovieDetail :movie="movie" style="margin-top: -200px" />
+    <MovieDetail :movie="movie" style="margin-top: -400px" />
   </div>
 </template>
 
@@ -45,9 +45,9 @@ export default {
   beforeRouteUpdate(to, from, next) {
     this.random_idx = _.random(0, 4)
     document.querySelector("#backImg").style.backgroundImage =
-      "linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255,255,255, 0.5), rgba(255,255,255, 100)), \
-      linear-gradient(to left, rgba(255,255,255,0) 80%,rgba(255,255,255,1) 100%), \
-      linear-gradient(to right, rgba(255,255,255,0) 80%,rgba(255,255,255,1) 100%), \
+      "linear-gradient(to bottom, rgba(250, 250, 250, 0), rgba(250,250,250, 0.5), rgba(250,250,250, 100)), \
+      linear-gradient(to left, rgba(250,250,250,0) 80%,rgba(250,250,250,1) 100%), \
+      linear-gradient(to right, rgba(250,250,250,0) 80%,rgba(250,250,250,1) 100%), \
       url(" +
       this.posterURL +
       ")"
@@ -59,7 +59,7 @@ export default {
 <style>
 #backImg {
   width: 100%;
-  height: 600px;
+  height: 800px;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 5px;
