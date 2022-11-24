@@ -177,6 +177,12 @@ export default new Vuex.Store({
       state.feedMovieId = payload.movie_id
       state.feedBackDropList = payload.response
     },
+
+    // 백드롭 리스트 초기화
+    INITIALIZE_BACKDROP_LIST(state) {
+      state.feedBackDropList = []
+    },
+
     // 유저별 피드 리스트 받아오기
     LOAD_FEED_LIST(state, response) {
       console.log("현재 페이지 피드리스트 변경")

@@ -146,6 +146,7 @@
                   flat
                   hide-details
                   v-model="comment"
+                  @keyup.enter="createComment"
                 ></v-text-field>
                 <div style="margin-left: 15px">
                   <v-btn icon @click="createComment"

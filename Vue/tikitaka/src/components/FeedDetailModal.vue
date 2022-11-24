@@ -3,7 +3,7 @@
     <feed-detail-item :feed="clickedFeed" @close-modal="closeModal" />
     <div style="float: right" v-show="isUser">
       <v-btn dark class="mx-3" @click="deleteFeed">DELETE</v-btn>
-      <v-btn dark @click="updateFeed">UPDATE</v-btn>
+      <v-btn dark @click="updateFeed">EDIT</v-btn>
     </div>
   </div>
 </template>

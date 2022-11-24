@@ -91,6 +91,7 @@ export default {
       }
       this.$store.dispatch("updateFeed", payload)
       this.$emit("close-modal")
+      this.$store.commit("INITIALIZE_BACKDROP_LIST")
     },
   },
   created() {

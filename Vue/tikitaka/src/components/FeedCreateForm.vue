@@ -103,6 +103,7 @@ export default {
       }
       this.$store.dispatch("addFeed", payload)
       this.$emit("close-modal")
+      this.$store.commit("INITIALIZE_BACKDROP_LIST")
     },
     addCalendar() {
       const selectedImgUrl =

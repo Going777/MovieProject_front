@@ -131,6 +131,7 @@ export default {
   methods: {
     openCreateFeedModal() {
       this.$bvModal.show("createFeedModal")
+      this.$store.commit("INITIALIZE_BACKDROP_LIST")
     },
     closeCreateFeedModal() {
       this.$bvModal.hide("createFeedModal")

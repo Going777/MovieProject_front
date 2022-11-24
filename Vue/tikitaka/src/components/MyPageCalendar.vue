@@ -103,6 +103,7 @@ export default {
     // 빈 날짜 클릭시 캘린더 추가 모달 오픈 (유저 본인만 가능)
     handleDateSelect(selectInfo) {
       if (this.isUser) {
+        this.$store.commit("INITIALIZE_BACKDROP_LIST")
         this.$bvModal.show("calendarModal")
         this.selectedInfo = selectInfo
       }
@@ -150,7 +151,7 @@ export default {
         // 삭제 전 경고창 띄우기
         if (
           confirm(
-            `정말로 해당 날짜의 ${clickInfo.event.title} 포스터를 삭제하시겠습니까?`
+            `해당 날짜의 ${clickInfo.event.title} 포스터를 삭제하시겠습니까?`
           )
         ) {
           clickInfo.event.remove()
