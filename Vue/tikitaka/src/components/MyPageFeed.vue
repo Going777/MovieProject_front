@@ -2,6 +2,7 @@
   <div>
     <!-- 피드 작성 버튼 -->
     <v-btn
+      v-show="isEqualUser"
       icon
       color="black lighten-2"
       height="70pxs"
@@ -118,6 +119,13 @@ export default {
       set(newValue) {
         return newValue
       },
+    },
+    isEqualUser() {
+      if (this.user.id === this.$store.state.tempUser.id) {
+        return true
+      } else {
+        return false
+      }
     },
   },
   methods: {
