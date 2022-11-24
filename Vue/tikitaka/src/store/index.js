@@ -710,6 +710,7 @@ export default new Vuex.Store({
           console.log("프로필 변경 실패", e)
         })
     },
+    // 북마크 추가/해제
     clickBookmark(context, id) {
       axios({
         method: "post",
@@ -725,6 +726,25 @@ export default new Vuex.Store({
         })
         .catch((e) => {
           console.log("북마크 실패", e)
+        })
+    },
+    // 메시지 보내기
+    sendMessage(context, payload) {
+      axios({
+        method: "post",
+        data: {
+          from_user: payload.from_user_id,
+          to_user: payload.to_user_id,
+          content: payload.content,
+        },
+        url: `${DJ_URL}/community/${payload.movie_id}/send_message/`,
+      })
+        .then((response) => {
+          console.log("메시지 보내기 성공")
+          console.log(response)
+        })
+        .catch(() => {
+          alert("메시지 보내기 실패...")
         })
     },
   },

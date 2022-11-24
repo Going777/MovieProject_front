@@ -228,12 +228,19 @@ export default {
       }
     },
     sendMessage() {
-      console.log("메시지 보낼 때 필요한 것!")
-      console.log(this.message)
-      console.log(this.select)
-      console.log(this.movie)
-      console.log(this.user)
-      console.log("------------------------------------")
+      let to_user_id
+      this.user.following.forEach((element) => {
+        if (this.select === element.username) {
+          to_user_id = element.id
+        }
+      })
+      const payload = {
+        to_user_id: to_user_id,
+        from_user_id: this.user.id,
+        content: this.message,
+        movie_id: this.movie.id,
+      }
+      this.$store.dispatch("sendMessage", payload)
     },
     goDetail(id) {
       this.$store.dispatch("getMovieById", id)
