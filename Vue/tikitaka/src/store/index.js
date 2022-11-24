@@ -193,8 +193,7 @@ export default new Vuex.Store({
     },
     // 전체 받은 메시지 반환
     LOAD_ALL_MESSAGE(state, response) {
-      console.log(response)
-      // state.allMessage =
+      state.allMessage = response
     },
   },
   actions: {
@@ -753,6 +752,27 @@ export default new Vuex.Store({
         .catch(() => {
           alert("메시지 보내기 실패...")
         })
+    },
+    // 모든 메시지 목록 받아오기
+    loadAllMessageList(context, user_id) {
+      axios({
+        method: "get",
+        url: `${DJ_URL}/community/message/list/${user_id}/`,
+      }).then((response) => {
+        context.commit("LOAD_ALL_MESSAGE", response.data)
+      })
+    },
+    // 메시지 읽음 표시
+    checkReed(context, message_id) {
+      axios({
+        method: "post",
+        data: {
+          message_id: message_id,
+        },
+        url: `${DJ_URL}/community/message/check/${context.state.user.id}/`,
+      }).then(() => {
+        context.dispatch("loadAllMessageList", context.state.user.id)
+      })
     },
   },
 

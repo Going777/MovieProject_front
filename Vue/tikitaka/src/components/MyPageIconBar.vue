@@ -37,6 +37,16 @@
     <!-- <span class="mx-5">
       <font-awesome-icon icon="fa-solid fa-calendar-days" size="2x" />
     </span> -->
+
+    <div v-show="isUser" class="v-line"></div>
+
+    <!-- 메시지함 아이콘 -->
+    <v-btn v-show="isUser" fab large plain @click="showMessage('MyPageMessage')"
+      ><v-icon large>mdi-email</v-icon></v-btn
+    >
+    <!-- <span class="mx-5">
+      <font-awesome-icon icon="fa-solid fa-calendar-days" size="2x" />
+    </span> -->
   </div>
 </template>
 
@@ -45,6 +55,17 @@ export default {
   name: "MyPageIconBar",
   data() {
     return {}
+  },
+  computed: {
+    isUser() {
+      if (
+        this.$store.state.user.username === this.$store.state.tempUser.username
+      ) {
+        return true
+      } else {
+        return false
+      }
+    },
   },
   methods: {
     showFeed(currentPage) {
@@ -58,6 +79,9 @@ export default {
     },
     showCalendar(currentPage) {
       this.$emit("show-calendar", currentPage)
+    },
+    showMessage(currentPage) {
+      this.$emit("show-message", currentPage)
     },
   },
 }

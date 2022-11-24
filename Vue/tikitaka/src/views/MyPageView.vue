@@ -12,6 +12,7 @@
         @show-bookmark="showBookmark"
         @show-heart-feed="showHeartFeed"
         @show-calendar="showCalendar"
+        @show-message="showMessage"
       />
     </div>
 
@@ -28,17 +29,20 @@
         v-if="activeTab === 'MyPageCalendar'"
         :calendarItems="calendarItems"
       />
+      <my-page-message v-if="activeTab === 'MyPageMessage'" />
       <br /><br />
       현재 페이지 유저{{ tempUser.username }}
       <hr />
       라우터로 받은 유저{{ username }}
       <hr />
       로그인 유저{{ user.username }}
+      <hr />
     </v-sheet>
   </div>
 </template>
 
 <script>
+import MyPageMessage from "@/components/MyPageMessage.vue"
 import CommunityProfile from "../components/CommunityProfile.vue"
 import MyPageBookmark from "../components/MyPageBookmark.vue"
 import MyPageCalendar from "../components/MyPageCalendar.vue"
@@ -53,6 +57,7 @@ export default {
     MyPageBookmark,
     MyPageHeartFeed,
     MyPageCalendar,
+    MyPageMessage,
   },
   name: "MyPageView",
   data() {
@@ -99,6 +104,13 @@ export default {
         return newValue
       },
     },
+    isUser() {
+      if (this.user.username === this.tempUser.username) {
+        return true
+      } else {
+        return false
+      }
+    },
   },
   methods: {
     showFeed(currentPage) {
@@ -111,6 +123,9 @@ export default {
       this.activeTab = currentPage
     },
     showCalendar(currentPage) {
+      this.activeTab = currentPage
+    },
+    showMessage(currentPage) {
       this.activeTab = currentPage
     },
   },
@@ -128,6 +143,11 @@ export default {
     this.$store.dispatch("loadFeedList", this.username)
     this.$store.dispatch("getUser", this.username)
     this.$store.dispatch("loadUserCalendar", this.tempUser.id)
+    this.$store.dispatch("loadMessageList")
+    if (this.isUser) {
+      console.log("들어옴???")
+      this.$store.dispatch("loadAllMessageList", this.tempUser.id)
+    }
   },
   updated() {
     // this.$store.dispatch("loadUserCalendar", this.tempUser.id)
