@@ -128,7 +128,12 @@ export default {
   watch: {
     username() {
       this.$store.dispatch("getUser", this.username)
-      this.$store.dispatch("loadFeedList", this.username)
+      // this.$store.dispatch("loadFeedList", this.username)
+    },
+    user() {
+      // this.$store.dispatch("getMe", this.user.username)
+      // this.$store.dispatch("getUser", this.user.username)
+
     },
     tempUser() {
       this.$store.dispatch("loadUserCalendar", this.tempUser.id)

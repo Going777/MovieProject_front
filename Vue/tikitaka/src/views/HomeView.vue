@@ -12,6 +12,7 @@
       <community-profile :user="user" />
     </div>
 
+    
     <!-- 우측(영화출력) -->
     <div id="movie-container">
       <div>
