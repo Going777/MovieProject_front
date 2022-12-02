@@ -7,8 +7,7 @@
       <community-feed :relatedFeedList="relatedFeedList" />
     </div>
     <div id="side-container">
-      <community-side :allUserList="allUserList" />
-      <community-side :followList="followList" />
+      <community-side :allUserList="allUserList" :followList="followList" />
     </div>
   </div>
 </template>
