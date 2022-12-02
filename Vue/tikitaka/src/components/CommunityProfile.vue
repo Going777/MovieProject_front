@@ -64,8 +64,7 @@
               v-for="(genre, idx) in user.favorite_genres"
               :key="idx"
               :genre="genre"
-              >여기요!!!!!!!!{{ genre }}</community-profile-genre
-            >
+            />
           </div>
         </div>
       </div>
@@ -79,6 +78,7 @@
       <!-- 프로필 이미지 -->
       <img :src="selectImgUrl" class="modal-profile-main-image" />
       <br /><br />
+
       <!-- 선택가능 프로필 이미지 -->
       <h5><strong>프로필 변경 이미지 선택</strong></h5>
       <div>
@@ -147,31 +147,35 @@
           />
         </label>
       </div>
-
-      <hr />
-      <!-- 외부 파일 첨부 -->
-      <!-- <div>
-        <p>
-          <input type="file" id="file" />
-          <label for="file"></label>
-        </p>
-      </div> -->
+      <br /><br />
 
       <!-- 본인 소개글 -->
       <h5><strong>본인 소개</strong></h5>
-      <v-text-field outlined v-model="description"></v-text-field>
+      <v-text-field outlined v-model="description" class="my-4"></v-text-field>
 
       <!-- 좋아하는 장르 -->
       <h5><strong>선호하는 장르</strong></h5>
       <v-col cols="12">
         <v-combobox
           outlined
+          clearable
           v-model="select"
           :items="items"
           multiple
           chips
-          style="margin-left: -17px"
-        ></v-combobox>
+          style="margin-left: -12px"
+        >
+          <template v-slot:selection="data">
+            <v-chip
+              :input-value="data.selected"
+              dark
+              close
+              @click:close="remove(data.item)"
+            >
+              {{ data.item }}
+            </v-chip>
+          </template>
+        </v-combobox>
       </v-col>
 
       <v-btn dark height="45" style="float: right" @click="editProfile"
@@ -234,12 +238,12 @@ export default {
   },
   data() {
     return {
-      // profileImgUrl: require(`@/assets/tikitaka_${this.$store.state.tempUser.profile_img}.png`),
       isSelected: false,
-      description: "",
+      description: this.user.description,
       selectImgUrl: null,
-      // select: this.user.favorite_genres,
-      select: [],
+      select: this.user.favorite_genres.map((element) => {
+        return element.name
+      }),
       items: [
         "모험",
         "판타지",
@@ -263,9 +267,6 @@ export default {
     }
   },
   computed: {
-    // userame() {
-    //   return this.$route.params.username
-    // },
     isMyPage() {
       if (this.$route.params.username) {
         return this.$store.state.user.username === this.$route.params.username
@@ -321,10 +322,11 @@ export default {
         selectedGenreIds: selectedGenreIds,
       }
       this.$store.dispatch("editProfile", payload)
-      this.$store.dispatch("getUser", this.tempUser.username)
-      this.$bvModal.hide("profileEditModal")
       this.selectImgUrl = this.profileImgUrl
-      this.select = []
+      this.$bvModal.hide("profileEditModal")
+    },
+    remove(item) {
+      this.select.splice(this.select.indexOf(item), 1)
     },
   },
 }
@@ -373,6 +375,6 @@ export default {
   margin: 5px;
 }
 input:checked + label > img {
-  border: 4px solid black;
+  border: 6px solid black;
 }
 </style>
