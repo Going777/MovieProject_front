@@ -14,6 +14,7 @@
 
     <!-- 우측(영화출력) -->
     <div id="movie-container">
+      {{ nowPlayingMovieVideoList.movies }}
       <div>
         <movie-video-list
           :movieList="nowPlayingMovieVideoList.movies"

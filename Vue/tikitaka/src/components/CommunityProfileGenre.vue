@@ -12,21 +12,21 @@ function setGenreColor(name) {
     case "모험":
       return "red "
     case "판타지":
-      return "purple lighten-2"
+      return "purple"
     case "애니메이션":
       return "indigo "
     case "드라마":
-      return "purple "
+      return "deep-purple "
     case "공포":
       return "grey"
     case "액션":
-      return "pink accent-2"
+      return "orange"
     case "코미디":
       return "blue "
     case "역사":
-      return "deep-purple "
+      return "yellow"
     case "서부":
-      return "yellow darken-4"
+      return "lime"
     case "스릴러":
       return "light-blue darken-4"
     case "범죄":
@@ -38,15 +38,15 @@ function setGenreColor(name) {
     case "미스터리":
       return "black"
     case "음악":
-      return "light-green"
+      return "green"
     case "로맨스":
-      return "light-green darken-4"
+      return "deep-orange"
     case "가족":
-      return "amber accent-4"
+      return "amber"
     case "전쟁":
       return "blue-grey "
     case "TV 영화":
-      return "deep-orange accent-2"
+      return "pink"
   }
 }
 export default {

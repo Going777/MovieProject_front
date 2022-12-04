@@ -16,10 +16,9 @@
         <!-- 프로필 텍스트 영역 -->
         <div id="profile-content-box">
           <!-- 닉네임 -->
-          <h2 style="margin-left: 20px">{{ user.username }}</h2>
-
-          <!-- 영화 MBTI -->
-          <!-- <p style="color: gray; margin-top: -7px">나만의 감성 (CJI)</p> -->
+          <h2 style="text-align: center">
+            {{ user.username }}
+          </h2>
           <!-- 팔로워/팔로잉/피드 수 -->
           <div id="profile-count-box">
             <!-- 게시물 수(포스트) -->
@@ -50,7 +49,7 @@
             >Edit Profile</v-btn
           >
           <hr />
-          <!-- IDENTITY 태그 -->
+          <!-- 본인소개 -->
           <h6 class="logoText">ABOUT ME</h6>
           <p>
             {{ user.description }}
@@ -59,13 +58,11 @@
           <hr />
           <!-- 좋아하는 장르 태그 -->
           <h6 class="logoText">FAVORITE GENRES</h6>
-          <div id="profile-tag-box">
-            <community-profile-genre
-              v-for="(genre, idx) in user.favorite_genres"
-              :key="idx"
-              :genre="genre"
-            />
-          </div>
+          <community-profile-genre
+            v-for="(genre, idx) in user.favorite_genres"
+            :key="idx"
+            :genre="genre"
+          />
         </div>
       </div>
     </v-sheet>
@@ -82,7 +79,13 @@
       <!-- 선택가능 프로필 이미지 -->
       <h5><strong>프로필 변경 이미지 선택</strong></h5>
       <div>
-        <input type="radio" id="img1" style="display: none" name="radio" />
+        <input
+          :checked="user.profile_img == 'chips'"
+          type="radio"
+          id="img1"
+          style="display: none"
+          name="radio"
+        />
         <label for="img1">
           <img
             src="../assets/tikitaka_chips.png"
@@ -90,7 +93,13 @@
             class="modal-profile-sub-image"
           />
         </label>
-        <input type="radio" id="img2" style="display: none" name="radio" />
+        <input
+          :checked="user.profile_img == 'coke'"
+          type="radio"
+          id="img2"
+          style="display: none"
+          name="radio"
+        />
         <label for="img2">
           <img
             src="../assets/tikitaka_coke.png"
@@ -98,7 +107,13 @@
             class="modal-profile-sub-image"
           />
         </label>
-        <input type="radio" id="img3" style="display: none" name="radio" />
+        <input
+          :checked="user.profile_img == 'coffee'"
+          type="radio"
+          id="img3"
+          style="display: none"
+          name="radio"
+        />
         <label for="img3">
           <img
             src="../assets/tikitaka_coffee.png"
@@ -106,7 +121,13 @@
             class="modal-profile-sub-image"
           />
         </label>
-        <input type="radio" id="img4" style="display: none" name="radio" />
+        <input
+          :checked="user.profile_img == 'film'"
+          type="radio"
+          id="img4"
+          style="display: none"
+          name="radio"
+        />
         <label for="img4">
           <img
             src="../assets/tikitaka_film.png"
@@ -114,7 +135,13 @@
             class="modal-profile-sub-image"
           />
         </label>
-        <input type="radio" id="img5" style="display: none" name="radio" />
+        <input
+          :checked="user.profile_img == 'hotdog'"
+          type="radio"
+          id="img5"
+          style="display: none"
+          name="radio"
+        />
         <label for="img5">
           <img
             src="../assets/tikitaka_hotdog.png"
@@ -122,7 +149,13 @@
             class="modal-profile-sub-image"
           />
         </label>
-        <input type="radio" id="img6" style="display: none" name="radio" />
+        <input
+          :checked="user.profile_img == 'nacho'"
+          type="radio"
+          id="img6"
+          style="display: none"
+          name="radio"
+        />
         <label for="img6">
           <img
             src="../assets/tikitaka_nacho.png"
@@ -130,7 +163,13 @@
             class="modal-profile-sub-image"
           />
         </label>
-        <input type="radio" id="img7" style="display: none" name="radio" />
+        <input
+          :checked="user.profile_img == 'popcorn'"
+          type="radio"
+          id="img7"
+          style="display: none"
+          name="radio"
+        />
         <label for="img7">
           <img
             src="../assets/tikitaka_popcorn.png"
@@ -138,7 +177,13 @@
             class="modal-profile-sub-image"
           />
         </label>
-        <input type="radio" id="img8" style="display: none" name="radio" />
+        <input
+          :checked="user.profile_img == 'ticket'"
+          type="radio"
+          id="img8"
+          style="display: none"
+          name="radio"
+        />
         <label for="img8">
           <img
             src="../assets/tikitaka_ticket.png"
@@ -163,6 +208,7 @@
           :items="items"
           multiple
           chips
+          draggable
           style="margin-left: -12px"
         >
           <template v-slot:selection="data">
@@ -238,7 +284,6 @@ export default {
   },
   data() {
     return {
-      isSelected: false,
       description: this.user.description,
       selectImgUrl: null,
       select: this.user.favorite_genres.map((element) => {
@@ -335,17 +380,13 @@ export default {
 <style>
 #profile-box {
   border-radius: 15px;
-  /* padding: 30px 10px; */
   background-color: white;
   position: fixed;
-  /* margin: auto; */
-  /* max-width: 17%; */
   width: 100%;
 }
 
 #profile-content-box {
   background-color: white;
-  /* border: 7px black solid; */
   border-radius: 40px;
   margin-top: -30px;
   padding: 30px 10px;
@@ -370,11 +411,15 @@ export default {
   margin: 5px;
   border-radius: 50%;
 }
+
 .modal-profile-sub-image {
   width: 100px;
   margin: 5px;
+  border-radius: 10px;
+  padding: 2px;
 }
+
 input:checked + label > img {
-  border: 6px solid black;
+  border: 4px dashed black;
 }
 </style>
